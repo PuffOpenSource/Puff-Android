@@ -22,7 +22,8 @@
         <activity
             android:name=".ui.activities.MainActivity"
             android:label="PwdMgr"
-            android:theme="@style/AppTheme.NoActionBar" />
+            android:theme="@style/AppTheme.NoActionBar"
+            android:hardwareAccelerated="true"/>
         <activity
             android:name=".ui.activities.DetailActivity"
             android:label="@string/title_activity_detail"

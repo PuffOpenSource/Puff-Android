@@ -13,6 +13,7 @@ import java.util.ArrayList;
 import sun.bob.leela.R;
 import sun.bob.leela.db.Account;
 import sun.bob.leela.db.AccountHelper;
+import sun.bob.leela.utils.DeviceUtil;
 
 /**
  * Created by bob.sun on 16/3/19.
@@ -43,13 +44,7 @@ public class AcctListAdapter extends RecyclerView.Adapter<AcctListViewHolder> {
     @Override
     public void onBindViewHolder(AcctListViewHolder holder, int position) {
         holder.configureWithAccount(data.get(position));
-        holder.setHeight(50);
-        int first = ((LinearLayoutManager) recyclerView.getLayoutManager()).findFirstCompletelyVisibleItemPosition();
-//        if (first == position) {
-//            holder.setHeight(200);
-//        } else {
-//            holder.setHeight(50);
-//        }
+//        holder.setHeight((int) (100 * DeviceUtil.getInstance(null).getDP()));
     }
 
     @Override

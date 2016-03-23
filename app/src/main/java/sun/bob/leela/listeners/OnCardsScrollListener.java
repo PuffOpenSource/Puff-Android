@@ -23,11 +23,10 @@ public class OnCardsScrollListener extends RecyclerView.OnScrollListener {
         int first;
         switch (newState){
             case RecyclerView.SCROLL_STATE_IDLE:
+//                EventBus.getDefault()
+//                        .post(new ItemUIEvent(ItemUIEvent.LIST_SCROLLED, recyclerView.getScrollY()));
                 break;
             case RecyclerView.SCROLL_STATE_DRAGGING:
-                EventBus.getDefault()
-                        .post(new ItemUIEvent(ItemUIEvent.LIST_SCROLLED,
-                                recyclerView.getScrollY()));
                 break;
             case RecyclerView.SCROLL_STATE_SETTLING:
                 break;
@@ -36,5 +35,6 @@ public class OnCardsScrollListener extends RecyclerView.OnScrollListener {
 
     @Override
     public void onScrolled(RecyclerView recyclerView, int dx, int dy){
+
     }
 }

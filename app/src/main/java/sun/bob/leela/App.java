@@ -6,6 +6,7 @@ import sun.bob.leela.db.Account;
 import sun.bob.leela.db.AccountHelper;
 import sun.bob.leela.db.CategoryHelper;
 import sun.bob.leela.utils.AppConstants;
+import sun.bob.leela.utils.DeviceUtil;
 
 /**
  * Created by bob.sun on 16/3/19.
@@ -16,7 +17,7 @@ public class App extends Application {
         super.onCreate();
         AccountHelper helper = AccountHelper.getInstance(getApplicationContext());
         CategoryHelper.getInstance(getApplicationContext());
-
+        DeviceUtil.getInstance(getApplicationContext());
         // TODO: 16/3/20 Debug code
         if (helper.getAllAccount() != null && helper.getAllAccount().size() > 0){
             return;
