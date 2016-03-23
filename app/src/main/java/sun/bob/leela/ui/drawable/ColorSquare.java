@@ -35,4 +35,14 @@ public class ColorSquare extends Drawable {
     public int getOpacity() {
         return 0;
     }
+
+    @Override
+    public int getIntrinsicWidth() {
+        return 20;
+    }
+
+    @Override
+    public int getIntrinsicHeight() {
+        return 20;
+    }
 }

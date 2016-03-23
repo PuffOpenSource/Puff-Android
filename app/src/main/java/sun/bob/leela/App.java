@@ -27,7 +27,7 @@ public class App extends Application {
             toAdd.setAccount_name("widekuan@outlook.com");
             toAdd.setCategory(AppConstants.CAT_ID_DEFAULT);
             toAdd.setHash("ABCDEFG");
-            toAdd.setName("Default");
+            toAdd.setName("Default" + i);
             toAdd.setTag("Default");
             toAdd.setSalt("HIJKLMN");
             helper.saveAccount(toAdd);
@@ -38,7 +38,7 @@ public class App extends Application {
             toAdd.setAccount_name("widekuan@outlook.com");
             toAdd.setCategory(AppConstants.CAT_ID_MAIL);
             toAdd.setHash("ABCDEFG");
-            toAdd.setName("Mail");
+            toAdd.setName("Mail"  + i);
             toAdd.setTag("Default");
             toAdd.setSalt("HIJKLMN");
             helper.saveAccount(toAdd);
@@ -49,7 +49,7 @@ public class App extends Application {
             toAdd.setAccount_name("widekuan@outlook.com");
             toAdd.setCategory(AppConstants.CAT_ID_SOCIAL);
             toAdd.setHash("ABCDEFG");
-            toAdd.setName("Social");
+            toAdd.setName("Social"  + i);
             toAdd.setTag("Default");
             toAdd.setSalt("HIJKLMN");
             helper.saveAccount(toAdd);

@@ -4,14 +4,17 @@ import android.content.Context;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 
 import sun.bob.leela.R;
 import sun.bob.leela.adapters.AcctListAdapter;
+import sun.bob.leela.listeners.OnCardsScrollListener;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -59,7 +62,6 @@ public class AcctListFragment extends Fragment {
         if (getArguments() != null) {
             category = getArguments().getLong(ARG_CATEGORY);
         }
-        adapter = new AcctListAdapter(getContext());
     }
 
     @Override
@@ -70,8 +72,10 @@ public class AcctListFragment extends Fragment {
         recyclerView = (RecyclerView) ret.findViewById(R.id.acct_list_recycler_view);
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(this.getContext());
         recyclerView.setLayoutManager(layoutManager);
+        adapter = new AcctListAdapter(getContext(), recyclerView);
         recyclerView.setAdapter(adapter);
         adapter.loadAccountsInCategory(category);
+        recyclerView.addOnScrollListener(new OnCardsScrollListener(recyclerView));
         return ret;
     }
 
