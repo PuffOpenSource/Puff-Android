@@ -12,6 +12,8 @@ public class Category {
     private int type;
     /** Not-null value. */
     private String color;
+    /** Not-null value. */
+    private String icon;
 
     public Category() {
     }
@@ -20,11 +22,12 @@ public class Category {
         this.id = id;
     }
 
-    public Category(Long id, String name, int type, String color) {
+    public Category(Long id, String name, int type, String color, String icon) {
         this.id = id;
         this.name = name;
         this.type = type;
         this.color = color;
+        this.icon = icon;
     }
 
     public Long getId() {
@@ -61,6 +64,16 @@ public class Category {
     /** Not-null value; ensure this value is available before it is saved to the database. */
     public void setColor(String color) {
         this.color = color;
+    }
+
+    /** Not-null value. */
+    public String getIcon() {
+        return icon;
+    }
+
+    /** Not-null value; ensure this value is available before it is saved to the database. */
+    public void setIcon(String icon) {
+        this.icon = icon;
     }
 
 }

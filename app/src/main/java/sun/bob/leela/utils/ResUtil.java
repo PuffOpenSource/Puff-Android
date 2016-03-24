@@ -5,21 +5,25 @@ import android.content.Context;
 /**
  * Created by bob.sun on 16/3/23.
  */
-public class DeviceUtil {
-    private static DeviceUtil ourInstance;
+public class ResUtil {
+    private static ResUtil ourInstance;
     private Context context;
-    public static DeviceUtil getInstance(Context context) {
+    public static ResUtil getInstance(Context context) {
         if (ourInstance == null) {
-            ourInstance = new DeviceUtil(context);
+            ourInstance = new ResUtil(context);
         }
         return ourInstance;
     }
 
-    private DeviceUtil(Context context) {
+    private ResUtil(Context context) {
         this.context = context;
     }
 
     public float getDP(){
         return context.getResources().getDisplayMetrics().density;
+    }
+
+    public int pointToDp(int point) {
+        return (int) (point * getDP());
     }
 }

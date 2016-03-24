@@ -15,6 +15,7 @@ public class Main {
         Schema schema = new Schema(1, "sun.bob.leela.db");
         addAcctItem(schema);
         addCategoryItem(schema);
+        addAcctTypeItem(schema);
         try {
             DaoGenerator generator = new DaoGenerator();
             generator.generateAll(schema, "./gen");
@@ -27,9 +28,14 @@ public class Main {
         Entity account = schema.addEntity("Account");
         account.addIdProperty();
         account.addStringProperty("name").notNull();
+        account.addLongProperty("type").notNull();
         account.addStringProperty("account_name");
+        account.addBooleanProperty("hide_name");
+        account.addStringProperty("name_salt");
         account.addStringProperty("salt").notNull();
         account.addStringProperty("hash").notNull();
+        account.addStringProperty("additional");
+        account.addStringProperty("add_salt");
         account.addLongProperty("category").notNull();
         account.addStringProperty("tag").notNull();
         account.addLongProperty("last_access");
@@ -42,5 +48,16 @@ public class Main {
         category.addStringProperty("name").notNull();
         category.addIntProperty("type").notNull();
         category.addStringProperty("color").notNull();
+        category.addStringProperty("icon").notNull();
+    }
+
+    public void addAcctTypeItem(Schema schema) {
+        Entity acctType = schema.addEntity("AcctType");
+        acctType.addIdProperty();
+        acctType.addStringProperty("name").notNull();
+        acctType.addLongProperty("category").notNull();
+        acctType.addBooleanProperty("numbers_only").notNull();
+        acctType.addIntProperty("max_length").notNull();
+        acctType.addStringProperty("icon");
     }
 }

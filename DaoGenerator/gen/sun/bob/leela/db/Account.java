@@ -9,11 +9,16 @@ public class Account {
     private Long id;
     /** Not-null value. */
     private String name;
+    private long type;
     private String account_name;
+    private Boolean hide_name;
+    private String name_salt;
     /** Not-null value. */
     private String salt;
     /** Not-null value. */
     private String hash;
+    private String additional;
+    private String add_salt;
     private long category;
     /** Not-null value. */
     private String tag;
@@ -27,12 +32,17 @@ public class Account {
         this.id = id;
     }
 
-    public Account(Long id, String name, String account_name, String salt, String hash, long category, String tag, Long last_access, String icon) {
+    public Account(Long id, String name, long type, String account_name, Boolean hide_name, String name_salt, String salt, String hash, String additional, String add_salt, long category, String tag, Long last_access, String icon) {
         this.id = id;
         this.name = name;
+        this.type = type;
         this.account_name = account_name;
+        this.hide_name = hide_name;
+        this.name_salt = name_salt;
         this.salt = salt;
         this.hash = hash;
+        this.additional = additional;
+        this.add_salt = add_salt;
         this.category = category;
         this.tag = tag;
         this.last_access = last_access;
@@ -57,12 +67,36 @@ public class Account {
         this.name = name;
     }
 
+    public long getType() {
+        return type;
+    }
+
+    public void setType(long type) {
+        this.type = type;
+    }
+
     public String getAccount_name() {
         return account_name;
     }
 
     public void setAccount_name(String account_name) {
         this.account_name = account_name;
+    }
+
+    public Boolean getHide_name() {
+        return hide_name;
+    }
+
+    public void setHide_name(Boolean hide_name) {
+        this.hide_name = hide_name;
+    }
+
+    public String getName_salt() {
+        return name_salt;
+    }
+
+    public void setName_salt(String name_salt) {
+        this.name_salt = name_salt;
     }
 
     /** Not-null value. */
@@ -83,6 +117,22 @@ public class Account {
     /** Not-null value; ensure this value is available before it is saved to the database. */
     public void setHash(String hash) {
         this.hash = hash;
+    }
+
+    public String getAdditional() {
+        return additional;
+    }
+
+    public void setAdditional(String additional) {
+        this.additional = additional;
+    }
+
+    public String getAdd_salt() {
+        return add_salt;
+    }
+
+    public void setAdd_salt(String add_salt) {
+        this.add_salt = add_salt;
     }
 
     public long getCategory() {

@@ -1,22 +1,16 @@
 package sun.bob.leela.adapters;
 
 import android.animation.ValueAnimator;
-import android.graphics.Color;
-import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.animation.AccelerateDecelerateInterpolator;
-import android.view.animation.AlphaAnimation;
-import android.view.animation.Animation;
 import android.widget.TextView;
 
 import de.greenrobot.event.EventBus;
 import sun.bob.leela.R;
 import sun.bob.leela.db.Account;
-import sun.bob.leela.db.CategoryHelper;
 import sun.bob.leela.events.ItemUIEvent;
-import sun.bob.leela.utils.DeviceUtil;
 
 /**
  * Created by bob.sun on 16/3/19.
@@ -111,7 +105,7 @@ public class AcctListViewHolder extends RecyclerView.ViewHolder implements View.
     }
 
     public void onEventMainThread(ItemUIEvent event) {
-//        int dp = (int) DeviceUtil.getInstance(null).getDP();
+//        int dp = (int) ResUtil.getInstance(null).getDP();
 //        int height = this.itemView.getHeight();
 //        if (this.getLayoutPosition() == 0) {
 //            if (event.getDy() < 0) {

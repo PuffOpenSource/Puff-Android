@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import sun.bob.leela.utils.AppConstants;
+import sun.bob.leela.utils.CategoryUtil;
 
 /**
  * Created by bob.sun on 16/3/20.
@@ -29,9 +30,7 @@ public class CategoryHelper {
         getDaoMaster();
         getDaoSession();
         categoryDao = daoSession.getCategoryDao();
-        if (getAllCategory() == null || getAllCategory().size() == 0) {
-            initBuiltInCategory();
-        }
+
     }
 
     public DaoMaster getDaoMaster(){
@@ -52,30 +51,6 @@ public class CategoryHelper {
         return daoSession;
     }
 
-    private void initBuiltInCategory(){
-        Category def = new Category();
-        def.setName("Default");
-        def.setColor("#F57C00");
-        def.setType(AppConstants.CAT_TYPE_BUILTIN);
-        def.setId(AppConstants.CAT_ID_DEFAULT);
-
-        Category mail = new Category();
-        mail.setName("Mails");
-        mail.setColor("#388E3C");
-        mail.setType(AppConstants.CAT_TYPE_BUILTIN);
-        mail.setId(AppConstants.CAT_ID_MAIL);
-
-        Category social = new Category();
-        social.setName("Social");
-        social.setColor("#FF4081");
-        social.setType(AppConstants.CAT_TYPE_BUILTIN);
-        social.setId(AppConstants.CAT_ID_SOCIAL);
-
-        saveCategory(def);
-        saveCategory(mail);
-        saveCategory(social);
-    }
-
     public ArrayList<Category> getAllCategory() {
         return (ArrayList<Category>) categoryDao.loadAll();
     }
@@ -87,8 +62,8 @@ public class CategoryHelper {
         return result == null ? null : result.get(0);
     }
 
-    public void saveCategory(Category category) {
-        categoryDao.insertOrReplace(category);
+    public long saveCategory(Category category) {
+        return categoryDao.insertOrReplace(category);
     }
 
     public void deleteCategory(Category category) {

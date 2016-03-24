@@ -20,9 +20,14 @@ public class AppConstants {
     public static final int CAT_TYPE_CUSTOM  = 0x101;
 
     //Builtin Category ID
-    public static final long CAT_ID_DEFAULT = 1;
-    public static final long CAT_ID_MAIL    = 2;
-    public static final long CAT_ID_SOCIAL  = 3;
+    public static final long CAT_ID_DEFAULT  = 1;
+    public static final long CAT_ID_MAIL     = 2;
+    public static final long CAT_ID_SOCIAL   = 3;
+    public static final long CAT_ID_CARDS    = 4;
+    public static final long CAT_ID_COMPUTERS  = 5;
+    public static final long CAT_ID_DEVICE   = 6;
+    public static final long CAT_ID_ENTRY    = 7;
+    public static final long CAT_ID_WEBSITE  = 8;
 
     public static final int TYPE_MASTER = 0x5020;
     public static final int TYPE_EMAIL = 0x5021;

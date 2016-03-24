@@ -27,6 +27,7 @@ public class CategoryDao extends AbstractDao<Category, Long> {
         public final static Property Name = new Property(1, String.class, "name", false, "NAME");
         public final static Property Type = new Property(2, int.class, "type", false, "TYPE");
         public final static Property Color = new Property(3, String.class, "color", false, "COLOR");
+        public final static Property Icon = new Property(4, String.class, "icon", false, "ICON");
     };
 
 
@@ -45,7 +46,8 @@ public class CategoryDao extends AbstractDao<Category, Long> {
                 "'_id' INTEGER PRIMARY KEY ," + // 0: id
                 "'NAME' TEXT NOT NULL ," + // 1: name
                 "'TYPE' INTEGER NOT NULL ," + // 2: type
-                "'COLOR' TEXT NOT NULL );"); // 3: color
+                "'COLOR' TEXT NOT NULL ," + // 3: color
+                "'ICON' TEXT NOT NULL );"); // 4: icon
     }
 
     /** Drops the underlying database table. */
@@ -66,6 +68,7 @@ public class CategoryDao extends AbstractDao<Category, Long> {
         stmt.bindString(2, entity.getName());
         stmt.bindLong(3, entity.getType());
         stmt.bindString(4, entity.getColor());
+        stmt.bindString(5, entity.getIcon());
     }
 
     /** @inheritdoc */
@@ -81,7 +84,8 @@ public class CategoryDao extends AbstractDao<Category, Long> {
             cursor.isNull(offset + 0) ? null : cursor.getLong(offset + 0), // id
             cursor.getString(offset + 1), // name
             cursor.getInt(offset + 2), // type
-            cursor.getString(offset + 3) // color
+            cursor.getString(offset + 3), // color
+            cursor.getString(offset + 4) // icon
         );
         return entity;
     }
@@ -93,6 +97,7 @@ public class CategoryDao extends AbstractDao<Category, Long> {
         entity.setName(cursor.getString(offset + 1));
         entity.setType(cursor.getInt(offset + 2));
         entity.setColor(cursor.getString(offset + 3));
+        entity.setIcon(cursor.getString(offset + 4));
      }
     
     /** @inheritdoc */
