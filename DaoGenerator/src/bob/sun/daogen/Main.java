@@ -40,6 +40,7 @@ public class Main {
         account.addStringProperty("tag").notNull();
         account.addLongProperty("last_access");
         account.addStringProperty("icon");
+        account.setHasKeepSections(true);
     }
 
     public void addCategoryItem(Schema schema) {
@@ -47,8 +48,8 @@ public class Main {
         category.addIdProperty();
         category.addStringProperty("name").notNull();
         category.addIntProperty("type").notNull();
-        category.addStringProperty("color").notNull();
         category.addStringProperty("icon").notNull();
+        category.setHasKeepSections(true);
     }
 
     public void addAcctTypeItem(Schema schema) {
@@ -59,5 +60,6 @@ public class Main {
         acctType.addBooleanProperty("numbers_only").notNull();
         acctType.addIntProperty("max_length").notNull();
         acctType.addStringProperty("icon");
+        acctType.setHasKeepSections(true);
     }
 }

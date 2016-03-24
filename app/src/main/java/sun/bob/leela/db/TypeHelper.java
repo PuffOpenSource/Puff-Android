@@ -61,6 +61,13 @@ public class TypeHelper {
         return result == null ? null : result.get(0);
     }
 
+    public AcctType getTypeByName(String name) {
+        List<AcctType> result = acctTypeDao.queryBuilder()
+                .where(AcctTypeDao.Properties.Name.eq(name))
+                .list();
+        return result == null ? null : result.get(0);
+    }
+
     public long save(AcctType acctType) {
         return acctTypeDao.insertOrReplace(acctType);
     }

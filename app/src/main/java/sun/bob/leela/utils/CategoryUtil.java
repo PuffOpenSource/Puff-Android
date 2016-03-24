@@ -33,7 +33,6 @@ public class CategoryUtil {
         Category cat = new Category();
 
         cat.setName("Default");
-        cat.setColor("#F57C00");
         cat.setType(AppConstants.CAT_TYPE_BUILTIN);
         cat.setId(AppConstants.CAT_ID_DEFAULT);
         cat.setIcon("");
@@ -41,7 +40,6 @@ public class CategoryUtil {
 
         cat = new Category();
         cat.setName("Cards");
-        cat.setColor("");
         cat.setType(AppConstants.CAT_TYPE_BUILTIN);
         cat.setId(AppConstants.CAT_ID_CARDS);
         cat.setIcon("");
@@ -49,7 +47,6 @@ public class CategoryUtil {
 
         cat = new Category();
         cat.setName("Computers");
-        cat.setColor("");
         cat.setType(AppConstants.CAT_TYPE_BUILTIN);
         cat.setId(AppConstants.CAT_ID_COMPUTERS);
         cat.setIcon("");
@@ -57,7 +54,6 @@ public class CategoryUtil {
 
         cat = new Category();
         cat.setName("Device");
-        cat.setColor("");
         cat.setType(AppConstants.CAT_TYPE_BUILTIN);
         cat.setId(AppConstants.CAT_ID_DEVICE);
         cat.setIcon("");
@@ -65,7 +61,6 @@ public class CategoryUtil {
 
         cat = new Category();
         cat.setName("Entry");
-        cat.setColor("");
         cat.setType(AppConstants.CAT_TYPE_BUILTIN);
         cat.setId(AppConstants.CAT_ID_ENTRY);
         cat.setIcon("");
@@ -73,7 +68,6 @@ public class CategoryUtil {
 
         cat = new Category();
         cat.setName("Mail");
-        cat.setColor("");
         cat.setType(AppConstants.CAT_TYPE_BUILTIN);
         cat.setId(AppConstants.CAT_ID_MAIL);
         cat.setIcon("");
@@ -81,7 +75,6 @@ public class CategoryUtil {
 
         cat = new Category();
         cat.setName("Social");
-        cat.setColor("");
         cat.setType(AppConstants.CAT_TYPE_BUILTIN);
         cat.setId(AppConstants.CAT_ID_SOCIAL);
         cat.setIcon("");
@@ -89,7 +82,6 @@ public class CategoryUtil {
 
         cat = new Category();
         cat.setName("Website");
-        cat.setColor("");
         cat.setType(AppConstants.CAT_TYPE_BUILTIN);
         cat.setId(AppConstants.CAT_ID_WEBSITE);
         cat.setIcon("");

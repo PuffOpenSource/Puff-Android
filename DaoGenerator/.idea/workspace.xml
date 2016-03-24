@@ -2,64 +2,22 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="c30b675e-b75b-4562-8caf-0264c5440fa1" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/../app/src/main/assets/Apple ID.png" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/../app/src/main/assets/BankCard.png" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/../app/src/main/assets/Cellphone.png" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/../app/src/main/assets/Document.png" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/../app/src/main/assets/Door.png" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/../app/src/main/assets/Employee Card.png" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/../app/src/main/assets/Facebook.png" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/../app/src/main/assets/Git.png" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/../app/src/main/assets/GitHub.png" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/../app/src/main/assets/Gmail.png" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/../app/src/main/assets/Google.png" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/../app/src/main/assets/Hard Drive.png" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/../app/src/main/assets/ID Card.png" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/../app/src/main/assets/Instagram.png" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/../app/src/main/assets/Kindle.png" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/../app/src/main/assets/Laptop.png" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/../app/src/main/assets/License.png" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/../app/src/main/assets/Linux PC.png" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/../app/src/main/assets/Mac.png" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/../app/src/main/assets/Mail.png" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/../app/src/main/assets/Outlook.png" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/../app/src/main/assets/PC.png" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/../app/src/main/assets/Safecase.png" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/../app/src/main/assets/Server.png" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/../app/src/main/assets/Slack.png" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/../app/src/main/assets/Stack Overflow.png" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/../app/src/main/assets/Steam.png" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/../app/src/main/assets/Twitter.png" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/../app/src/main/assets/Warehouse.png" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/../app/src/main/assets/iPad.png" />
       <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/../app/src/main/java/sun/bob/leela/adapters/CategorySpinnerAdapter.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/../app/src/main/java/sun/bob/leela/db/AcctType.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/../app/src/main/java/sun/bob/leela/db/AcctTypeDao.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/../app/src/main/java/sun/bob/leela/db/TypeHelper.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/../app/src/main/java/sun/bob/leela/utils/CategoryUtil.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/../app/src/main/res/layout/dropdown_category.xml" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/../app/src/main/java/sun/bob/leela/utils/DeviceUtil.java" afterPath="$PROJECT_DIR$/../app/src/main/java/sun/bob/leela/utils/ResUtil.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/DaoGenerator/bob/sun/daogen/Main.class" afterPath="$PROJECT_DIR$/out/production/DaoGenerator/bob/sun/daogen/Main.class" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/gen/sun/bob/leela/db/Account.java" afterPath="$PROJECT_DIR$/gen/sun/bob/leela/db/Account.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/gen/sun/bob/leela/db/AccountDao.java" afterPath="$PROJECT_DIR$/gen/sun/bob/leela/db/AccountDao.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/gen/sun/bob/leela/db/AcctType.java" afterPath="$PROJECT_DIR$/gen/sun/bob/leela/db/AcctType.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/gen/sun/bob/leela/db/Category.java" afterPath="$PROJECT_DIR$/gen/sun/bob/leela/db/Category.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/gen/sun/bob/leela/db/CategoryDao.java" afterPath="$PROJECT_DIR$/gen/sun/bob/leela/db/CategoryDao.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/gen/sun/bob/leela/db/DaoMaster.java" afterPath="$PROJECT_DIR$/gen/sun/bob/leela/db/DaoMaster.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/gen/sun/bob/leela/db/DaoSession.java" afterPath="$PROJECT_DIR$/gen/sun/bob/leela/db/DaoSession.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/bob/sun/daogen/Main.java" afterPath="$PROJECT_DIR$/src/bob/sun/daogen/Main.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../app/build.gradle" afterPath="$PROJECT_DIR$/../app/build.gradle" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../app/src/main/java/sun/bob/leela/App.java" afterPath="$PROJECT_DIR$/../app/src/main/java/sun/bob/leela/App.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../app/src/main/java/sun/bob/leela/adapters/AcctListAdapter.java" afterPath="$PROJECT_DIR$/../app/src/main/java/sun/bob/leela/adapters/AcctListAdapter.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../app/src/main/java/sun/bob/leela/adapters/AcctListViewHolder.java" afterPath="$PROJECT_DIR$/../app/src/main/java/sun/bob/leela/adapters/AcctListViewHolder.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../app/src/main/java/sun/bob/leela/adapters/TypeSpinnerAdapter.java" afterPath="$PROJECT_DIR$/../app/src/main/java/sun/bob/leela/adapters/TypeSpinnerAdapter.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../app/src/main/java/sun/bob/leela/db/Account.java" afterPath="$PROJECT_DIR$/../app/src/main/java/sun/bob/leela/db/Account.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../app/src/main/java/sun/bob/leela/db/AccountDao.java" afterPath="$PROJECT_DIR$/../app/src/main/java/sun/bob/leela/db/AccountDao.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../app/src/main/java/sun/bob/leela/db/AcctType.java" afterPath="$PROJECT_DIR$/../app/src/main/java/sun/bob/leela/db/AcctType.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../app/src/main/java/sun/bob/leela/db/Category.java" afterPath="$PROJECT_DIR$/../app/src/main/java/sun/bob/leela/db/Category.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../app/src/main/java/sun/bob/leela/db/CategoryDao.java" afterPath="$PROJECT_DIR$/../app/src/main/java/sun/bob/leela/db/CategoryDao.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../app/src/main/java/sun/bob/leela/db/CategoryHelper.java" afterPath="$PROJECT_DIR$/../app/src/main/java/sun/bob/leela/db/CategoryHelper.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../app/src/main/java/sun/bob/leela/db/DaoMaster.java" afterPath="$PROJECT_DIR$/../app/src/main/java/sun/bob/leela/db/DaoMaster.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../app/src/main/java/sun/bob/leela/db/DaoSession.java" afterPath="$PROJECT_DIR$/../app/src/main/java/sun/bob/leela/db/DaoSession.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../app/src/main/java/sun/bob/leela/ui/activities/AddAccountActivity.java" afterPath="$PROJECT_DIR$/../app/src/main/java/sun/bob/leela/ui/activities/AddAccountActivity.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../app/src/main/java/sun/bob/leela/utils/CategoryUtil.java" afterPath="$PROJECT_DIR$/../app/src/main/java/sun/bob/leela/utils/CategoryUtil.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../app/src/main/res/layout/content_add_account.xml" afterPath="$PROJECT_DIR$/../app/src/main/res/layout/content_add_account.xml" />
     </list>
     <ignored path="DaoGenerator.iws" />
@@ -85,8 +43,8 @@
       <file leaf-file-name="Main.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/bob/sun/daogen/Main.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.49364406">
-              <caret line="36" column="48" selection-start-line="36" selection-start-column="48" selection-end-line="36" selection-end-column="48" />
+            <state vertical-scroll-proportion="0.23890063">
+              <caret line="46" column="55" selection-start-line="46" selection-start-column="55" selection-end-line="46" selection-end-column="55" />
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
@@ -187,9 +145,9 @@
           </PATH>
         </subPane>
       </pane>
-      <pane id="Scope" />
       <pane id="PackagesPane" />
       <pane id="Scratches" />
+      <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -269,7 +227,7 @@
       <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.35762483" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
-      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.32523617" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.32388663" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Designer" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.2496318" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
@@ -363,14 +321,13 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.3323217">
           <caret line="465" column="53" selection-start-line="465" selection-start-column="46" selection-end-line="465" selection-end-column="53" />
-          <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/bob/sun/daogen/Main.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.49364406">
-          <caret line="36" column="48" selection-start-line="36" selection-start-column="48" selection-end-line="36" selection-end-column="48" />
+        <state vertical-scroll-proportion="0.23890063">
+          <caret line="46" column="55" selection-start-line="46" selection-start-column="55" selection-end-line="46" selection-end-column="55" />
           <folding>
             <element signature="imports" expanded="true" />
           </folding>

@@ -35,18 +35,22 @@
                     android:layout_width="match_parent"
                     android:layout_height="20dp"
                     android:textSize="10dp"
-                    android:text="Category:"/>
-                <fr.ganfra.materialspinner.MaterialSpinner
+                    android:text="Type:"/>
+                <android.support.v7.widget.AppCompatSpinner
+                    android:id="@+id/spinner_type"
+                    android:layout_width="match_parent"
+                    android:layout_height="80dp"
+                    android:layout_marginLeft="2dp"
+                    android:layout_marginRight="2dp"
+                    />
+
+                <android.support.v7.widget.AppCompatSpinner
                     android:id="@+id/spinner_category"
                     android:layout_width="match_parent"
                     android:layout_height="80dp"
                     android:layout_marginLeft="2dp"
                     android:layout_marginRight="2dp"
-                    app:ms_multiline="false"
-                    app:ms_enableFloatingLabel="false"
-                    app:ms_enableErrorLabel="false"
-                    app:ms_hint="Category"
-                    app:ms_thickness="0dp"/>
+                    />
 
                 <android.support.design.widget.TextInputLayout
                     android:layout_width="match_parent"
