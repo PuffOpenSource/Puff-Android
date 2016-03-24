@@ -6,6 +6,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -35,6 +36,11 @@ public class TypeSpinnerAdapter extends ArrayAdapter {
 
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
+        if (position == types.size()) {
+            Button button = new Button(getContext());
+            button.setText("Add New Account Type");
+            return button;
+        }
         AcctType type = this.types.get(position);
         TypeViewHolder viewHolder;
         if (convertView == null) {
@@ -67,7 +73,7 @@ public class TypeSpinnerAdapter extends ArrayAdapter {
 
     @Override
     public int getCount(){
-        return types.size();
+        return types.size() + 1;
     }
 
     class TypeViewHolder {

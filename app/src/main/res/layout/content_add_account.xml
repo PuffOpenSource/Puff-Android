@@ -31,16 +31,22 @@
                 android:orientation="vertical"
                 android:paddingLeft="16dp"
                 android:paddingRight="16dp">
-
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="20dp"
+                    android:textSize="10dp"
+                    android:text="Category:"/>
                 <fr.ganfra.materialspinner.MaterialSpinner
                     android:id="@+id/spinner_category"
                     android:layout_width="match_parent"
                     android:layout_height="80dp"
+                    android:layout_marginLeft="2dp"
+                    android:layout_marginRight="2dp"
                     app:ms_multiline="false"
                     app:ms_enableFloatingLabel="false"
                     app:ms_enableErrorLabel="false"
-                    app:ms_floatingLabelText="floating label"
-                    app:ms_hint="Category" />
+                    app:ms_hint="Category"
+                    app:ms_thickness="0dp"/>
 
                 <android.support.design.widget.TextInputLayout
                     android:layout_width="match_parent"
@@ -51,7 +57,8 @@
                     <EditText
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
-                        android:hint="Account"/>
+                        android:hint="Account"
+                        />
             </android.support.design.widget.TextInputLayout>
             </LinearLayout>
 
