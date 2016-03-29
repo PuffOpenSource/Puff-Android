@@ -11,7 +11,7 @@
         android:theme="@style/AppTheme">
         <activity
             android:name=".ui.activities.SplashActivity"
-            android:label="Splash"
+            android:label="PwdMgr"
             android:theme="@style/AppTheme.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -37,6 +37,11 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="sun.bob.leela.ui.activities.MainActivity" />
         </activity>
+        <activity
+            android:name=".ui.activities.AddTypeDialogActivity"
+            android:label="Add New Account Type"
+            android:theme="@style/Theme.AppCompat.Light.DialogWhenLarge" />
+        <activity android:name=".ui.activities.ImageCropActivity"></activity>
     </application>
 
 </manifest>

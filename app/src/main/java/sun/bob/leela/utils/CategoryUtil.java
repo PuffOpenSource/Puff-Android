@@ -35,56 +35,56 @@ public class CategoryUtil {
         cat.setName("Default");
         cat.setType(AppConstants.CAT_TYPE_BUILTIN);
         cat.setId(AppConstants.CAT_ID_DEFAULT);
-        cat.setIcon("");
+        cat.setIcon("icon_category/cat_default.png");
         helper.saveCategory(cat);
 
         cat = new Category();
         cat.setName("Cards");
         cat.setType(AppConstants.CAT_TYPE_BUILTIN);
         cat.setId(AppConstants.CAT_ID_CARDS);
-        cat.setIcon("");
+        cat.setIcon("icon_category/cat_cards.png");
         helper.saveCategory(cat);
 
         cat = new Category();
         cat.setName("Computers");
         cat.setType(AppConstants.CAT_TYPE_BUILTIN);
         cat.setId(AppConstants.CAT_ID_COMPUTERS);
-        cat.setIcon("");
+        cat.setIcon("icon_category/cat_computer.png");
         helper.saveCategory(cat);
 
         cat = new Category();
         cat.setName("Device");
         cat.setType(AppConstants.CAT_TYPE_BUILTIN);
         cat.setId(AppConstants.CAT_ID_DEVICE);
-        cat.setIcon("");
+        cat.setIcon("icon_category/cat_device.png");
         helper.saveCategory(cat);
 
         cat = new Category();
         cat.setName("Entry");
         cat.setType(AppConstants.CAT_TYPE_BUILTIN);
         cat.setId(AppConstants.CAT_ID_ENTRY);
-        cat.setIcon("");
+        cat.setIcon("icon_category/cat_entry.png");
         helper.saveCategory(cat);
 
         cat = new Category();
         cat.setName("Mail");
         cat.setType(AppConstants.CAT_TYPE_BUILTIN);
         cat.setId(AppConstants.CAT_ID_MAIL);
-        cat.setIcon("");
+        cat.setIcon("icon_category/cat_mail.png");
         helper.saveCategory(cat);
 
         cat = new Category();
         cat.setName("Social");
         cat.setType(AppConstants.CAT_TYPE_BUILTIN);
         cat.setId(AppConstants.CAT_ID_SOCIAL);
-        cat.setIcon("");
+        cat.setIcon("icon_category/cat_social.png");
         helper.saveCategory(cat);
 
         cat = new Category();
         cat.setName("Website");
         cat.setType(AppConstants.CAT_TYPE_BUILTIN);
         cat.setId(AppConstants.CAT_ID_WEBSITE);
-        cat.setIcon("");
+        cat.setIcon("icon_category/cat_website.png");
         helper.saveCategory(cat);
     }
 

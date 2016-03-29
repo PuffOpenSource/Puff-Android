@@ -7,13 +7,16 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
 
+import java.io.IOException;
 import java.util.ArrayList;
 
 import sun.bob.leela.R;
 import sun.bob.leela.db.Category;
 import sun.bob.leela.db.CategoryHelper;
+import sun.bob.leela.utils.ResUtil;
 
 /**
  * Created by bob.sun on 16/3/24.
@@ -38,7 +41,6 @@ public class CategorySpinnerAdapter extends ArrayAdapter {
         if (convertView == null || convertView instanceof AppCompatButton) {
             convertView = LayoutInflater.from(getContext()).inflate(R.layout.dropdown_category, parent, false);
             viewHolder = new CategoryViewHolder();
-            viewHolder.textView = (TextView) convertView.findViewById(R.id.text_view);
             convertView.setTag(viewHolder);
         } else {
             viewHolder = (CategoryViewHolder) convertView.getTag();
@@ -47,9 +49,14 @@ public class CategorySpinnerAdapter extends ArrayAdapter {
             }
         }
         viewHolder.textView = (TextView) convertView.findViewById(R.id.text_view);
+        viewHolder.imageView = (ImageView) convertView.findViewById(R.id.image_view);
         viewHolder.textView.setText(categories.get(position).getName());
+        try {
+            viewHolder.imageView.setImageBitmap(ResUtil.getInstance(null).getBmp(categories.get(position).getIcon()));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
         return convertView;
-
     }
 
     @Override
@@ -71,5 +78,6 @@ public class CategorySpinnerAdapter extends ArrayAdapter {
     }
     class CategoryViewHolder {
         public TextView textView;
+        public ImageView imageView;
     }
 }

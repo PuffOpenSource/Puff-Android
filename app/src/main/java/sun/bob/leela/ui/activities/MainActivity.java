@@ -1,6 +1,7 @@
 package sun.bob.leela.ui.activities;
 
 import android.content.Intent;
+import android.graphics.drawable.BitmapDrawable;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.NavigationView;
@@ -16,6 +17,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 
+import java.io.IOException;
 import java.util.HashMap;
 
 import sun.bob.leela.R;
@@ -24,6 +26,7 @@ import sun.bob.leela.db.CategoryHelper;
 import sun.bob.leela.ui.drawable.ColorSquare;
 import sun.bob.leela.ui.fragments.AcctListFragment;
 import sun.bob.leela.utils.AppConstants;
+import sun.bob.leela.utils.ResUtil;
 
 /**
  * Created by bob.sun on 16/3/19.
@@ -64,8 +67,17 @@ public class MainActivity extends AppCompatActivity
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
 
+        MenuItem item;
         for (Category category : CategoryHelper.getInstance(null).getAllCategory()) {
-            navigationView.getMenu().add(category.getName());
+            try {
+                item = navigationView.getMenu().add(category.getName());
+                item.setIcon(new BitmapDrawable(
+                        getResources(),
+                        ResUtil.getInstance(null).getBmp(category.getIcon())
+                ));
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
         }
 
         acctListFragment = AcctListFragment.newInstance(AppConstants.CAT_ID_DEFAULT);

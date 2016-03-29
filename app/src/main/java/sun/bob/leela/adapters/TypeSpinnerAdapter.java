@@ -2,6 +2,7 @@ package sun.bob.leela.adapters;
 
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.graphics.BitmapFactory;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatDialog;
@@ -22,6 +23,7 @@ import java.util.Objects;
 import sun.bob.leela.R;
 import sun.bob.leela.db.AcctType;
 import sun.bob.leela.db.TypeHelper;
+import sun.bob.leela.ui.activities.AddTypeDialogActivity;
 
 /**
  * Created by bob.sun on 16/3/24.
@@ -95,26 +97,8 @@ public class TypeSpinnerAdapter extends ArrayAdapter implements View.OnClickList
 
     @Override
     public void onClick(View v) {
-        View dialogView = View.inflate(getContext(),,null);
-        AppCompatDialog dialog =
-                new AlertDialog.Builder(getContext())
-                .setView(dialogView)
-                .setCancelable(true)
-                .setTitle("Create New Account Type")
-                .setPositiveButton("Okay", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        dialog.dismiss();
-                    }
-                })
-                .setNegativeButton("Later", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        dialog.cancel();
-                    }
-                })
-                .create();
-        dialog.show();
+        Intent intent = new Intent(getContext(), AddTypeDialogActivity.class);
+        getContext().startActivity(intent);
 
     }
 

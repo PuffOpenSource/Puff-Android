@@ -9,7 +9,6 @@ import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.AdapterView;
 
-import fr.ganfra.materialspinner.MaterialSpinner;
 import sun.bob.leela.R;
 import sun.bob.leela.adapters.CategorySpinnerAdapter;
 import sun.bob.leela.adapters.TypeSpinnerAdapter;
