@@ -40,8 +40,10 @@
         <activity
             android:name=".ui.activities.AddTypeDialogActivity"
             android:label="Add New Account Type"
-            android:theme="@style/Theme.AppCompat.Light.DialogWhenLarge" />
-        <activity android:name=".ui.activities.ImageCropActivity"></activity>
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity android:name=".ui.activities.ImageCropActivity"
+            android:theme="@style/AppTheme.NoActionBar"></activity>
+
     </application>
 
 </manifest>
