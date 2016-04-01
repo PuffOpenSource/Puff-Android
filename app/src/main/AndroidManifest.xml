@@ -32,18 +32,28 @@
             android:name=".ui.activities.AddAccountActivity"
             android:label="@string/title_activity_add_account"
             android:parentActivityName=".ui.activities.MainActivity"
-            android:theme="@style/AppTheme.NoActionBar">
+            android:theme="@style/AppTheme.NoActionBar"
+            android:windowSoftInputMode="stateHidden">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="sun.bob.leela.ui.activities.MainActivity" />
         </activity>
+
         <activity
             android:name=".ui.activities.AddTypeDialogActivity"
             android:label="Add New Account Type"
-            android:theme="@style/AppTheme.NoActionBar" />
+            android:theme="@style/Theme.AppCompat.Light.DialogWhenLarge"
+            android:windowSoftInputMode="stateHidden"/>
+        <activity
+            android:name=".ui.activities.AddCategoryDialogActivity"
+            android:label="Add New Category"
+            android:theme="@style/Theme.AppCompat.Light.DialogWhenLarge"
+            android:windowSoftInputMode="stateHidden"/>
+
         <activity android:name=".ui.activities.ImageCropActivity"
-            android:theme="@style/AppTheme.NoActionBar"></activity>
+            android:theme="@style/AppTheme.NoActionBar"/>
 
     </application>
 
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
 </manifest>

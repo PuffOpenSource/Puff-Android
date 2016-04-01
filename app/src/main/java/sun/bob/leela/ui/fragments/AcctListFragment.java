@@ -4,6 +4,8 @@ import android.content.Context;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v4.view.ViewCompat;
+import android.support.v7.widget.CardView;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -11,6 +13,7 @@ import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.LinearLayout;
 
 import sun.bob.leela.R;
 import sun.bob.leela.adapters.AcctListAdapter;
@@ -34,6 +37,7 @@ public class AcctListFragment extends Fragment {
     private OnFragmentInteractionListener mListener;
 
     private RecyclerView recyclerView;
+    private CardView placeHolder;
     private AcctListAdapter adapter;
 
     public AcctListFragment() {
@@ -70,12 +74,23 @@ public class AcctListFragment extends Fragment {
         // Inflate the layout for this fragment
         View ret = inflater.inflate(R.layout.fragment_acct_list, container, false);
         recyclerView = (RecyclerView) ret.findViewById(R.id.acct_list_recycler_view);
+//        placeHolder = (LinearLayout) ret.findViewById(R.id.placeholder);
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(this.getContext());
         recyclerView.setLayoutManager(layoutManager);
         adapter = new AcctListAdapter(getContext(), recyclerView);
         recyclerView.setAdapter(adapter);
         adapter.loadAccountsInCategory(category);
         recyclerView.addOnScrollListener(new OnCardsScrollListener(recyclerView));
+
+        placeHolder = (CardView) ret.findViewById(R.id.placeholder);
+        ViewCompat.setElevation(placeHolder, 10.0f);
+//        if (adapter.getItemCount() <= 0) {
+//            recyclerView.setVisibility(View.INVISIBLE);
+//            placeHolder.setVisibility(View.VISIBLE);
+//        } else {
+//            recyclerView.setVisibility(View.VISIBLE);
+//            placeHolder.setVisibility(View.INVISIBLE);
+//        }
         return ret;
     }
 
@@ -95,6 +110,19 @@ public class AcctListFragment extends Fragment {
 //            throw new RuntimeException(context.toString()
 //                    + " must implement OnFragmentInteractionListener");
 //        }
+
+    }
+
+    @Override
+    public void onResume(){
+        super.onResume();
+        if (recyclerView.getAdapter().getItemCount() == 0) {
+            placeHolder.setVisibility(View.VISIBLE);
+            recyclerView.setVisibility(View.INVISIBLE);
+        } else {
+            placeHolder.setVisibility(View.INVISIBLE);
+            recyclerView.setVisibility(View.VISIBLE);
+        }
     }
 
     @Override

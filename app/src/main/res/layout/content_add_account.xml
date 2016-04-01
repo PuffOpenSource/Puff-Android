@@ -58,11 +58,10 @@
                     android:layout_marginTop="6dp"
                     android:layout_marginBottom="6dp"
                     android:hint="Account">
-                    <EditText
+                    <android.support.v7.widget.AppCompatEditText
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
-                        android:hint="Account"
-                        />
+                        android:hint="Account"/>
             </android.support.design.widget.TextInputLayout>
             </LinearLayout>
 

@@ -35,4 +35,7 @@ public class AppConstants {
     public static final int TYPE_WEBSITE = 0x5023;
     public static final int TYPE_GITHUB = 0x5024;
     public static final int TYPE_FACEBOOK = 0x5025;
+
+    public static final int REQUEST_CODE_ADD_TYPE = 0x6001;
+    public static final int REQUEST_CODE_ADD_CATE = 0x6002;
 }

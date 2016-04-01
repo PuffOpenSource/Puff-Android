@@ -1,38 +1,34 @@
 package sun.bob.leela.ui.activities;
 
-import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.net.Uri;
+import android.os.Bundle;
 import android.support.v4.view.ViewCompat;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
-import android.support.v7.app.AppCompatDialog;
 import android.support.v7.widget.AppCompatButton;
 import android.support.v7.widget.AppCompatImageView;
-import android.support.v7.widget.AppCompatSpinner;
 import android.view.View;
 
 import sun.bob.leela.R;
-import sun.bob.leela.adapters.CategorySpinnerAdapter;
 import sun.bob.leela.utils.AppConstants;
 
-public class AddTypeDialogActivity extends AppCompatActivity {
+/**
+ * Created by bob.sun on 16/4/1.
+ */
+public class AddCategoryDialogActivity extends AppCompatActivity {
 
     private AppCompatButton buttonOK, buttonCancel;
-    private AppCompatSpinner categorySpinner;
     private AppCompatImageView imageView;
 
     private static final int REQUEST_CODE_IMAGE     = 0x30;
     private static final int REQUEST_CODE_CROP      = 0x31;
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_add_type_dialog);
-        categorySpinner = (AppCompatSpinner) findViewById(R.id.spinner_category);
-        categorySpinner.setAdapter(new CategorySpinnerAdapter(this, 0));
-
+        setContentView(R.layout.activity_add_category_dialog);
         buttonOK = (AppCompatButton) findViewById(R.id.button_ok);
         ViewCompat.setElevation(buttonOK, 10);
         buttonOK.setOnClickListener(new View.OnClickListener() {
@@ -48,7 +44,7 @@ public class AddTypeDialogActivity extends AppCompatActivity {
         buttonCancel.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                new android.support.v7.app.AlertDialog.Builder(AddTypeDialogActivity.this)
+                new android.support.v7.app.AlertDialog.Builder(AddCategoryDialogActivity.this)
                         .setCancelable(false)
                         .setTitle("Cancel?")
                         .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
@@ -96,7 +92,7 @@ public class AddTypeDialogActivity extends AppCompatActivity {
                     return;
                 }
                 Uri imageUri = data.getData();
-                Intent intent = new Intent(AddTypeDialogActivity.this,
+                Intent intent = new Intent(AddCategoryDialogActivity.this,
                         ImageCropActivity.class);
                 intent.setData(imageUri);
                 startActivityForResult(intent, 1);
@@ -105,8 +101,6 @@ public class AddTypeDialogActivity extends AppCompatActivity {
                 if (resultCode != RESULT_OK) {
                     return;
                 }
-                break;
-            case AppConstants.REQUEST_CODE_ADD_CATE:
                 break;
             default:
                 break;

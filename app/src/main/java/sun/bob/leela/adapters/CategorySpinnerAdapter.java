@@ -1,6 +1,8 @@
 package sun.bob.leela.adapters;
 
 import android.content.Context;
+import android.content.Intent;
+import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.AppCompatButton;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -16,6 +18,8 @@ import java.util.ArrayList;
 import sun.bob.leela.R;
 import sun.bob.leela.db.Category;
 import sun.bob.leela.db.CategoryHelper;
+import sun.bob.leela.ui.activities.AddCategoryDialogActivity;
+import sun.bob.leela.utils.AppConstants;
 import sun.bob.leela.utils.ResUtil;
 
 /**
@@ -35,6 +39,13 @@ public class CategorySpinnerAdapter extends ArrayAdapter {
         if (position == categories.size()) {
             AppCompatButton ret = new AppCompatButton(getContext());
             ret.setText("Add New Category");
+            ret.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Intent intent = new Intent(getContext(), AddCategoryDialogActivity.class);
+                    ((AppCompatActivity) getContext()).startActivityForResult(intent, AppConstants.REQUEST_CODE_ADD_CATE);
+                }
+            });
             return ret;
         }
         CategoryViewHolder viewHolder;

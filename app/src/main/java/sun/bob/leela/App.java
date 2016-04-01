@@ -2,6 +2,7 @@ package sun.bob.leela;
 
 import android.app.Application;
 
+import dpl.bobsun.dummypicloader.DummyPicLoader;
 import sun.bob.leela.db.Account;
 import sun.bob.leela.db.AccountHelper;
 import sun.bob.leela.db.Category;
@@ -32,6 +33,8 @@ public class App extends Application {
 
         ResUtil.getInstance(getApplicationContext());
         CategoryUtil.getInstance(getApplicationContext());
+
+        DummyPicLoader.getInstance(getApplicationContext());
         // TODO: 16/3/20 Debug code
 //        if (helper.getAllAccount() != null && helper.getAllAccount().size() > 0){
 //            return;

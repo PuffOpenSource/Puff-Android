@@ -17,6 +17,9 @@ import sun.bob.leela.db.AccountHelper;
  */
 public class AcctListAdapter extends RecyclerView.Adapter<AcctListViewHolder> {
 
+    private static final int VIEW_TYPE_EMPTY  = 0x23;
+    private static final int VIEW_TYPE_NORMAL = 0x24;
+
     private Context context;
     private RecyclerView recyclerView;
     private ArrayList<Account> data;
@@ -32,9 +35,9 @@ public class AcctListAdapter extends RecyclerView.Adapter<AcctListViewHolder> {
 
     @Override
     public AcctListViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(context)
+        View normal = LayoutInflater.from(context)
                 .inflate(R.layout.acct_list_item, parent, false);
-        AcctListViewHolder viewHolder = new AcctListViewHolder(view);
+        AcctListViewHolder viewHolder = new AcctListViewHolder(normal);
         return viewHolder;
     }
 

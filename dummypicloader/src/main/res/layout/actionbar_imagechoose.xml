@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_gravity="center">
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="30dp"
+        android:layout_alignParentLeft="true"
+        android:text="Select Images"
+        android:textSize="20dp"
+        android:textColor="#ffffff"
+        android:gravity="center_vertical"/>
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="30dp"
+        android:layout_alignParentRight="true"
+        android:text="Done"
+        android:textColor="#ffffff"
+        android:background="#99dd55"
+        android:id="@+id/id_actionbar_done"/>
+</RelativeLayout>
