@@ -2,13 +2,16 @@ package sun.bob.leela.ui.activities;
 
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.view.ViewCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.AppCompatButton;
-import android.support.v7.widget.AppCompatImageView;
 import android.view.View;
+import android.widget.ImageView;
+
+import java.io.File;
 
 import sun.bob.leela.R;
 import sun.bob.leela.utils.AppConstants;
@@ -19,10 +22,7 @@ import sun.bob.leela.utils.AppConstants;
 public class AddCategoryDialogActivity extends AppCompatActivity {
 
     private AppCompatButton buttonOK, buttonCancel;
-    private AppCompatImageView imageView;
-
-    private static final int REQUEST_CODE_IMAGE     = 0x30;
-    private static final int REQUEST_CODE_CROP      = 0x31;
+    private ImageView imageView;
 
 
     @Override
@@ -65,7 +65,7 @@ public class AddCategoryDialogActivity extends AppCompatActivity {
             }
         });
 
-        imageView = (AppCompatImageView) findViewById(R.id.image_view);
+        imageView = (ImageView) findViewById(R.id.image_view);
         imageView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -79,7 +79,7 @@ public class AddCategoryDialogActivity extends AppCompatActivity {
                 Intent chooserIntent = Intent.createChooser(getIntent, "Select Image");
                 chooserIntent.putExtra(Intent.EXTRA_INITIAL_INTENTS, new Intent[]{pickIntent});
 
-                startActivityForResult(chooserIntent, REQUEST_CODE_IMAGE);
+                startActivityForResult(chooserIntent, AppConstants.REQUEST_CODE_IMAGE);
             }
         });
     }
@@ -87,7 +87,7 @@ public class AddCategoryDialogActivity extends AppCompatActivity {
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         switch (requestCode) {
-            case REQUEST_CODE_IMAGE:
+            case AppConstants.REQUEST_CODE_IMAGE:
                 if (resultCode != RESULT_OK) {
                     return;
                 }
@@ -95,12 +95,15 @@ public class AddCategoryDialogActivity extends AppCompatActivity {
                 Intent intent = new Intent(AddCategoryDialogActivity.this,
                         ImageCropActivity.class);
                 intent.setData(imageUri);
-                startActivityForResult(intent, 1);
+                startActivityForResult(intent, AppConstants.REQUEST_CODE_CROP);
                 break;
-            case REQUEST_CODE_CROP:
+            case AppConstants.REQUEST_CODE_CROP:
                 if (resultCode != RESULT_OK) {
                     return;
                 }
+                String file = data.getStringExtra("cacheIcon");
+                imageView.setImageBitmap(BitmapFactory.decodeFile(file));
+                new File(file).delete();
                 break;
             default:
                 break;

@@ -38,4 +38,6 @@ public class AppConstants {
 
     public static final int REQUEST_CODE_ADD_TYPE = 0x6001;
     public static final int REQUEST_CODE_ADD_CATE = 0x6002;
+    public static final int REQUEST_CODE_IMAGE     = 0x6003;
+    public static final int REQUEST_CODE_CROP      = 0x6004;
 }

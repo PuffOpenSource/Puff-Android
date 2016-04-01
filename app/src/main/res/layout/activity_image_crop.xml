@@ -22,6 +22,7 @@
 
     </android.support.design.widget.AppBarLayout>
 
+
     <com.lyft.android.scissors.CropView
         android:id="@+id/crop_view"
         android:layout_width="match_parent"
@@ -35,6 +36,6 @@
         android:layout_height="wrap_content"
         android:layout_gravity="bottom|end"
         android:layout_margin="@dimen/fab_margin"
-        android:src="@drawable/ic_add_plus" />
+        android:src="@drawable/ic_check_mark" />
 
 </android.support.design.widget.CoordinatorLayout>

@@ -10,6 +10,7 @@ import sun.bob.leela.db.CategoryHelper;
 import sun.bob.leela.db.TypeHelper;
 import sun.bob.leela.utils.AppConstants;
 import sun.bob.leela.utils.CategoryUtil;
+import sun.bob.leela.utils.EnvUtil;
 import sun.bob.leela.utils.ResUtil;
 
 /**
@@ -33,6 +34,7 @@ public class App extends Application {
 
         ResUtil.getInstance(getApplicationContext());
         CategoryUtil.getInstance(getApplicationContext());
+        EnvUtil.getInstance(getApplicationContext());
 
         DummyPicLoader.getInstance(getApplicationContext());
         // TODO: 16/3/20 Debug code
