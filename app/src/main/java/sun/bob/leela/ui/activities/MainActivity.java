@@ -116,6 +116,7 @@ public class MainActivity extends AppCompatActivity
 
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_settings) {
+            ResUtil.getInstance(getApplicationContext()).showProgressbar(this, 1000, true);
             return true;
         }
 

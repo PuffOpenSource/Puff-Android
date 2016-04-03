@@ -1,11 +1,21 @@
 package sun.bob.leela.utils;
 
+import android.app.Activity;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.os.Handler;
+import android.support.v4.widget.ContentLoadingProgressBar;
+import android.support.v7.app.AlertDialog;
+import android.support.v7.app.AppCompatDialog;
+import android.widget.ProgressBar;
 
 import java.io.FileInputStream;
 import java.io.IOException;
+import java.io.InputStream;
+import java.util.Timer;
+
+import sun.bob.leela.R;
 
 /**
  * Created by bob.sun on 16/3/23.
@@ -44,5 +54,49 @@ public class ResUtil {
             //Assets
             return BitmapFactory.decodeStream(context.getResources().getAssets().open(fileName));
         }
+    }
+
+    public Object getBmpPath(String fileName) {
+        if (fileName.startsWith("/")) {
+            return fileName;
+        } else {
+            InputStream ret;
+            try {
+                ret =  context.getResources().getAssets().open(fileName);
+            } catch (IOException e) {
+                e.printStackTrace();
+                return "";
+            }
+            return ret;
+        }
+    }
+
+    public void showProgressbar(Activity activity, long timeout, boolean cancelable) {
+        final AppCompatDialog dialog = new AppCompatDialog(activity);
+        dialog.setContentView(R.layout.dialog_progress);
+        dialog.setCancelable(cancelable);
+        dialog.setTitle("Progressing...");
+        ProgressBar progressBar = (ProgressBar) dialog.findViewById(R.id.progress);
+        if (timeout > 0) {
+            Handler handler = new Handler(activity.getMainLooper());
+            handler.postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    dialog.cancel();
+                    dialog.dismiss();
+                }
+            }, timeout);
+            dialog.show();
+        } else {
+            dialog.show();
+        }
+    }
+
+    public void showProgressbar(Activity activity, long timeout) {
+        showProgressbar(activity, timeout, false);
+    }
+
+    public void showProgressbar(Activity activity) {
+        showProgressbar(activity, 6000, false);
     }
 }
