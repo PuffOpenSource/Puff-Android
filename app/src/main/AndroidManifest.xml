@@ -2,6 +2,13 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="sun.bob.leela">
 
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <!-- To auto-complete the email text field in the login form with the user's emails -->
+    <uses-permission android:name="android.permission.GET_ACCOUNTS" />
+    <uses-permission android:name="android.permission.READ_PROFILE" />
+    <uses-permission android:name="android.permission.READ_CONTACTS" />
+
     <application
         android:name=".App"
         android:allowBackup="true"
@@ -23,8 +30,7 @@
             android:name=".ui.activities.MainActivity"
             android:hardwareAccelerated="true"
             android:label="PwdMgr"
-            android:theme="@style/AppTheme.NoActionBar"
-            />
+            android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".ui.activities.DetailActivity"
             android:label="@string/title_activity_detail"
@@ -39,23 +45,22 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="sun.bob.leela.ui.activities.MainActivity" />
         </activity>
-
         <activity
             android:name=".ui.activities.AddTypeDialogActivity"
             android:label="Add New Account Type"
             android:theme="@style/Theme.AppCompat.Light.DialogWhenLarge"
-            android:windowSoftInputMode="stateHidden"/>
+            android:windowSoftInputMode="stateHidden" />
         <activity
             android:name=".ui.activities.AddCategoryDialogActivity"
             android:label="Add New Category"
             android:theme="@style/Theme.AppCompat.Light.DialogWhenLarge"
-            android:windowSoftInputMode="stateHidden"/>
-
-        <activity android:name=".ui.activities.ImageCropActivity"
-            android:theme="@style/AppTheme.NoActionBar"/>
-
+            android:windowSoftInputMode="stateHidden" />
+        <activity
+            android:name=".ui.activities.ImageCropActivity"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".ui.activities.AuthorizeActivity"
+            android:label="@string/title_activity_authorize"></activity>
     </application>
 
-    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
-    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
 </manifest>

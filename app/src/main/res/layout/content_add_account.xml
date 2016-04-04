@@ -71,6 +71,7 @@
                     android:layout_marginBottom="6dp"
                     android:hint="Account">
                     <android.support.v7.widget.AppCompatEditText
+                        android:id="@+id/account"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:hint="Account"/>
@@ -83,6 +84,7 @@
                     android:layout_marginBottom="6dp"
                     android:hint="Password">
                     <android.support.v7.widget.AppCompatEditText
+                        android:id="@+id/password"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:inputType="textPassword"

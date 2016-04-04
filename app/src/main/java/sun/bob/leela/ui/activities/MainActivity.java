@@ -12,6 +12,7 @@ import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.view.menu.MenuItemImpl;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -26,6 +27,7 @@ import sun.bob.leela.db.CategoryHelper;
 import sun.bob.leela.ui.drawable.ColorSquare;
 import sun.bob.leela.ui.fragments.AcctListFragment;
 import sun.bob.leela.utils.AppConstants;
+import sun.bob.leela.utils.CryptoUtil;
 import sun.bob.leela.utils.ResUtil;
 
 /**
@@ -116,7 +118,14 @@ public class MainActivity extends AppCompatActivity
 
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_settings) {
-            ResUtil.getInstance(getApplicationContext()).showProgressbar(this, 1000, true);
+//            ResUtil.getInstance(getApplicationContext()).showProgressbar(this, 1000, true);
+            new CryptoUtil(this, new CryptoUtil.OnEncryptedListener() {
+                @Override
+                public void onEncrypted(String acctHash, String passwdHash, String addtHash,
+                                        String acctSalt, String passwdSalt, String addtSalt) {
+                    Log.e("Leela", acctHash + "|" + passwdHash + "|" + addtHash);
+                }
+            }).runEncrypt("123", "456", "789");
             return true;
         }
 

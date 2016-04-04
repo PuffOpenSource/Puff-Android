@@ -13,6 +13,8 @@ public class AppConstants {
     public static final int TYPE_ENCRYPT = 0x233;
     public static final int TYPE_DECRYPT = 0x234;
     public static final int TYPE_SHTHPPN = 0x235;
+    public static final int TYPE_MASTERPWD  = 0x236;
+    public static final int TYPE_FINISHED = 0x257;
 
     //Category Type
     //Only custom type category can be deleted.

@@ -71,7 +71,7 @@ public class ResUtil {
         }
     }
 
-    public void showProgressbar(Activity activity, long timeout, boolean cancelable) {
+    public AppCompatDialog showProgressbar(Activity activity, long timeout, boolean cancelable) {
         final AppCompatDialog dialog = new AppCompatDialog(activity);
         dialog.setContentView(R.layout.dialog_progress);
         dialog.setCancelable(cancelable);
@@ -90,13 +90,14 @@ public class ResUtil {
         } else {
             dialog.show();
         }
+        return dialog;
     }
 
-    public void showProgressbar(Activity activity, long timeout) {
-        showProgressbar(activity, timeout, false);
+    public AppCompatDialog showProgressbar(Activity activity, long timeout) {
+        return showProgressbar(activity, timeout, true);
     }
 
-    public void showProgressbar(Activity activity) {
-        showProgressbar(activity, 6000, false);
+    public AppCompatDialog showProgressbar(Activity activity) {
+        return showProgressbar(activity, 0, false);
     }
 }

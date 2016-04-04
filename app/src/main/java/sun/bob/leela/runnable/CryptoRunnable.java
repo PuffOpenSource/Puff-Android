@@ -13,7 +13,7 @@ import sun.bob.leela.utils.HexUtil;
  */
 public class CryptoRunnable implements Runnable {
 
-    private String text, password;
+    private String text, password, field;
     private byte[] rawText;
     private int runModel;
 
@@ -21,10 +21,11 @@ public class CryptoRunnable implements Runnable {
 
     }
 
-    public CryptoRunnable(String text, String password, int runModel){
+    public CryptoRunnable(String text, String password, int runModel, String field){
         this.text = text;
         this.password = password;
         this.runModel = runModel;
+        this.field = field;
     }
 
     public CryptoRunnable setText(String text) {
@@ -42,6 +43,11 @@ public class CryptoRunnable implements Runnable {
         return this;
     }
 
+    public CryptoRunnable setField(String field) {
+        this.field = field;
+        return this;
+    }
+
     @Override
     public void run() {
         CryptoEvent result = null;
@@ -49,10 +55,10 @@ public class CryptoRunnable implements Runnable {
             try {
                 byte[] rawRslt = encrypt();
                 String rslt = new String(HexUtil.encodeHex(rawRslt));
-                result = new CryptoEvent(rslt, AppConstants.TYPE_ENCRYPT);
+                result = new CryptoEvent(rslt, AppConstants.TYPE_ENCRYPT, this.field);
             } catch (Exception e){
                 e.printStackTrace();
-                result = new CryptoEvent(e.getMessage(), AppConstants.TYPE_SHTHPPN);
+                result = new CryptoEvent(e.getMessage(), AppConstants.TYPE_SHTHPPN, this.field);
             } finally {
                 EventBus.getDefault().post(result);
             }
@@ -60,10 +66,10 @@ public class CryptoRunnable implements Runnable {
             try {
                 this.rawText = HexUtil.decodeHex(this.text.toCharArray());
                 String rslt = new String(decrypt());
-                result = new CryptoEvent(rslt, AppConstants.TYPE_DECRYPT);
+                result = new CryptoEvent(rslt, AppConstants.TYPE_DECRYPT, this.field);
             } catch (Exception e){
                 e.printStackTrace();
-                result = new CryptoEvent(e.getMessage(), AppConstants.TYPE_SHTHPPN);
+                result = new CryptoEvent(e.getMessage(), AppConstants.TYPE_SHTHPPN, this.field);
             } finally {
                 EventBus.getDefault().post(result);
             }

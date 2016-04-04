@@ -6,9 +6,12 @@ import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.AppCompatSpinner;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.EditText;
 
+import de.greenrobot.event.EventBus;
 import sun.bob.leela.R;
 import sun.bob.leela.adapters.CategorySpinnerAdapter;
 import sun.bob.leela.adapters.TypeSpinnerAdapter;
@@ -16,12 +19,16 @@ import sun.bob.leela.db.AcctType;
 import sun.bob.leela.db.Category;
 import sun.bob.leela.db.CategoryHelper;
 import sun.bob.leela.db.TypeHelper;
+import sun.bob.leela.events.CryptoEvent;
+import sun.bob.leela.runnable.CryptoRunnable;
+import sun.bob.leela.utils.AppConstants;
 
 public class AddAccountActivity extends AppCompatActivity {
 
     private AppCompatSpinner spinnerCategory, spinnerType;
     private Long type;
     private Long category;
+    private EditText account, password, addtional;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -29,13 +36,15 @@ public class AddAccountActivity extends AppCompatActivity {
         setContentView(R.layout.activity_add_account);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+        EventBus.getDefault().register(this);
+
+        wireViews();
 
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
+
             }
         });
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
@@ -82,4 +91,18 @@ public class AddAccountActivity extends AppCompatActivity {
         });
     }
 
+    public void onEventMainThread(CryptoEvent event){
+        switch (event.getType()) {
+            case AppConstants.TYPE_FINISHED:
+                // TODO: 16/4/4 Dismiss self and pop up snack bar.
+                break;
+            default:
+                break;
+        }
+    }
+
+    private void wireViews() {
+        account = (EditText) findViewById(R.id.account);
+        password = (EditText) findViewById(R.id.password);
+    }
 }
