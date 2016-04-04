@@ -114,4 +114,5 @@
     <string name="permission_rationale">"Contacts permissions are needed for providing email
         completions."
     </string>
+    <string name="title_activity_set_master_password">Set Master Password</string>
 </resources>

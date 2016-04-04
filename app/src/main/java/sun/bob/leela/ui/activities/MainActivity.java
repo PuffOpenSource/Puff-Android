@@ -119,13 +119,17 @@ public class MainActivity extends AppCompatActivity
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_settings) {
 //            ResUtil.getInstance(getApplicationContext()).showProgressbar(this, 1000, true);
-            new CryptoUtil(this, new CryptoUtil.OnEncryptedListener() {
-                @Override
-                public void onEncrypted(String acctHash, String passwdHash, String addtHash,
-                                        String acctSalt, String passwdSalt, String addtSalt) {
-                    Log.e("Leela", acctHash + "|" + passwdHash + "|" + addtHash);
-                }
-            }).runEncrypt("123", "456", "789");
+
+//            new CryptoUtil(this, new CryptoUtil.OnEncryptedListener() {
+//                @Override
+//                public void onEncrypted(String acctHash, String passwdHash, String addtHash,
+//                                        String acctSalt, String passwdSalt, String addtSalt) {
+//                    Log.e("Leela", acctHash + "|" + passwdHash + "|" + addtHash);
+//                }
+//            }).runEncrypt("123", "456", "789");
+
+            Intent intent = new Intent(this, SetMasterPasswordActivity.class);
+            startActivity(intent);
             return true;
         }
 

@@ -32,11 +32,8 @@ public class AppConstants {
     public static final long CAT_ID_WEBSITE  = 8;
 
     public static final int TYPE_MASTER = 0x5020;
-    public static final int TYPE_EMAIL = 0x5021;
-    public static final int TYPE_SOCAIL = 0x5022;
-    public static final int TYPE_WEBSITE = 0x5023;
-    public static final int TYPE_GITHUB = 0x5024;
-    public static final int TYPE_FACEBOOK = 0x5025;
+    public static final int TYPE_NORMAL = 0x5021;
+    public static final int TYPE_QUICK  = 0x5022;
 
     public static final int REQUEST_CODE_ADD_TYPE = 0x6001;
     public static final int REQUEST_CODE_ADD_CATE = 0x6002;

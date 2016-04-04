@@ -60,7 +60,12 @@
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".ui.activities.AuthorizeActivity"
-            android:label="@string/title_activity_authorize"></activity>
+            android:label="@string/title_activity_authorize" />
+        <activity
+            android:name=".ui.activities.SetMasterPasswordActivity"
+            android:theme="@style/AppTheme.NoActionBar"
+            android:label="@null"
+            android:windowSoftInputMode="stateHidden"></activity>
     </application>
 
 </manifest>
