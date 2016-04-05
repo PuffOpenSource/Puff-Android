@@ -22,6 +22,7 @@ import java.io.IOException;
 import java.util.HashMap;
 
 import sun.bob.leela.R;
+import sun.bob.leela.db.AccountHelper;
 import sun.bob.leela.db.Category;
 import sun.bob.leela.db.CategoryHelper;
 import sun.bob.leela.ui.drawable.ColorSquare;
@@ -90,6 +91,11 @@ public class MainActivity extends AppCompatActivity
                 .add(R.id.id_fragment_container, acctListFragment, "AcctListFragment")
                 .commit();
         currentFragment = acctListFragment;
+
+        if (!AccountHelper.getInstance(this).hasMasterPassword()) {
+            Intent intent = new Intent(this, SetMasterPasswordActivity.class);
+            startActivity(intent);
+        }
     }
 
     @Override

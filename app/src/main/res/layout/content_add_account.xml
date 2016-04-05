@@ -100,6 +100,7 @@
                     <android.support.v7.widget.AppCompatEditText
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
+                        android:id="@+id/additional"
                         android:inputType="textPassword"
                         android:hint="Additional Code"/>
                 </android.support.design.widget.TextInputLayout>

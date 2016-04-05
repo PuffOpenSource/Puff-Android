@@ -97,7 +97,7 @@ public class AccountHelper {
     public ArrayList<Account> getAccountsByCategory(Long category) {
         return (ArrayList) accountDao.queryBuilder()
                 .where(AccountDao.Properties.Category.eq(category),
-                        AccountDao.Properties.Type.eq(AppConstants.TYPE_NORMAL))
+                        AccountDao.Properties.Type.notEq(AppConstants.TYPE_MASTER))
                         .orderDesc(AccountDao.Properties.Id)
                         .list();
     }

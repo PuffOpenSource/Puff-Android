@@ -15,6 +15,8 @@ import de.greenrobot.event.EventBus;
 import sun.bob.leela.R;
 import sun.bob.leela.adapters.CategorySpinnerAdapter;
 import sun.bob.leela.adapters.TypeSpinnerAdapter;
+import sun.bob.leela.db.Account;
+import sun.bob.leela.db.AccountHelper;
 import sun.bob.leela.db.AcctType;
 import sun.bob.leela.db.Category;
 import sun.bob.leela.db.CategoryHelper;
@@ -22,13 +24,14 @@ import sun.bob.leela.db.TypeHelper;
 import sun.bob.leela.events.CryptoEvent;
 import sun.bob.leela.runnable.CryptoRunnable;
 import sun.bob.leela.utils.AppConstants;
+import sun.bob.leela.utils.CryptoUtil;
 
 public class AddAccountActivity extends AppCompatActivity {
 
     private AppCompatSpinner spinnerCategory, spinnerType;
     private Long type;
     private Long category;
-    private EditText account, password, addtional;
+    private EditText name, account, password, addtional;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,6 +47,25 @@ public class AddAccountActivity extends AppCompatActivity {
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                new CryptoUtil(AddAccountActivity.this, new CryptoUtil.OnEncryptedListener() {
+                    @Override
+                    public void onEncrypted(String acctHash, String passwdHash, String addtHash, String acctSalt, String passwdSalt, String addtSalt) {
+                        Account account = new Account();
+                        account.setName(name.getText().toString());
+                        account.setAccount_name(acctHash);
+                        account.setName_salt(acctSalt);
+                        account.setHash(passwdHash);
+                        account.setSalt(passwdSalt);
+                        account.setAdditional(addtHash);
+                        account.setAdd_salt(addtSalt);
+                        account.setType(((AcctType) spinnerType.getSelectedItem()).getId());
+                        account.setCategory(((Category) spinnerCategory.getSelectedItem()).getId());
+                        account.setTag("");
+                        account.setIcon("");
+                        AccountHelper.getInstance(AddAccountActivity.this).saveAccount(account);
+                        finish();
+                    }
+                }).runEncrypt(account.getText().toString(), password.getText().toString(), addtional.getText().toString());
 
             }
         });
@@ -102,7 +124,9 @@ public class AddAccountActivity extends AppCompatActivity {
     }
 
     private void wireViews() {
+        name = (EditText) findViewById(R.id.id_name);
         account = (EditText) findViewById(R.id.account);
         password = (EditText) findViewById(R.id.password);
+        addtional = (EditText) findViewById(R.id.additional);
     }
 }

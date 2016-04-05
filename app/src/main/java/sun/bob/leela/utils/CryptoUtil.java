@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatDialog;
 import android.support.v7.widget.AppCompatButton;
+import android.util.Log;
 
 import java.util.UUID;
 
@@ -129,8 +130,17 @@ public class CryptoUtil {
                 break;
             case AppConstants.TYPE_DECRYPT:
                 // TODO: 16/4/4 Decrypted, dismiss dialog & publish event.
+                switch (event.getField()) {
+                    case "account":
+                        break;
+                    case "password":
+                        break;
+                    case "addt":
+                        break;
+                    default:
+                        return;
+                }
                 dialog.dismiss();
-                EventBus.getDefault().unregister(this);
                 break;
             case AppConstants.TYPE_ENCRYPT:
                 // TODO: 16/4/4 Encrypted, save it & dismiss dialog.
@@ -145,9 +155,10 @@ public class CryptoUtil {
                         this.addtHash = event.getResult();
                         break;
                     default:
-                        break;
+                        return;
                 }
                 if (this.accountHash != null && this.passwdHash != null && this.addtHash != null) {
+                    Log.e("LEELA", "Encriyped Callback");
                     dialog.dismiss();
                     this.onEncryptedListener.onEncrypted(accountHash, passwdHash, addtHash,
                             salts[0], salts[1], salts[2]);

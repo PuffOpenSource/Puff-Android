@@ -33,7 +33,6 @@ public class AppConstants {
     public static final long CAT_ID_WEBSITE  = 8;
 
     public static final int TYPE_MASTER = 0x5020;
-    public static final int TYPE_NORMAL = 0x5021;
     public static final int TYPE_QUICK  = 0x5022;
 
     public static final int REQUEST_CODE_ADD_TYPE = 0x6001;

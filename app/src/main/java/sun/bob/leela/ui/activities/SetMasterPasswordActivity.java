@@ -74,6 +74,11 @@ public class SetMasterPasswordActivity extends AppCompatActivity {
         EventBus.getDefault().unregister(this);
     }
 
+    @Override
+    public void onBackPressed() {
+
+    }
+
     public void onEventMainThread(CryptoEvent event) {
         if (!event.getField().equalsIgnoreCase("master")) {
             return;
@@ -87,6 +92,7 @@ public class SetMasterPasswordActivity extends AppCompatActivity {
             account.setCategory(AppConstants.CAT_ID_PRIVATE);
             account.setTag("");
             AccountHelper.getInstance(null).saveAccount(account);
+            finish();
         }
     }
 
