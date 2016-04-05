@@ -15,7 +15,16 @@ import android.widget.TextView;
 
 import com.hanks.library.AnimateCheckBox;
 
+import java.util.UUID;
+
+import de.greenrobot.event.EventBus;
 import sun.bob.leela.R;
+import sun.bob.leela.db.Account;
+import sun.bob.leela.db.AccountHelper;
+import sun.bob.leela.events.CryptoEvent;
+import sun.bob.leela.runnable.CryptoRunnable;
+import sun.bob.leela.utils.AppConstants;
+import sun.bob.leela.utils.CryptoUtil;
 
 public class SetMasterPasswordActivity extends AppCompatActivity {
 
@@ -24,7 +33,7 @@ public class SetMasterPasswordActivity extends AppCompatActivity {
     private AnimateCheckBox checkBox;
     private AppCompatTextView checkBoxHint;
     private TextView helpText;
-
+    private final String uuid = UUID.randomUUID().toString();
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -40,10 +49,45 @@ public class SetMasterPasswordActivity extends AppCompatActivity {
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
+                if (!validatePassword()){
+                    return;
+                }
+                new Thread(new CryptoRunnable(uuid, passwd.getText().toString(), AppConstants.TYPE_ENCRYPT, "master")).start();
             }
         });
+    }
+
+    private boolean validatePassword(){
+        // TODO: 16/4/5 Security validation.
+        return passwd.getText().toString().equalsIgnoreCase(confirm.getText().toString());
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        EventBus.getDefault().register(this);
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+        EventBus.getDefault().unregister(this);
+    }
+
+    public void onEventMainThread(CryptoEvent event) {
+        if (!event.getField().equalsIgnoreCase("master")) {
+            return;
+        }
+        if (event.getType() == AppConstants.TYPE_ENCRYPT) {
+            Account account = new Account();
+            account.setHash(event.getResult());
+            account.setSalt(uuid);
+            account.setName("");
+            account.setType(AppConstants.TYPE_MASTER);
+            account.setCategory(AppConstants.CAT_ID_PRIVATE);
+            account.setTag("");
+            AccountHelper.getInstance(null).saveAccount(account);
+        }
     }
 
     private void initReference(){

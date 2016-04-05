@@ -18,6 +18,7 @@ import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
 import android.provider.ContactsContract;
+import android.support.v7.app.AppCompatDialog;
 import android.text.TextUtils;
 import android.view.KeyEvent;
 import android.view.View;
@@ -34,8 +35,13 @@ import java.util.List;
 
 import de.greenrobot.event.EventBus;
 import sun.bob.leela.R;
+import sun.bob.leela.db.Account;
+import sun.bob.leela.db.AccountHelper;
 import sun.bob.leela.events.CryptoEvent;
+import sun.bob.leela.runnable.CryptoRunnable;
 import sun.bob.leela.utils.AppConstants;
+import sun.bob.leela.utils.CryptoUtil;
+import sun.bob.leela.utils.ResUtil;
 
 import static android.Manifest.permission.READ_CONTACTS;
 
@@ -48,13 +54,14 @@ public class AuthorizeActivity extends AppCompatActivity implements LoaderCallba
     private EditText mPasswordView;
     private View mProgressView;
     private View mLoginFormView;
+    private Account master;
+    private AppCompatDialog dialog;
+    private String password;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_authorize);
-        // Set up the login form.
-        populateAutoComplete();
 
         mPasswordView = (EditText) findViewById(R.id.password);
         mPasswordView.setOnEditorActionListener(new TextView.OnEditorActionListener() {
@@ -80,11 +87,6 @@ public class AuthorizeActivity extends AppCompatActivity implements LoaderCallba
         mProgressView = findViewById(R.id.login_progress);
     }
 
-    private void populateAutoComplete() {
-
-        getLoaderManager().initLoader(0, null, this);
-    }
-
 
     /**
      * Attempts to sign in or register the account specified by the login form.
@@ -98,7 +100,7 @@ public class AuthorizeActivity extends AppCompatActivity implements LoaderCallba
 
         // Store values at the time of the login attempt.
 
-        String password = mPasswordView.getText().toString();
+        password = mPasswordView.getText().toString();
 
         boolean cancel = false;
         View focusView = null;
@@ -119,8 +121,10 @@ public class AuthorizeActivity extends AppCompatActivity implements LoaderCallba
             // Show a progress spinner, and kick off a background task to
             // perform the user login attempt.
             // TODO: 16/4/4 Check master password is correct or not.
-            EventBus.getDefault().post(new CryptoEvent(password, AppConstants.TYPE_MASTERPWD, ""));
-            finish();
+            dialog = ResUtil.getInstance(this).showProgressbar(this);
+            master = AccountHelper.getInstance(this).getMasterAccount();
+            new Thread(new CryptoRunnable(master.getHash(), password, AppConstants.TYPE_DECRYPT, "master"))
+                    .start();
         }
     }
 
@@ -129,6 +133,40 @@ public class AuthorizeActivity extends AppCompatActivity implements LoaderCallba
         return password.length() > 4;
     }
 
+    public void onEventMainThread(CryptoEvent event) {
+        if (!event.getField().equalsIgnoreCase("master")) {
+            return;
+        }
+        if (event.getType() == AppConstants.TYPE_DECRYPT) {
+            if (event.getResult().equalsIgnoreCase(master.getSalt())) {
+                dialog.dismiss();
+                CryptoEvent result = new CryptoEvent(password, AppConstants.TYPE_MASTERPWD);
+                EventBus.getDefault().post(result);
+                finish();
+            } else {
+                Snackbar.make(mPasswordView, "Master Password Invalid.", Snackbar.LENGTH_LONG).show();
+                dialog.dismiss();
+            }
+        }
+        if (event.getType() == AppConstants.TYPE_SHTHPPN) {
+            Snackbar.make(mPasswordView, "Master Password Invalid.", Snackbar.LENGTH_LONG).show();
+            dialog.dismiss();
+        }
+
+
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        EventBus.getDefault().register(this);
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+        EventBus.getDefault().unregister(this);
+    }
     /**
      * Shows the progress UI and hides the login form.
      */

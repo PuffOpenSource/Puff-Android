@@ -13,6 +13,7 @@ import de.greenrobot.event.EventBus;
 import sun.bob.leela.R;
 import sun.bob.leela.db.Account;
 import sun.bob.leela.db.AccountDao;
+import sun.bob.leela.db.AccountHelper;
 import sun.bob.leela.events.CryptoEvent;
 import sun.bob.leela.runnable.CryptoRunnable;
 import sun.bob.leela.ui.activities.AuthorizeActivity;
@@ -106,6 +107,10 @@ public class CryptoUtil {
     }
 
     public void askForMasterPassword() {
+        // TODO: 16/4/5 Un-comment below code!
+        if (!AccountHelper.getInstance(this.context).hasMasterPassword()) {
+            return;
+        }
         Intent intent = new Intent(this.context, AuthorizeActivity.class);
         this.context.startActivity(intent);
         return;

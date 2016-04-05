@@ -3,6 +3,7 @@ package sun.bob.leela.db;
 import android.content.Context;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import sun.bob.leela.utils.AppConstants;
 
@@ -70,6 +71,27 @@ public class AccountHelper {
 
     public void deleteAccount(Account account) {
         accountDao.delete(account);
+    }
+
+    public boolean hasMasterPassword() {
+        List result = accountDao.queryBuilder()
+                .where(AccountDao.Properties.Type.eq(AppConstants.TYPE_MASTER))
+                .list();
+        return result.size() != 0;
+    }
+
+    public boolean hasQuickAccess() {
+        List result = accountDao.queryBuilder()
+                .where(AccountDao.Properties.Type.eq(AppConstants.TYPE_QUICK))
+                .list();
+        return result.size() != 0;
+    }
+
+    public Account getMasterAccount() {
+        List result = accountDao.queryBuilder()
+                .where(AccountDao.Properties.Type.eq(AppConstants.TYPE_MASTER))
+                .list();
+        return (Account) result.get(0);
     }
 
     public ArrayList<Account> getAccountsByCategory(Long category) {
