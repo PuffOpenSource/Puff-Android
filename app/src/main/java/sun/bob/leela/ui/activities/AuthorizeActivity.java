@@ -3,6 +3,7 @@ package sun.bob.leela.ui.activities;
 import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
 import android.annotation.TargetApi;
+import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.support.annotation.NonNull;
 import android.support.design.widget.Snackbar;
@@ -142,6 +143,7 @@ public class AuthorizeActivity extends AppCompatActivity {
                 dialog.dismiss();
                 CryptoEvent result = new CryptoEvent(password, AppConstants.TYPE_MASTERPWD);
                 EventBus.getDefault().post(result);
+                this.setResult(RESULT_OK);
                 finish();
             } else {
                 mPasswordView.setError("Master Password Invalid");
@@ -166,6 +168,14 @@ public class AuthorizeActivity extends AppCompatActivity {
     public void onPause() {
         super.onPause();
         EventBus.getDefault().unregister(this);
+    }
+
+    @Override
+    public void onBackPressed() {
+        CryptoEvent result = new CryptoEvent("", AppConstants.TYPE_SHTHPPN);
+        EventBus.getDefault().post(result);
+        this.setResult(RESULT_CANCELED);
+        finish();
     }
 }
 

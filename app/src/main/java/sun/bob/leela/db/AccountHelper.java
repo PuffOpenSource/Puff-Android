@@ -62,7 +62,10 @@ public class AccountHelper {
     }
 
     public long saveAccount(Account account) {
-        return accountDao.insertOrReplace(account);
+        if (account.getId() == null || getAccount(account.getId()) == null)
+            return accountDao.insertOrReplace(account);
+        accountDao.update(account);
+        return account.getId();
     }
 
     public void deleteAccount(long id) {
@@ -91,7 +94,7 @@ public class AccountHelper {
         List result = accountDao.queryBuilder()
                 .where(AccountDao.Properties.Type.eq(AppConstants.TYPE_MASTER))
                 .list();
-        return (Account) result.get(0);
+        return result.size() == 0 ? null : (Account) result.get(0);
     }
 
     public ArrayList<Account> getAccountsByCategory(Long category) {

@@ -1,5 +1,6 @@
 package sun.bob.leela.ui.activities;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
@@ -34,6 +35,9 @@ public class SetMasterPasswordActivity extends AppCompatActivity {
     private AppCompatTextView checkBoxHint;
     private TextView helpText;
     private final String uuid = UUID.randomUUID().toString();
+
+    private static final int REQ_CODE_AUTH_MASTER   = 0x7001;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -44,6 +48,11 @@ public class SetMasterPasswordActivity extends AppCompatActivity {
 
         initReference();
         initListener();
+
+        if (AccountHelper.getInstance(this).hasMasterPassword()) {
+            Intent intent = new Intent(this, AuthorizeActivity.class);
+            this.startActivityForResult(intent, REQ_CODE_AUTH_MASTER);
+        }
 
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
@@ -84,7 +93,10 @@ public class SetMasterPasswordActivity extends AppCompatActivity {
             return;
         }
         if (event.getType() == AppConstants.TYPE_ENCRYPT) {
-            Account account = new Account();
+            Account account = AccountHelper.getInstance(this).getMasterAccount();
+            if (account == null) {
+                account = new Account();
+            }
             account.setHash(event.getResult());
             account.setSalt(uuid);
             account.setName("");
@@ -93,6 +105,16 @@ public class SetMasterPasswordActivity extends AppCompatActivity {
             account.setTag("");
             AccountHelper.getInstance(null).saveAccount(account);
             finish();
+        }
+    }
+
+    @Override
+    public void onActivityResult(int reqCode, int resultCode, Intent data) {
+        if (reqCode != REQ_CODE_AUTH_MASTER)
+            return;
+        if (resultCode != RESULT_OK) {
+            finish();
+            return;
         }
     }
 

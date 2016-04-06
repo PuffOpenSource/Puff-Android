@@ -134,11 +134,11 @@ public class MainActivity extends AppCompatActivity
 //                }
 //            }).runEncrypt("123", "456", "789");
 
-//            Intent intent = new Intent(this, SetMasterPasswordActivity.class);
-//            startActivity(intent);
-
-            Intent intent = new Intent(this, AuthorizeActivity.class);
+            Intent intent = new Intent(this, SetMasterPasswordActivity.class);
             startActivity(intent);
+
+//            Intent intent = new Intent(this, AuthorizeActivity.class);
+//            startActivity(intent);
             return true;
         }
 
