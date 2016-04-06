@@ -68,7 +68,11 @@ public class SetMasterPasswordActivity extends AppCompatActivity {
 
     private boolean validatePassword(){
         // TODO: 16/4/5 Security validation.
-        return passwd.getText().toString().equalsIgnoreCase(confirm.getText().toString());
+        if (!passwd.getText().toString().equalsIgnoreCase(confirm.getText().toString())) {
+            return false;
+        }
+
+        return true;
     }
 
     @Override

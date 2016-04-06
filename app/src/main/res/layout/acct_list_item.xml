@@ -56,6 +56,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="30dp"
                 android:background="@null"
+                android:id="@+id/view_button"
                 android:text="View"
                 android:textAlignment="center"
                 android:layout_alignParentBottom="true"

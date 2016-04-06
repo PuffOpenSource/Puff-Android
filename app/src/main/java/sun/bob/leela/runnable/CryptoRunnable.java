@@ -1,5 +1,7 @@
 package sun.bob.leela.runnable;
 
+import android.util.Base64;
+
 import javax.crypto.Cipher;
 import javax.crypto.spec.SecretKeySpec;
 
@@ -16,10 +18,6 @@ public class CryptoRunnable implements Runnable {
     private String text, password, field;
     private byte[] rawText;
     private int runModel;
-
-    public CryptoRunnable(){
-
-    }
 
     public CryptoRunnable(String text, String password, int runModel, String field){
         this.text = text;
@@ -54,7 +52,8 @@ public class CryptoRunnable implements Runnable {
         if (this.runModel == AppConstants.TYPE_ENCRYPT){
             try {
                 byte[] rawRslt = encrypt();
-                String rslt = new String(HexUtil.encodeHex(rawRslt));
+//                String rslt = new String(HexUtil.encodeHex(rawRslt));
+                String rslt = Base64.encodeToString(rawRslt, Base64.DEFAULT);
                 result = new CryptoEvent(rslt, AppConstants.TYPE_ENCRYPT, this.field);
             } catch (Exception e){
                 e.printStackTrace();
@@ -64,7 +63,8 @@ public class CryptoRunnable implements Runnable {
             }
         } else if (this.runModel == AppConstants.TYPE_DECRYPT){
             try {
-                this.rawText = HexUtil.decodeHex(this.text.toCharArray());
+//                this.rawText = HexUtil.decodeHex(this.text.toCharArray());
+                this.rawText = Base64.decode(this.text, Base64.DEFAULT);
                 String rslt = new String(decrypt());
                 result = new CryptoEvent(rslt, AppConstants.TYPE_DECRYPT, this.field);
             } catch (Exception e){
@@ -77,7 +77,7 @@ public class CryptoRunnable implements Runnable {
     }
 
     private byte[] encrypt() throws Exception{
-        SecretKeySpec skeySpec = new SecretKeySpec(password.getBytes(), "Blowfish");
+        SecretKeySpec skeySpec = new SecretKeySpec(password.getBytes("UTF-8"), "Blowfish");
         Cipher cipher = Cipher.getInstance("Blowfish");
         cipher.init(Cipher.ENCRYPT_MODE, skeySpec);
         byte[] encrypted = cipher.doFinal(text.getBytes());
@@ -85,7 +85,7 @@ public class CryptoRunnable implements Runnable {
     }
 
     public byte[] decrypt() throws Exception {
-        SecretKeySpec skeySpec = new SecretKeySpec(password.getBytes(), "Blowfish");
+        SecretKeySpec skeySpec = new SecretKeySpec(password.getBytes("UTF-8"), "Blowfish");
         Cipher cipher = Cipher.getInstance("Blowfish");
         cipher.init(Cipher.DECRYPT_MODE, skeySpec);
         byte[] decrypted = cipher.doFinal(this.rawText);

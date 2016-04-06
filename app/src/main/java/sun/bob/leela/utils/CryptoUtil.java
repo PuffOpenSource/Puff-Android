@@ -32,20 +32,17 @@ public class CryptoUtil {
     private AppCompatDialog dialog;
     private int type;
 
-    public CryptoUtil(Context context) {
-        this.context = context;
-        init();
-    }
-
     public CryptoUtil(Context context, OnEncryptedListener onEncryptedListener) {
         this.context = context;
         this.onEncryptedListener = onEncryptedListener;
+        this.type = AppConstants.TYPE_ENCRYPT;
         init();
     }
 
     public CryptoUtil(Context context, OnDecryptedListener onDecryptedListener) {
         this.context = context;
         this.onDecryptedListener = onDecryptedListener;
+        this.type = AppConstants.TYPE_DECRYPT;
         init();
     }
 
@@ -59,11 +56,13 @@ public class CryptoUtil {
 
     public CryptoUtil setOnEncryptedListener(OnEncryptedListener onEncryptedListener) {
         this.onEncryptedListener = onEncryptedListener;
+        this.type = AppConstants.TYPE_ENCRYPT;
         return this;
     }
 
     public CryptoUtil setOnDecryptedListener(OnDecryptedListener onDecryptedListener) {
         this.onDecryptedListener = onDecryptedListener;
+        this.type = AppConstants.TYPE_DECRYPT;
         return this;
     }
 
@@ -82,20 +81,30 @@ public class CryptoUtil {
         askForMasterPassword();
     }
 
-    public void runDecrypt() {
-        Thread thread;
+    public void runDecrypt(String account, String password, String additional,
+                           String acctSlt, String psswdSlt, String addtSalt) {
+        assert this.onDecryptedListener != null;
+        this.accountHash = account;
+        this.passwdHash = password;
+        this.addtHash = additional;
+        this.salts[0] = acctSlt;
+        this.salts[1] = psswdSlt;
+        this.salts[2] = addtSalt;
+        askForMasterPassword();
     }
 
     private void runEncrypt(String password) {
         // TODO: 16/4/4 Actual encrypt process.
-        new Thread(new CryptoRunnable(this.passwd, password + salts[0], AppConstants.TYPE_ENCRYPT, "password")).start();
-        new Thread(new CryptoRunnable(this.account, password + salts[1], AppConstants.TYPE_ENCRYPT, "account")).start();
-        new Thread(new CryptoRunnable(this.addt, password + salts[2], AppConstants.TYPE_ENCRYPT, "addt")).start();
+        new Thread(new CryptoRunnable(this.passwd, password, AppConstants.TYPE_ENCRYPT, "password")).start();
+        new Thread(new CryptoRunnable(this.account, password, AppConstants.TYPE_ENCRYPT, "account")).start();
+        new Thread(new CryptoRunnable(this.addt, password, AppConstants.TYPE_ENCRYPT, "addt")).start();
 
     }
 
     private void runDecrypt(String password) {
-
+        new Thread(new CryptoRunnable(this.accountHash, password, AppConstants.TYPE_DECRYPT, "account")).start();
+        new Thread(new CryptoRunnable(this.passwdHash, password, AppConstants.TYPE_DECRYPT, "password")).start();
+        new Thread(new CryptoRunnable(this.addtHash, password, AppConstants.TYPE_DECRYPT, "addt")).start();
     }
 
 
@@ -104,7 +113,7 @@ public class CryptoUtil {
                          String acctSalt, String passwdSalt, String addtSalt);
     }
     public interface OnDecryptedListener {
-
+        void onDecrypted(String account, String passwd, String addt);
     }
 
     public void askForMasterPassword() {
@@ -132,13 +141,26 @@ public class CryptoUtil {
                 // TODO: 16/4/4 Decrypted, dismiss dialog & publish event.
                 switch (event.getField()) {
                     case "account":
+                        this.account = event.getResult();
+                        Log.e("account", account);
                         break;
                     case "password":
+                        this.passwd = event.getResult();
+                        Log.e("password", passwd);
                         break;
                     case "addt":
+                        this.addt = event.getResult();
+                        Log.e("addt", addt);
                         break;
                     default:
+                        if (dialog != null) {
+                            dialog.dismiss();
+                        }
                         return;
+                }
+                if (this.account != null && this.passwd != null && this.addt != null) {
+                    Log.e("LEELA", "Decrypted Callback");
+                    this.onDecryptedListener.onDecrypted(account, passwd, addt);
                 }
                 dialog.dismiss();
                 break;
@@ -155,17 +177,28 @@ public class CryptoUtil {
                         this.addtHash = event.getResult();
                         break;
                     default:
+                        if (dialog != null) {
+                            dialog.dismiss();
+                        }
                         return;
                 }
                 if (this.accountHash != null && this.passwdHash != null && this.addtHash != null) {
-                    Log.e("LEELA", "Encriyped Callback");
+                    Log.e("LEELA", "Encryped Callback");
                     dialog.dismiss();
                     this.onEncryptedListener.onEncrypted(accountHash, passwdHash, addtHash,
                             salts[0], salts[1], salts[2]);
                 }
                 break;
+            case AppConstants.TYPE_SHTHPPN:
+                Log.e("LEELA", "Something went wrong");
+                break;
             default:
+                if (dialog != null) {
+                    dialog.dismiss();
+                }
                 break;
         }
     }
+
+
 }

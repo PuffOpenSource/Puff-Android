@@ -2,6 +2,7 @@ package sun.bob.leela.adapters;
 
 import android.animation.ValueAnimator;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.animation.AccelerateDecelerateInterpolator;
@@ -11,6 +12,7 @@ import de.greenrobot.event.EventBus;
 import sun.bob.leela.R;
 import sun.bob.leela.db.Account;
 import sun.bob.leela.events.ItemUIEvent;
+import sun.bob.leela.utils.CryptoUtil;
 
 /**
  * Created by bob.sun on 16/3/19.
@@ -24,6 +26,8 @@ public class AcctListViewHolder extends RecyclerView.ViewHolder implements View.
 
     private float dp;
 
+    private TextView name, accountName;
+
     public AcctListViewHolder(View itemView) {
         super(itemView);
         this.itemView = itemView;
@@ -32,13 +36,25 @@ public class AcctListViewHolder extends RecyclerView.ViewHolder implements View.
         dp = itemView.getContext().getResources().getDisplayMetrics().density;
     }
 
-    public void configureWithAccount(Account account) {
+    public void configureWithAccount(final Account account) {
         ((TextView) itemView.findViewById(R.id.list_name)).setText(account.getName());
         ((TextView) itemView.findViewById(R.id.list_account_name)).setText(account.getAccount_name());
         ((TextView) itemView.findViewById(R.id.list_name_thumb)).setText(account.getName());
 
         itemView.findViewById(R.id.id_item_content_expand).setVisibility(View.GONE);
         itemView.findViewById(R.id.id_item_content_thumb).setVisibility(View.VISIBLE);
+        this.itemView.findViewById(R.id.view_button).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                new CryptoUtil(v.getContext(), new CryptoUtil.OnDecryptedListener() {
+                    @Override
+                    public void onDecrypted(String account, String passwd, String addt) {
+                        Log.e("LEELA", account + "|" + passwd + "|" + addt);
+                    }
+                }).runDecrypt(account.getAccount_name(), account.getHash(), account.getAdditional(),
+                        account.getName_salt(), account.getSalt(), account.getAdd_salt());
+            }
+        });
 //        ((TextView) itemView.findViewById(R.id.list_account_category)).setText(account.getCategory());
 //        ((CardView) this.itemView.findViewById(R.id.list_item_card_view)).setCardBackgroundColor(Color.parseColor("#CDDC39"));
     }
