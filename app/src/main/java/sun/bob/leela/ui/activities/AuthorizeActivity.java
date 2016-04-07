@@ -172,8 +172,9 @@ public class AuthorizeActivity extends AppCompatActivity {
 
     @Override
     public void onBackPressed() {
-        CryptoEvent result = new CryptoEvent("", AppConstants.TYPE_SHTHPPN);
+        CryptoEvent result = new CryptoEvent("", AppConstants.TYPE_CANCELED);
         EventBus.getDefault().post(result);
+        EventBus.getDefault().unregister(this);
         this.setResult(RESULT_CANCELED);
         finish();
     }

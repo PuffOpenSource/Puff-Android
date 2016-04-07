@@ -95,9 +95,9 @@ public class CryptoUtil {
 
     private void runEncrypt(String password) {
         // TODO: 16/4/4 Actual encrypt process.
-        new Thread(new CryptoRunnable(this.passwd, password, AppConstants.TYPE_ENCRYPT, "password")).start();
-        new Thread(new CryptoRunnable(this.account, password, AppConstants.TYPE_ENCRYPT, "account")).start();
-        new Thread(new CryptoRunnable(this.addt, password, AppConstants.TYPE_ENCRYPT, "addt")).start();
+        new Thread(new CryptoRunnable(this.account + salts[0], password, AppConstants.TYPE_ENCRYPT, "account")).start();
+        new Thread(new CryptoRunnable(this.passwd + salts[1], password, AppConstants.TYPE_ENCRYPT, "password")).start();
+        new Thread(new CryptoRunnable(this.addt + salts[2], password, AppConstants.TYPE_ENCRYPT, "addt")).start();
 
     }
 
@@ -142,15 +142,12 @@ public class CryptoUtil {
                 switch (event.getField()) {
                     case "account":
                         this.account = event.getResult();
-                        Log.e("account", account);
                         break;
                     case "password":
                         this.passwd = event.getResult();
-                        Log.e("password", passwd);
                         break;
                     case "addt":
                         this.addt = event.getResult();
-                        Log.e("addt", addt);
                         break;
                     default:
                         if (dialog != null) {
@@ -160,7 +157,11 @@ public class CryptoUtil {
                 }
                 if (this.account != null && this.passwd != null && this.addt != null) {
                     Log.e("LEELA", "Decrypted Callback");
+                    account = account.replace(salts[0], "");
+                    passwd = passwd.replace(salts[1], "");
+                    addt = addt.replace(salts[2], "");
                     this.onDecryptedListener.onDecrypted(account, passwd, addt);
+                    EventBus.getDefault().unregister(this);
                 }
                 dialog.dismiss();
                 break;
@@ -187,7 +188,11 @@ public class CryptoUtil {
                     dialog.dismiss();
                     this.onEncryptedListener.onEncrypted(accountHash, passwdHash, addtHash,
                             salts[0], salts[1], salts[2]);
+                    EventBus.getDefault().unregister(this);
                 }
+                break;
+            case AppConstants.TYPE_CANCELED:
+                EventBus.getDefault().unregister(this);
                 break;
             case AppConstants.TYPE_SHTHPPN:
                 Log.e("LEELA", "Something went wrong");

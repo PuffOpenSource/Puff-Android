@@ -15,6 +15,7 @@ public class AppConstants {
     public static final int TYPE_SHTHPPN = 0x235;
     public static final int TYPE_MASTERPWD  = 0x236;
     public static final int TYPE_FINISHED = 0x257;
+    public static final int TYPE_CANCELED = 0x258;
 
     //Category Type
     //Only custom type category can be deleted.
