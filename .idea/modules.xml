@@ -2,7 +2,7 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/PwdMgr.iml" filepath="$PROJECT_DIR$/PwdMgr.iml" />
+      <module fileurl="file://$PROJECT_DIR$/Puff.iml" filepath="$PROJECT_DIR$/Puff.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
       <module fileurl="file://$PROJECT_DIR$/dummypicloader/dummypicloader.iml" filepath="$PROJECT_DIR$/dummypicloader/dummypicloader.iml" />
     </modules>
