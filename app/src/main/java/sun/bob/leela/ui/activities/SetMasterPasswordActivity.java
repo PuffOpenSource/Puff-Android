@@ -24,6 +24,7 @@ import sun.bob.leela.db.Account;
 import sun.bob.leela.db.AccountHelper;
 import sun.bob.leela.events.CryptoEvent;
 import sun.bob.leela.runnable.CryptoRunnable;
+import sun.bob.leela.runnable.PBKDFRunnable;
 import sun.bob.leela.utils.AppConstants;
 import sun.bob.leela.utils.CryptoUtil;
 
@@ -61,7 +62,8 @@ public class SetMasterPasswordActivity extends AppCompatActivity {
                 if (!validatePassword()){
                     return;
                 }
-                new Thread(new CryptoRunnable(uuid, passwd.getText().toString(), AppConstants.TYPE_ENCRYPT, "master")).start();
+//                new Thread(new CryptoRunnable(uuid, passwd.getText().toString(), AppConstants.TYPE_ENCRYPT, "master")).start();
+                new Thread(new PBKDFRunnable(passwd.getText().toString())).start();
             }
         });
     }
@@ -102,7 +104,7 @@ public class SetMasterPasswordActivity extends AppCompatActivity {
                 account = new Account();
             }
             account.setHash(event.getResult());
-            account.setSalt(uuid);
+            account.setSalt("");
             account.setName("");
             account.setType(AppConstants.TYPE_MASTER);
             account.setCategory(AppConstants.CAT_ID_PRIVATE);

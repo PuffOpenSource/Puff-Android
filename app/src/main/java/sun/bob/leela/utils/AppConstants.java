@@ -13,9 +13,11 @@ public class AppConstants {
     public static final int TYPE_ENCRYPT = 0x233;
     public static final int TYPE_DECRYPT = 0x234;
     public static final int TYPE_SHTHPPN = 0x235;
-    public static final int TYPE_MASTERPWD  = 0x236;
+    public static final int TYPE_MASTERPWD  = 0x236; //Event with master password.
     public static final int TYPE_FINISHED = 0x257;
     public static final int TYPE_CANCELED = 0x258;
+    public static final int TYPE_MASTER_OK = 0x259;  //Master passwd is correct
+    public static final int TYPE_MASTER_NO = 0x260;  //Master passwd is wrong
 
     //Category Type
     //Only custom type category can be deleted.
@@ -33,7 +35,7 @@ public class AppConstants {
     public static final long CAT_ID_ENTRY    = 7;
     public static final long CAT_ID_WEBSITE  = 8;
 
-    public static final int TYPE_MASTER = 0x5020;
+    public static final int TYPE_MASTER = 0x5020;//The account type in db
     public static final int TYPE_QUICK  = 0x5022;
 
     public static final int REQUEST_CODE_ADD_TYPE = 0x6001;

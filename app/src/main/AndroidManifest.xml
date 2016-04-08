@@ -18,7 +18,7 @@
         android:theme="@style/AppTheme">
         <activity
             android:name=".ui.activities.SplashActivity"
-            android:label="PwdMgr"
+            android:label="Puff"
             android:theme="@style/AppTheme.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -29,7 +29,7 @@
         <activity
             android:name=".ui.activities.MainActivity"
             android:hardwareAccelerated="true"
-            android:label="PwdMgr"
+            android:label="Puff"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".ui.activities.DetailActivity"

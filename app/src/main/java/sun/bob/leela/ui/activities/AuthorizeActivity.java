@@ -35,11 +35,13 @@ import java.util.ArrayList;
 import java.util.List;
 
 import de.greenrobot.event.EventBus;
+import sun.bob.leela.App;
 import sun.bob.leela.R;
 import sun.bob.leela.db.Account;
 import sun.bob.leela.db.AccountHelper;
 import sun.bob.leela.events.CryptoEvent;
 import sun.bob.leela.runnable.CryptoRunnable;
+import sun.bob.leela.runnable.PBKDFRunnable;
 import sun.bob.leela.utils.AppConstants;
 import sun.bob.leela.utils.CryptoUtil;
 import sun.bob.leela.utils.ResUtil;
@@ -124,8 +126,9 @@ public class AuthorizeActivity extends AppCompatActivity {
             // TODO: 16/4/4 Check master password is correct or not.
             dialog = ResUtil.getInstance(this).showProgressbar(this);
             master = AccountHelper.getInstance(this).getMasterAccount();
-            new Thread(new CryptoRunnable(master.getHash(), password, AppConstants.TYPE_DECRYPT, "master"))
-                    .start();
+//            new Thread(new CryptoRunnable(master.getHash(), password, AppConstants.TYPE_DECRYPT, "master"))
+//                    .start();
+            new Thread(new PBKDFRunnable(password, master.getHash())).start();
         }
     }
 
@@ -138,17 +141,16 @@ public class AuthorizeActivity extends AppCompatActivity {
         if (event.getField() == null ||!event.getField().equalsIgnoreCase("master")) {
             return;
         }
-        if (event.getType() == AppConstants.TYPE_DECRYPT) {
-            if (event.getResult().equalsIgnoreCase(master.getSalt())) {
-                dialog.dismiss();
-                CryptoEvent result = new CryptoEvent(password, AppConstants.TYPE_MASTERPWD);
-                EventBus.getDefault().post(result);
-                this.setResult(RESULT_OK);
-                finish();
-            } else {
-                mPasswordView.setError("Master Password Invalid");
-                dialog.dismiss();
-            }
+        if (event.getType() == AppConstants.TYPE_MASTER_OK) {
+            dialog.dismiss();
+            CryptoEvent result = new CryptoEvent(password, AppConstants.TYPE_MASTERPWD);
+            EventBus.getDefault().post(result);
+            this.setResult(RESULT_OK);
+            finish();
+        }
+        if (event.getType() == AppConstants.TYPE_MASTER_NO) {
+            mPasswordView.setError("Master Password Invalid");
+            dialog.dismiss();
         }
         if (event.getType() == AppConstants.TYPE_SHTHPPN) {
             mPasswordView.setError("Master Password Invalid");
