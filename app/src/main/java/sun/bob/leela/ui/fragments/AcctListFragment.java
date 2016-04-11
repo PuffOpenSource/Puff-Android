@@ -74,7 +74,7 @@ public class AcctListFragment extends Fragment {
         // Inflate the layout for this fragment
         View ret = inflater.inflate(R.layout.fragment_acct_list, container, false);
         recyclerView = (RecyclerView) ret.findViewById(R.id.acct_list_recycler_view);
-//        placeHolder = (LinearLayout) ret.findViewById(R.id.placeholder);
+
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(this.getContext());
         recyclerView.setLayoutManager(layoutManager);
         adapter = new AcctListAdapter(getContext(), recyclerView);
@@ -84,13 +84,6 @@ public class AcctListFragment extends Fragment {
 
         placeHolder = (CardView) ret.findViewById(R.id.placeholder);
         ViewCompat.setElevation(placeHolder, 10.0f);
-//        if (adapter.getItemCount() <= 0) {
-//            recyclerView.setVisibility(View.INVISIBLE);
-//            placeHolder.setVisibility(View.VISIBLE);
-//        } else {
-//            recyclerView.setVisibility(View.VISIBLE);
-//            placeHolder.setVisibility(View.INVISIBLE);
-//        }
         return ret;
     }
 
@@ -114,6 +107,11 @@ public class AcctListFragment extends Fragment {
     }
 
     @Override
+    public void onStart() {
+        super.onStart();
+    }
+
+    @Override
     public void onResume(){
         super.onResume();
         if (recyclerView.getAdapter().getItemCount() == 0) {
@@ -122,6 +120,23 @@ public class AcctListFragment extends Fragment {
         } else {
             placeHolder.setVisibility(View.INVISIBLE);
             recyclerView.setVisibility(View.VISIBLE);
+            adapter.notifyItemRangeChanged(0, adapter.getItemCount());
+            adapter.loadAccountsInCategory(category);
+            adapter.notifyDataSetChanged();
+        }
+    }
+
+    @Override
+    public void onHiddenChanged(boolean hidden) {
+        super.onHiddenChanged(hidden);
+        if (recyclerView.getAdapter().getItemCount() == 0) {
+            placeHolder.setVisibility(View.VISIBLE);
+            recyclerView.setVisibility(View.INVISIBLE);
+        } else {
+            placeHolder.setVisibility(View.INVISIBLE);
+            recyclerView.setVisibility(View.VISIBLE);
+            adapter.loadAccountsInCategory(category);
+            adapter.notifyDataSetChanged();
         }
     }
 

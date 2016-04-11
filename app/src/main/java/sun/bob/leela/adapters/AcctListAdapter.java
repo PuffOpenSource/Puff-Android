@@ -28,7 +28,6 @@ public class AcctListAdapter extends RecyclerView.Adapter<AcctListViewHolder> {
         super();
         this.context = context;
         this.recyclerView = recyclerView;
-//        data = AccountHelper.getInstance(context).getAllAccount();
         data = new ArrayList<>();
         this.setHasStableIds(true);
     }
@@ -44,7 +43,6 @@ public class AcctListAdapter extends RecyclerView.Adapter<AcctListViewHolder> {
     @Override
     public void onBindViewHolder(AcctListViewHolder holder, int position) {
         holder.configureWithAccount(data.get(position));
-//        holder.setHeight((int) (100 * ResUtil.getInstance(null).getDP()));
     }
 
     @Override
@@ -61,4 +59,5 @@ public class AcctListAdapter extends RecyclerView.Adapter<AcctListViewHolder> {
         data = AccountHelper.getInstance(context).getAccountsByCategory(category);
         this.notifyDataSetChanged();
     }
+
 }
