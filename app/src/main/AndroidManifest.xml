@@ -48,12 +48,12 @@
         <activity
             android:name=".ui.activities.AddTypeDialogActivity"
             android:label="Add New Account Type"
-            android:theme="@style/Theme.AppCompat.Light.DialogWhenLarge"
+            android:theme="@style/AppCompatAlertDialogStyle"
             android:windowSoftInputMode="stateHidden" />
         <activity
             android:name=".ui.activities.AddCategoryDialogActivity"
             android:label="Add New Category"
-            android:theme="@style/Theme.AppCompat.Light.DialogWhenLarge"
+            android:theme="@style/AppCompatAlertDialogStyle"
             android:windowSoftInputMode="stateHidden" />
         <activity
             android:name=".ui.activities.ImageCropActivity"
