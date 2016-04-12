@@ -32,7 +32,7 @@ public class AcctListViewHolder extends RecyclerView.ViewHolder{
 
     public void configureWithAccount(final Account account) {
         ((TextView) itemView.findViewById(R.id.list_name)).setText(account.getName());
-        ((TextView) itemView.findViewById(R.id.list_account_name)).setText(account.getAccount_name());
+        ((TextView) itemView.findViewById(R.id.list_account_name)).setText(account.getMasked_account());
 
         this.itemView.findViewById(R.id.view_button).setOnClickListener(new View.OnClickListener() {
             @Override
@@ -42,8 +42,8 @@ public class AcctListViewHolder extends RecyclerView.ViewHolder{
                     public void onDecrypted(String account, String passwd, String addt) {
                         Log.e("LEELA", account + "|" + passwd + "|" + addt);
                     }
-                }).runDecrypt(account.getAccount_name(), account.getHash(), account.getAdditional(),
-                        account.getName_salt(), account.getSalt(), account.getAdd_salt());
+                }).runDecrypt(account.getAccount(), account.getHash(), account.getAdditional(),
+                        account.getAccount_salt(), account.getSalt(), account.getAdditional_salt());
             }
         });
 //        ((TextView) itemView.findViewById(R.id.list_account_category)).setText(account.getCategory());

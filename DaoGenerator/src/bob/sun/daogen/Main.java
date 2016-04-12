@@ -29,13 +29,14 @@ public class Main {
         account.addIdProperty();
         account.addStringProperty("name").notNull();
         account.addLongProperty("type").notNull();
-        account.addStringProperty("account_name");
+        account.addStringProperty("account");
+        account.addStringProperty("masked_account");
         account.addBooleanProperty("hide_name");
-        account.addStringProperty("name_salt");
+        account.addStringProperty("account_salt");
         account.addStringProperty("salt").notNull();
         account.addStringProperty("hash").notNull();
         account.addStringProperty("additional");
-        account.addStringProperty("add_salt");
+        account.addStringProperty("additional_salt");
         account.addLongProperty("category").notNull();
         account.addStringProperty("tag").notNull();
         account.addLongProperty("last_access");

@@ -17,9 +17,6 @@ public class Category {
     private String icon;
 
     // KEEP FIELDS - put your custom fields here
-    public boolean equals(Object another) {
-        return another instanceof Category? ((Category) another).getId() == this.getId() : false;
-    }
     // KEEP FIELDS END
 
     public Category() {

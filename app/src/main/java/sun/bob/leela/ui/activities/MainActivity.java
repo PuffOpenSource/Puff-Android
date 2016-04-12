@@ -29,6 +29,7 @@ import sun.bob.leela.ui.drawable.ColorSquare;
 import sun.bob.leela.ui.fragments.AcctListFragment;
 import sun.bob.leela.utils.AppConstants;
 import sun.bob.leela.utils.CryptoUtil;
+import sun.bob.leela.utils.RegExUtil;
 import sun.bob.leela.utils.ResUtil;
 
 /**
@@ -134,11 +135,14 @@ public class MainActivity extends AppCompatActivity
 //                }
 //            }).runEncrypt("123", "456", "789");
 
-            Intent intent = new Intent(this, SetMasterPasswordActivity.class);
-            startActivity(intent);
+//            Intent intent = new Intent(this, SetMasterPasswordActivity.class);
+//            startActivity(intent);
 
 //            Intent intent = new Intent(this, AuthorizeActivity.class);
 //            startActivity(intent);
+
+            boolean is = RegExUtil.isEmail("bob.sun@glowing.com");
+            Log.e("LEELA", String.valueOf(is));
             return true;
         }
 
@@ -189,6 +193,7 @@ public class MainActivity extends AppCompatActivity
                     .show(toShow)
                     .commit();
         }
+        getSupportActionBar().setTitle(category.getName());
         currentFragment = toShow;
     }
 }

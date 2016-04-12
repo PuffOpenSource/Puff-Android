@@ -13,15 +13,16 @@ public class Account {
     /** Not-null value. */
     private String name;
     private long type;
-    private String account_name;
+    private String account;
+    private String masked_account;
     private Boolean hide_name;
-    private String name_salt;
+    private String account_salt;
     /** Not-null value. */
     private String salt;
     /** Not-null value. */
     private String hash;
     private String additional;
-    private String add_salt;
+    private String additional_salt;
     private long category;
     /** Not-null value. */
     private String tag;
@@ -38,17 +39,18 @@ public class Account {
         this.id = id;
     }
 
-    public Account(Long id, String name, long type, String account_name, Boolean hide_name, String name_salt, String salt, String hash, String additional, String add_salt, long category, String tag, Long last_access, String icon) {
+    public Account(Long id, String name, long type, String account, String masked_account, Boolean hide_name, String account_salt, String salt, String hash, String additional, String additional_salt, long category, String tag, Long last_access, String icon) {
         this.id = id;
         this.name = name;
         this.type = type;
-        this.account_name = account_name;
+        this.account = account;
+        this.masked_account = masked_account;
         this.hide_name = hide_name;
-        this.name_salt = name_salt;
+        this.account_salt = account_salt;
         this.salt = salt;
         this.hash = hash;
         this.additional = additional;
-        this.add_salt = add_salt;
+        this.additional_salt = additional_salt;
         this.category = category;
         this.tag = tag;
         this.last_access = last_access;
@@ -81,12 +83,20 @@ public class Account {
         this.type = type;
     }
 
-    public String getAccount_name() {
-        return account_name;
+    public String getAccount() {
+        return account;
     }
 
-    public void setAccount_name(String account_name) {
-        this.account_name = account_name;
+    public void setAccount(String account) {
+        this.account = account;
+    }
+
+    public String getMasked_account() {
+        return masked_account;
+    }
+
+    public void setMasked_account(String masked_account) {
+        this.masked_account = masked_account;
     }
 
     public Boolean getHide_name() {
@@ -97,12 +107,12 @@ public class Account {
         this.hide_name = hide_name;
     }
 
-    public String getName_salt() {
-        return name_salt;
+    public String getAccount_salt() {
+        return account_salt;
     }
 
-    public void setName_salt(String name_salt) {
-        this.name_salt = name_salt;
+    public void setAccount_salt(String account_salt) {
+        this.account_salt = account_salt;
     }
 
     /** Not-null value. */
@@ -133,12 +143,12 @@ public class Account {
         this.additional = additional;
     }
 
-    public String getAdd_salt() {
-        return add_salt;
+    public String getAdditional_salt() {
+        return additional_salt;
     }
 
-    public void setAdd_salt(String add_salt) {
-        this.add_salt = add_salt;
+    public void setAdditional_salt(String additional_salt) {
+        this.additional_salt = additional_salt;
     }
 
     public long getCategory() {

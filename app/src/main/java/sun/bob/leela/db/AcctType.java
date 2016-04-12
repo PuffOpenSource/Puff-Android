@@ -18,9 +18,6 @@ public class AcctType {
     private String icon;
 
     // KEEP FIELDS - put your custom fields here
-    public boolean equals(Object another) {
-        return another instanceof AcctType ? ((AcctType) another).getId() == this.getId() : false;
-    }
     // KEEP FIELDS END
 
     public AcctType() {

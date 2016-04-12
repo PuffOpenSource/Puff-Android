@@ -2,11 +2,9 @@ package sun.bob.leela.ui.activities;
 
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.AppCompatSpinner;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.EditText;
@@ -20,11 +18,11 @@ import sun.bob.leela.db.AccountHelper;
 import sun.bob.leela.db.AcctType;
 import sun.bob.leela.db.Category;
 import sun.bob.leela.db.CategoryHelper;
-import sun.bob.leela.db.TypeHelper;
 import sun.bob.leela.events.CryptoEvent;
-import sun.bob.leela.runnable.CryptoRunnable;
 import sun.bob.leela.utils.AppConstants;
 import sun.bob.leela.utils.CryptoUtil;
+import sun.bob.leela.utils.RegExUtil;
+import sun.bob.leela.utils.StringUtil;
 
 public class AddAccountActivity extends AppCompatActivity {
 
@@ -47,17 +45,24 @@ public class AddAccountActivity extends AppCompatActivity {
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                final String disPlayName;
+                if (RegExUtil.isEmail(account.getText().toString())) {
+                    disPlayName = StringUtil.getMaskedEmail(account.getText().toString());
+                } else {
+                    disPlayName = StringUtil.getMaskedPhoneNumber(account.getText().toString());
+                }
                 new CryptoUtil(AddAccountActivity.this, new CryptoUtil.OnEncryptedListener() {
                     @Override
                     public void onEncrypted(String acctHash, String passwdHash, String addtHash, String acctSalt, String passwdSalt, String addtSalt) {
                         Account account = new Account();
                         account.setName(name.getText().toString());
-                        account.setAccount_name(acctHash);
-                        account.setName_salt(acctSalt);
+                        account.setAccount(acctHash);
+                        account.setAccount_salt(acctSalt);
                         account.setHash(passwdHash);
                         account.setSalt(passwdSalt);
                         account.setAdditional(addtHash);
-                        account.setAdd_salt(addtSalt);
+                        account.setAdditional_salt(addtSalt);
+                        account.setMasked_account(disPlayName);
                         account.setType(((AcctType) spinnerType.getSelectedItem()).getId());
                         account.setCategory(((Category) spinnerCategory.getSelectedItem()).getId());
                         account.setTag("");
