@@ -1,1 +1,1 @@
-include ':app', ':dummypicloader'
+include ':app'

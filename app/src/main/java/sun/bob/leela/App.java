@@ -2,13 +2,9 @@ package sun.bob.leela;
 
 import android.app.Application;
 
-import dpl.bobsun.dummypicloader.DummyPicLoader;
-import sun.bob.leela.db.Account;
 import sun.bob.leela.db.AccountHelper;
-import sun.bob.leela.db.Category;
 import sun.bob.leela.db.CategoryHelper;
 import sun.bob.leela.db.TypeHelper;
-import sun.bob.leela.utils.AppConstants;
 import sun.bob.leela.utils.CategoryUtil;
 import sun.bob.leela.utils.EnvUtil;
 import sun.bob.leela.utils.ResUtil;
@@ -35,8 +31,6 @@ public class App extends Application {
         ResUtil.getInstance(getApplicationContext());
         CategoryUtil.getInstance(getApplicationContext());
         EnvUtil.getInstance(getApplicationContext());
-
-        DummyPicLoader.getInstance(getApplicationContext());
 
     }
 }

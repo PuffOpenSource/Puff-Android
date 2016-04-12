@@ -24,6 +24,7 @@ import sun.bob.leela.R;
 import sun.bob.leela.db.AcctType;
 import sun.bob.leela.db.TypeHelper;
 import sun.bob.leela.ui.activities.AddTypeDialogActivity;
+import sun.bob.leela.utils.ResUtil;
 
 /**
  * Created by bob.sun on 16/3/24.
@@ -70,7 +71,7 @@ public class TypeSpinnerAdapter extends ArrayAdapter implements View.OnClickList
         viewHolder.textView = (TextView) convertView.findViewById(R.id.text_view);
         viewHolder.textView.setText(type.getName());
         try {
-            viewHolder.imageView.setImageBitmap(BitmapFactory.decodeStream(getContext().getAssets().open(type.getIcon())));
+            viewHolder.imageView.setImageBitmap(ResUtil.getInstance(null).getBmp(type.getIcon()));
         } catch (IOException e) {
             e.printStackTrace();
         }

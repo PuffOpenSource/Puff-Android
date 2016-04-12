@@ -13,6 +13,7 @@ import android.support.v7.widget.AppCompatButton;
 import android.support.v7.widget.AppCompatImageView;
 import android.support.v7.widget.AppCompatSpinner;
 import android.view.View;
+import android.widget.EditText;
 import android.widget.ImageView;
 
 
@@ -27,14 +28,20 @@ import java.util.UUID;
 import sun.bob.leela.App;
 import sun.bob.leela.R;
 import sun.bob.leela.adapters.CategorySpinnerAdapter;
+import sun.bob.leela.db.AcctType;
+import sun.bob.leela.db.Category;
+import sun.bob.leela.db.TypeHelper;
 import sun.bob.leela.utils.AppConstants;
 import sun.bob.leela.utils.EnvUtil;
+import sun.bob.leela.utils.StringUtil;
 
 public class AddTypeDialogActivity extends AppCompatActivity {
 
     private AppCompatButton buttonOK, buttonCancel;
     private AppCompatSpinner categorySpinner;
     private AppCompatImageView imageView;
+    private String imgPath;
+    private EditText etName;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -48,7 +55,22 @@ public class AddTypeDialogActivity extends AppCompatActivity {
         buttonOK.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-//                setResult();
+                String name = etName.getText().toString();
+                if (StringUtil.isNullOrEmpty(name)) {
+                    return;
+                }
+                if (StringUtil.isNullOrEmpty(imgPath)) {
+                    return;
+                }
+                AcctType type = new AcctType();
+                type.setCategory(((Category) categorySpinner.getSelectedItem()).getId());
+                type.setName(name);
+                type.setIcon(imgPath);
+
+                type.setMax_length(0);
+                type.setNumbers_only(false);
+
+                TypeHelper.getInstance(AddTypeDialogActivity.this).save(type);
                 finish();
             }
         });
@@ -96,6 +118,8 @@ public class AddTypeDialogActivity extends AppCompatActivity {
                 startActivityForResult(chooserIntent, AppConstants.REQUEST_CODE_IMAGE);
             }
         });
+
+        etName = (EditText) findViewById(R.id.id_name);
     }
 
     @Override
@@ -116,11 +140,11 @@ public class AddTypeDialogActivity extends AppCompatActivity {
                     return;
                 }
                 String file = data.getStringExtra("cacheIcon");
-                String copy = EnvUtil.getInstance(null).getAcctIconFolder() + UUID.randomUUID().toString();
+                imgPath = EnvUtil.getInstance(null).getAcctIconFolder() + UUID.randomUUID().toString();
                 FileOutputStream outputStream;
                 FileInputStream inputStream;
                 try {
-                    outputStream = new FileOutputStream(copy);
+                    outputStream = new FileOutputStream(imgPath);
                     inputStream = new FileInputStream(file);
                     byte[] buffer = new byte[1024];
                     int read;
@@ -131,10 +155,12 @@ public class AddTypeDialogActivity extends AppCompatActivity {
                     inputStream.close();
                 } catch (FileNotFoundException e) {
                     e.printStackTrace();
+                    imgPath = null;
                 } catch (IOException e) {
                     e.printStackTrace();
+                    imgPath = null;
                 }
-                imageView.setImageBitmap(BitmapFactory.decodeFile(copy));
+                imageView.setImageBitmap(BitmapFactory.decodeFile(imgPath));
                 new File(file).delete();
                 break;
             case AppConstants.REQUEST_CODE_ADD_CATE:

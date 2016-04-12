@@ -69,7 +69,10 @@ public class TypeHelper {
     }
 
     public long save(AcctType acctType) {
-        return acctTypeDao.insertOrReplace(acctType);
+        if (acctType.getId() == null || getTypeById(acctType.getId()) == null)
+            return acctTypeDao.insertOrReplace(acctType);
+        acctTypeDao.update(acctType);
+        return acctType.getId();
     }
 
     public void delete(AcctType acctType) {
