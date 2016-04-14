@@ -9,12 +9,22 @@ import android.support.v4.view.ViewCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.AppCompatButton;
 import android.view.View;
+import android.widget.EditText;
 import android.widget.ImageView;
 
 import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.util.UUID;
 
 import sun.bob.leela.R;
+import sun.bob.leela.db.Category;
+import sun.bob.leela.db.CategoryHelper;
 import sun.bob.leela.utils.AppConstants;
+import sun.bob.leela.utils.EnvUtil;
+import sun.bob.leela.utils.StringUtil;
 
 /**
  * Created by bob.sun on 16/4/1.
@@ -23,18 +33,32 @@ public class AddCategoryDialogActivity extends AppCompatActivity {
 
     private AppCompatButton buttonOK, buttonCancel;
     private ImageView imageView;
-
+    private EditText etName;
+    private String imgPath;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_category_dialog);
+
+        etName = (EditText) findViewById(R.id.id_name);
         buttonOK = (AppCompatButton) findViewById(R.id.button_ok);
         ViewCompat.setElevation(buttonOK, 10);
         buttonOK.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 //                setResult();
+                if (StringUtil.isNullOrEmpty(etName.getText().toString())) {
+                    return;
+                }
+                if (StringUtil.isNullOrEmpty(imgPath)) {
+                    return;
+                }
+                Category category = new Category();
+                category.setName(etName.getText().toString());
+                category.setIcon(imgPath);
+                category.setType(AppConstants.CAT_TYPE_CUSTOM);
+                CategoryHelper.getInstance(null).saveCategory(category);
                 finish();
             }
         });
@@ -102,7 +126,27 @@ public class AddCategoryDialogActivity extends AppCompatActivity {
                     return;
                 }
                 String file = data.getStringExtra("cacheIcon");
-                imageView.setImageBitmap(BitmapFactory.decodeFile(file));
+                imgPath = EnvUtil.getInstance(null).getAcctIconFolder() + UUID.randomUUID().toString();
+                FileOutputStream outputStream;
+                FileInputStream inputStream;
+                try {
+                    outputStream = new FileOutputStream(imgPath);
+                    inputStream = new FileInputStream(file);
+                    byte[] buffer = new byte[1024];
+                    int read;
+                    while ((read = inputStream.read(buffer)) > 0) {
+                        outputStream.write(buffer, 0, read);
+                    }
+                    outputStream.close();
+                    inputStream.close();
+                } catch (FileNotFoundException e) {
+                    e.printStackTrace();
+                    imgPath = null;
+                } catch (IOException e) {
+                    e.printStackTrace();
+                    imgPath = null;
+                }
+                imageView.setImageBitmap(BitmapFactory.decodeFile(imgPath));
                 new File(file).delete();
                 break;
             default:

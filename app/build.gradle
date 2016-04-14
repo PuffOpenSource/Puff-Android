@@ -30,4 +30,5 @@ dependencies {
     compile 'com.android.support:cardview-v7:23.1.1'
     compile 'com.lyft:scissors:1.0.3'
     compile 'com.hanks.animatecheckbox:library:0.1'
+    compile 'com.facebook.fresco:fresco:0.9.0+'
 }

@@ -70,7 +70,11 @@ public class CategoryHelper {
     }
 
     public long saveCategory(Category category) {
-        return categoryDao.insertOrReplace(category);
+        if (category.getId() == null || getCategoryById(category.getId()) == null) {
+            return categoryDao.insertOrReplace(category);
+        }
+        categoryDao.update(category);
+        return category.getId();
     }
 
     public void deleteCategory(Category category) {
