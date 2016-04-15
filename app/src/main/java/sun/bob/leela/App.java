@@ -2,8 +2,6 @@ package sun.bob.leela;
 
 import android.app.Application;
 
-import com.facebook.drawee.backends.pipeline.Fresco;
-
 import sun.bob.leela.db.AccountHelper;
 import sun.bob.leela.db.CategoryHelper;
 import sun.bob.leela.db.TypeHelper;
@@ -34,6 +32,5 @@ public class App extends Application {
         CategoryUtil.getInstance(getApplicationContext());
         EnvUtil.getInstance(getApplicationContext());
 
-        Fresco.initialize(getApplicationContext());
     }
 }

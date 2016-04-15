@@ -2,6 +2,7 @@ package sun.bob.leela.ui.activities;
 
 import android.content.Intent;
 import android.graphics.Bitmap;
+import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
 import android.support.design.widget.FloatingActionButton;
@@ -12,6 +13,7 @@ import android.widget.ImageView;
 
 import com.lyft.android.scissors.BitmapLoader;
 import com.lyft.android.scissors.CropView;
+import com.squareup.picasso.Picasso;
 
 import java.io.File;
 import java.io.IOException;
@@ -36,21 +38,22 @@ public class ImageCropActivity extends AppCompatActivity {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        try {
-            image = MediaStore.Images.Media.getBitmap(this.getContentResolver(), getIntent().getData());
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-
+//        try {
+//            image = MediaStore.Images.Media.getBitmap(this.getContentResolver(), getIntent().getData());
+//        } catch (IOException e) {
+//            e.printStackTrace();
+//        }
+//        Picasso.with(this).load(getIntent().getData()).into(cropView);
         cropView = (CropView) findViewById(R.id.crop_view);
         BitmapLoader bitmapLoader = new BitmapLoader() {
             @Override
             public void load(Object model, ImageView view) {
                 //TODD Add DPL here.
-                view.setImageBitmap((Bitmap) model);
+//                view.setImageBitmap((Bitmap) model);
+                Picasso.with(ImageCropActivity.this).load((Uri) model).fit().into(view);
             }
         };
-        cropView.extensions().using(bitmapLoader).load(image);
+        cropView.extensions().using(bitmapLoader).load(getIntent().getData());
 
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {

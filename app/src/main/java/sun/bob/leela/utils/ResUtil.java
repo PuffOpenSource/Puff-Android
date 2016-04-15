@@ -4,12 +4,14 @@ import android.app.Activity;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.net.Uri;
 import android.os.Handler;
 import android.support.v4.widget.ContentLoadingProgressBar;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatDialog;
 import android.widget.ProgressBar;
 
+import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
@@ -46,14 +48,23 @@ public class ResUtil {
         return BitmapFactory.decodeStream(context.getResources().getAssets().open(assetName));
     }
 
-    public Bitmap getBmp(String fileName) throws IOException {
+//    public Bitmap getBmp(String fileName) throws IOException {
+//        if (fileName.startsWith("/")) {
+//            //File System
+//            return BitmapFactory.decodeStream(new FileInputStream(fileName));
+//        } else {
+//            //Assets
+//            return BitmapFactory.decodeStream(context.getResources().getAssets().open(fileName));
+//        }
+//    }
+
+    public Uri getBmpUri(String fileName) {
         if (fileName.startsWith("/")) {
-            //File System
-            return BitmapFactory.decodeStream(new FileInputStream(fileName));
+            return Uri.fromFile(new File(fileName));
         } else {
-            //Assets
-            return BitmapFactory.decodeStream(context.getResources().getAssets().open(fileName));
+            return Uri.parse("file:///android_asset/" + fileName);
         }
+
     }
 
     public Object getBmpPath(String fileName) {

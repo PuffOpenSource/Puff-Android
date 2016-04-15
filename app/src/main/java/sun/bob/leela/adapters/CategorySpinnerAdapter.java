@@ -12,6 +12,8 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.squareup.picasso.Picasso;
+
 import java.io.IOException;
 import java.util.ArrayList;
 
@@ -62,11 +64,14 @@ public class CategorySpinnerAdapter extends ArrayAdapter {
         viewHolder.textView = (TextView) convertView.findViewById(R.id.text_view);
         viewHolder.imageView = (ImageView) convertView.findViewById(R.id.image_view);
         viewHolder.textView.setText(categories.get(position).getName());
-        try {
-            viewHolder.imageView.setImageBitmap(ResUtil.getInstance(null).getBmp(categories.get(position).getIcon()));
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+        Picasso.with(getContext())
+                .load(ResUtil.getInstance(null).getBmpUri(categories.get(position).getIcon()))
+                .into(viewHolder.imageView);
+//        try {
+//            viewHolder.imageView.setImageBitmap(ResUtil.getInstance(null).getBmp(categories.get(position).getIcon()));
+//        } catch (IOException e) {
+//            e.printStackTrace();
+//        }
         return convertView;
     }
 

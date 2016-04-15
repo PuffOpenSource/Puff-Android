@@ -16,6 +16,8 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.squareup.picasso.Picasso;
+
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Objects;
@@ -70,11 +72,13 @@ public class TypeSpinnerAdapter extends ArrayAdapter implements View.OnClickList
         viewHolder.imageView = (ImageView) convertView.findViewById(R.id.image_view);
         viewHolder.textView = (TextView) convertView.findViewById(R.id.text_view);
         viewHolder.textView.setText(type.getName());
-        try {
-            viewHolder.imageView.setImageBitmap(ResUtil.getInstance(null).getBmp(type.getIcon()));
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+        Picasso.with(getContext()).load(ResUtil.getInstance(null).getBmpUri(type.getIcon()))
+                .into(viewHolder.imageView);
+//        try {
+//            viewHolder.imageView.setImageBitmap(ResUtil.getInstance(null).getBmp(type.getIcon()));
+//        } catch (IOException e) {
+//            e.printStackTrace();
+//        }
         return convertView;
     }
 

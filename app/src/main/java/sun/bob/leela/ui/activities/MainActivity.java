@@ -1,7 +1,10 @@
 package sun.bob.leela.ui.activities;
 
 import android.content.Intent;
+import android.graphics.Bitmap;
 import android.graphics.drawable.BitmapDrawable;
+import android.graphics.drawable.Drawable;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.NavigationView;
@@ -17,6 +20,10 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
+
+import com.squareup.picasso.Picasso;
+import com.squareup.picasso.RequestCreator;
+import com.squareup.picasso.Target;
 
 import java.io.IOException;
 import java.util.HashMap;
@@ -72,17 +79,27 @@ public class MainActivity extends AppCompatActivity
         navigationView.setNavigationItemSelectedListener(this);
         navigationView.setItemIconTintList(null);
 
-        MenuItem item;
+
         for (Category category : CategoryHelper.getInstance(null).getAllCategory()) {
-            try {
-                item = navigationView.getMenu().add(category.getName());
-                item.setIcon(new BitmapDrawable(
-                        getResources(),
-                        ResUtil.getInstance(null).getBmp(category.getIcon())
-                ));
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
+            final MenuItem item = navigationView.getMenu().add(category.getName());
+            Target target = new Target() {
+                @Override
+                public void onBitmapLoaded(Bitmap bitmap, Picasso.LoadedFrom from) {
+                    item.setIcon(new BitmapDrawable(getResources(), bitmap));
+                }
+
+                @Override
+                public void onBitmapFailed(Drawable errorDrawable) {
+                }
+
+                @Override
+                public void onPrepareLoad(Drawable placeHolderDrawable) {
+
+                }
+            };
+
+            Picasso.with(MainActivity.this).load(ResUtil.getInstance(null).getBmpUri(category.getIcon()))
+                    .into(target);
         }
 
         acctListFragment = AcctListFragment.newInstance(AppConstants.CAT_ID_DEFAULT);
