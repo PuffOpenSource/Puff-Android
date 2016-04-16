@@ -126,7 +126,7 @@ public class AddCategoryDialogActivity extends AppCompatActivity {
                     return;
                 }
                 String file = data.getStringExtra("cacheIcon");
-                imgPath = EnvUtil.getInstance(null).getAcctIconFolder() + UUID.randomUUID().toString();
+                imgPath = EnvUtil.getInstance(null).getCatIconFolder() + UUID.randomUUID().toString();
                 FileOutputStream outputStream;
                 FileInputStream inputStream;
                 try {

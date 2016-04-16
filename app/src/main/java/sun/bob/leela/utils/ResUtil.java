@@ -48,15 +48,15 @@ public class ResUtil {
         return BitmapFactory.decodeStream(context.getResources().getAssets().open(assetName));
     }
 
-//    public Bitmap getBmp(String fileName) throws IOException {
-//        if (fileName.startsWith("/")) {
-//            //File System
-//            return BitmapFactory.decodeStream(new FileInputStream(fileName));
-//        } else {
-//            //Assets
-//            return BitmapFactory.decodeStream(context.getResources().getAssets().open(fileName));
-//        }
-//    }
+    public Bitmap getBmp(String fileName) throws IOException {
+        if (fileName.startsWith("/")) {
+            //File System
+            return BitmapFactory.decodeStream(new FileInputStream(fileName));
+        } else {
+            //Assets
+            return BitmapFactory.decodeStream(context.getResources().getAssets().open(fileName));
+        }
+    }
 
     public Uri getBmpUri(String fileName) {
         if (fileName.startsWith("/")) {

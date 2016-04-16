@@ -18,6 +18,7 @@ import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.SubMenu;
 import android.view.View;
 import android.widget.AdapterView;
 
@@ -48,6 +49,7 @@ public class MainActivity extends AppCompatActivity
     private AcctListFragment acctListFragment;
     private AcctListFragment currentFragment;
     private HashMap<Long, AcctListFragment> fragments;
+    private SubMenu categoriesMenu;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -79,28 +81,9 @@ public class MainActivity extends AppCompatActivity
         navigationView.setNavigationItemSelectedListener(this);
         navigationView.setItemIconTintList(null);
 
+        categoriesMenu = navigationView.getMenu().addSubMenu("Categories");
 
-        for (Category category : CategoryHelper.getInstance(null).getAllCategory()) {
-            final MenuItem item = navigationView.getMenu().add(category.getName());
-            Target target = new Target() {
-                @Override
-                public void onBitmapLoaded(Bitmap bitmap, Picasso.LoadedFrom from) {
-                    item.setIcon(new BitmapDrawable(getResources(), bitmap));
-                }
-
-                @Override
-                public void onBitmapFailed(Drawable errorDrawable) {
-                }
-
-                @Override
-                public void onPrepareLoad(Drawable placeHolderDrawable) {
-
-                }
-            };
-
-            Picasso.with(MainActivity.this).load(ResUtil.getInstance(null).getBmpUri(category.getIcon()))
-                    .into(target);
-        }
+        loadCategoriesInNavigation();
 
         acctListFragment = AcctListFragment.newInstance(AppConstants.CAT_ID_DEFAULT);
         fragments.put(AppConstants.CAT_ID_DEFAULT, acctListFragment);
@@ -113,6 +96,18 @@ public class MainActivity extends AppCompatActivity
         if (!AccountHelper.getInstance(this).hasMasterPassword()) {
             Intent intent = new Intent(this, SetMasterPasswordActivity.class);
             startActivity(intent);
+        }
+    }
+
+    private void loadCategoriesInNavigation() {
+        categoriesMenu.clear();
+        for (Category category : CategoryHelper.getInstance(null).getAllCategory()) {
+            try {
+                categoriesMenu.add(category.getName()).setIcon(new BitmapDrawable(getResources(),
+                        ResUtil.getInstance(null).getBmp(category.getIcon())));
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
         }
     }
 

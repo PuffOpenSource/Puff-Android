@@ -66,7 +66,7 @@ public class CategoryHelper {
         List<Category> result = categoryDao.queryBuilder()
                 .where(CategoryDao.Properties.Id.eq(id))
                 .list();
-        return result == null ? null : result.get(0);
+        return result == null || result.size() == 0 ? null : result.get(0);
     }
 
     public long saveCategory(Category category) {

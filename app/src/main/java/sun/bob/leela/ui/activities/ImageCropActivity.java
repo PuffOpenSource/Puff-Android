@@ -26,6 +26,7 @@ import java.util.concurrent.TimeoutException;
 
 import sun.bob.leela.R;
 import sun.bob.leela.utils.EnvUtil;
+import sun.bob.leela.utils.ResUtil;
 
 public class ImageCropActivity extends AppCompatActivity {
 
@@ -39,35 +40,29 @@ public class ImageCropActivity extends AppCompatActivity {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-//        try {
-//            image = MediaStore.Images.Media.getBitmap(this.getContentResolver(), getIntent().getData());
-//        } catch (IOException e) {
-//            e.printStackTrace();
-//        }
-//        Picasso.with(this).load(getIntent().getData()).into(cropView);
-
-
-        Cursor cursor = null;
-        try {
-            String[] proj = { MediaStore.Images.Media.DATA };
+        Uri uri = getIntent().getData();
+        if (uri.getScheme().equalsIgnoreCase("file")) {
+            image = uri.getPath();
+        } else {
+            Cursor cursor = null;
+            try {
+                String[] proj = { MediaStore.Images.Media.DATA };
                 cursor = getContentResolver().query(getIntent().getData(),  proj, null, null, null);
                 int column_index = cursor.getColumnIndexOrThrow(MediaStore.Images.Media.DATA);
                 cursor.moveToFirst();
                 image = cursor.getString(column_index);
-        } finally {
-            if (cursor != null) {
+            } finally {
+                if (cursor != null) {
                     cursor.close();
+                }
             }
         }
-
 
 
         cropView = (CropView) findViewById(R.id.crop_view);
         BitmapLoader bitmapLoader = new BitmapLoader() {
             @Override
             public void load(Object model, ImageView view) {
-                //TODD Add DPL here.
-//                view.setImageBitmap((Bitmap) model);
                 Picasso.with(ImageCropActivity.this)
                         .load("file://" + image)
                         .config(Bitmap.Config.RGB_565)
@@ -92,8 +87,8 @@ public class ImageCropActivity extends AppCompatActivity {
                 }
                 final Future future = cropView.extensions()
                         .crop()
-                        .quality(50)
-                        .format(Bitmap.CompressFormat.PNG)
+                        .quality(10)
+                        .format(Bitmap.CompressFormat.JPEG)
                         .into(file);
                 new Thread(new Runnable() {
                     @Override
