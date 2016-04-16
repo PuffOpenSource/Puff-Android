@@ -143,6 +143,10 @@ public class AddAccountActivity extends AppCompatActivity {
                 }
                 Category category = (Category) parent.getAdapter().getItem(position);
                 AddAccountActivity.this.category = category.getId();
+
+                Uri icon = ResUtil.getInstance(null)
+                        .getBmpUri( ((Category) ((CategorySpinnerAdapter)spinnerCategory.getAdapter()).getItem(position)).getIcon());
+                Picasso.with(AddAccountActivity.this).load(icon).fit().config(Bitmap.Config.RGB_565).into(imageView);
             }
 
             @Override
@@ -150,6 +154,13 @@ public class AddAccountActivity extends AppCompatActivity {
                 category = Long.valueOf(-1);
             }
         });
+
+        Uri icon = ResUtil.getInstance(null)
+                .getBmpUri( ((Category) ((CategorySpinnerAdapter)spinnerCategory.getAdapter()).getItem(0)).getIcon());
+        Picasso.with(this).load(icon)
+                .fit()
+                .config(Bitmap.Config.RGB_565)
+                .into(imageView);
     }
 
     public void onEventMainThread(CryptoEvent event){
