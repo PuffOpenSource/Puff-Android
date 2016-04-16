@@ -114,6 +114,7 @@ public class AcctListFragment extends Fragment {
     @Override
     public void onResume(){
         super.onResume();
+        adapter.loadAccountsInCategory(category);
         if (recyclerView.getAdapter().getItemCount() == 0) {
             placeHolder.setVisibility(View.VISIBLE);
             recyclerView.setVisibility(View.INVISIBLE);
@@ -121,7 +122,6 @@ public class AcctListFragment extends Fragment {
             placeHolder.setVisibility(View.INVISIBLE);
             recyclerView.setVisibility(View.VISIBLE);
             adapter.notifyItemRangeChanged(0, adapter.getItemCount());
-            adapter.loadAccountsInCategory(category);
             adapter.notifyDataSetChanged();
         }
     }
@@ -129,13 +129,14 @@ public class AcctListFragment extends Fragment {
     @Override
     public void onHiddenChanged(boolean hidden) {
         super.onHiddenChanged(hidden);
+
+        adapter.loadAccountsInCategory(category);
         if (recyclerView.getAdapter().getItemCount() == 0) {
             placeHolder.setVisibility(View.VISIBLE);
             recyclerView.setVisibility(View.INVISIBLE);
         } else {
             placeHolder.setVisibility(View.INVISIBLE);
             recyclerView.setVisibility(View.VISIBLE);
-            adapter.loadAccountsInCategory(category);
             adapter.notifyDataSetChanged();
         }
     }
