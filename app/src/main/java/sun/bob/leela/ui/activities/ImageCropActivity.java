@@ -1,6 +1,7 @@
 package sun.bob.leela.ui.activities;
 
 import android.content.Intent;
+import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Bundle;
@@ -28,7 +29,7 @@ import sun.bob.leela.utils.EnvUtil;
 
 public class ImageCropActivity extends AppCompatActivity {
 
-    private Bitmap image;
+    private String image;
     private CropView cropView;
 
     @Override
@@ -44,13 +45,33 @@ public class ImageCropActivity extends AppCompatActivity {
 //            e.printStackTrace();
 //        }
 //        Picasso.with(this).load(getIntent().getData()).into(cropView);
+
+
+        Cursor cursor = null;
+        try {
+            String[] proj = { MediaStore.Images.Media.DATA };
+                cursor = getContentResolver().query(getIntent().getData(),  proj, null, null, null);
+                int column_index = cursor.getColumnIndexOrThrow(MediaStore.Images.Media.DATA);
+                cursor.moveToFirst();
+                image = cursor.getString(column_index);
+        } finally {
+            if (cursor != null) {
+                    cursor.close();
+            }
+        }
+
+
+
         cropView = (CropView) findViewById(R.id.crop_view);
         BitmapLoader bitmapLoader = new BitmapLoader() {
             @Override
             public void load(Object model, ImageView view) {
                 //TODD Add DPL here.
 //                view.setImageBitmap((Bitmap) model);
-                Picasso.with(ImageCropActivity.this).load((Uri) model).fit().into(view);
+                Picasso.with(ImageCropActivity.this)
+                        .load("file://" + image)
+                        .config(Bitmap.Config.RGB_565)
+                        .into(view);
             }
         };
         cropView.extensions().using(bitmapLoader).load(getIntent().getData());
