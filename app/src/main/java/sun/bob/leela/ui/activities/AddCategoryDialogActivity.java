@@ -2,6 +2,7 @@ package sun.bob.leela.ui.activities;
 
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Bundle;
@@ -11,6 +12,8 @@ import android.support.v7.widget.AppCompatButton;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageView;
+
+import com.squareup.picasso.Picasso;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -24,6 +27,7 @@ import sun.bob.leela.db.Category;
 import sun.bob.leela.db.CategoryHelper;
 import sun.bob.leela.utils.AppConstants;
 import sun.bob.leela.utils.EnvUtil;
+import sun.bob.leela.utils.ResUtil;
 import sun.bob.leela.utils.StringUtil;
 
 /**
@@ -146,7 +150,10 @@ public class AddCategoryDialogActivity extends AppCompatActivity {
                     e.printStackTrace();
                     imgPath = null;
                 }
-                imageView.setImageBitmap(BitmapFactory.decodeFile(imgPath));
+                Picasso.with(this).load(ResUtil.getInstance(null).getBmpUri(imgPath))
+                        .fit()
+                        .config(Bitmap.Config.RGB_565)
+                        .into(imageView);
                 new File(file).delete();
                 break;
             default:

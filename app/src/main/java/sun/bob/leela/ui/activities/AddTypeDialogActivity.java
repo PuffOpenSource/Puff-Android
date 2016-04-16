@@ -3,6 +3,7 @@ package sun.bob.leela.ui.activities;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.support.v4.view.ViewCompat;
@@ -16,6 +17,8 @@ import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageView;
 
+
+import com.squareup.picasso.Picasso;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -33,6 +36,7 @@ import sun.bob.leela.db.Category;
 import sun.bob.leela.db.TypeHelper;
 import sun.bob.leela.utils.AppConstants;
 import sun.bob.leela.utils.EnvUtil;
+import sun.bob.leela.utils.ResUtil;
 import sun.bob.leela.utils.StringUtil;
 
 public class AddTypeDialogActivity extends AppCompatActivity {
@@ -160,7 +164,10 @@ public class AddTypeDialogActivity extends AppCompatActivity {
                     e.printStackTrace();
                     imgPath = null;
                 }
-                imageView.setImageBitmap(BitmapFactory.decodeFile(imgPath));
+                Picasso.with(this).load(ResUtil.getInstance(null).getBmpUri(imgPath))
+                        .fit()
+                        .config(Bitmap.Config.RGB_565)
+                        .into(imageView);
                 new File(file).delete();
                 break;
             case AppConstants.REQUEST_CODE_ADD_CATE:
