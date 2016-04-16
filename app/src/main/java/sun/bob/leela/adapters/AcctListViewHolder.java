@@ -1,18 +1,23 @@
 package sun.bob.leela.adapters;
 
 import android.animation.ValueAnimator;
+import android.graphics.Bitmap;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.animation.AccelerateDecelerateInterpolator;
+import android.widget.ImageView;
 import android.widget.TextView;
+
+import com.squareup.picasso.Picasso;
 
 import de.greenrobot.event.EventBus;
 import sun.bob.leela.R;
 import sun.bob.leela.db.Account;
 import sun.bob.leela.events.ItemUIEvent;
 import sun.bob.leela.utils.CryptoUtil;
+import sun.bob.leela.utils.ResUtil;
 
 /**
  * Created by bob.sun on 16/3/19.
@@ -23,6 +28,7 @@ public class AcctListViewHolder extends RecyclerView.ViewHolder{
     private float dp;
 
     private TextView name, accountName;
+    private ImageView image;
 
     public AcctListViewHolder(View itemView) {
         super(itemView);
@@ -33,6 +39,11 @@ public class AcctListViewHolder extends RecyclerView.ViewHolder{
     public void configureWithAccount(final Account account) {
         ((TextView) itemView.findViewById(R.id.list_name)).setText(account.getName());
         ((TextView) itemView.findViewById(R.id.list_account_name)).setText(account.getMasked_account());
+        Picasso.with(this.itemView.getContext())
+                .load(ResUtil.getInstance(null).getBmpUri(account.getIcon()))
+                .fit()
+                .config(Bitmap.Config.RGB_565)
+                .into((ImageView) itemView.findViewById(R.id.list_account_image));
 
         this.itemView.findViewById(R.id.view_button).setOnClickListener(new View.OnClickListener() {
             @Override

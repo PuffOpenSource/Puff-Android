@@ -3,6 +3,7 @@ package sun.bob.leela.adapters;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatDialog;
@@ -72,7 +73,12 @@ public class TypeSpinnerAdapter extends ArrayAdapter implements View.OnClickList
         viewHolder.imageView = (ImageView) convertView.findViewById(R.id.image_view);
         viewHolder.textView = (TextView) convertView.findViewById(R.id.text_view);
         viewHolder.textView.setText(type.getName());
+
+        int size = ResUtil.getInstance(null).pointToDp(50);
         Picasso.with(getContext()).load(ResUtil.getInstance(null).getBmpUri(type.getIcon()))
+                .config(Bitmap.Config.RGB_565)
+                .resize(size, size)
+                .onlyScaleDown()
                 .into(viewHolder.imageView);
 //        try {
 //            viewHolder.imageView.setImageBitmap(ResUtil.getInstance(null).getBmp(type.getIcon()));

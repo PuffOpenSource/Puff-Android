@@ -2,6 +2,7 @@ package sun.bob.leela.adapters;
 
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Bitmap;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.AppCompatButton;
 import android.view.LayoutInflater;
@@ -64,8 +65,13 @@ public class CategorySpinnerAdapter extends ArrayAdapter {
         viewHolder.textView = (TextView) convertView.findViewById(R.id.text_view);
         viewHolder.imageView = (ImageView) convertView.findViewById(R.id.image_view);
         viewHolder.textView.setText(categories.get(position).getName());
+
+        int size = ResUtil.getInstance(null).pointToDp(50);
         Picasso.with(getContext())
                 .load(ResUtil.getInstance(null).getBmpUri(categories.get(position).getIcon()))
+                .resize(size, size)
+                .onlyScaleDown()
+                .config(Bitmap.Config.RGB_565)
                 .into(viewHolder.imageView);
 //        try {
 //            viewHolder.imageView.setImageBitmap(ResUtil.getInstance(null).getBmp(categories.get(position).getIcon()));
