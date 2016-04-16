@@ -51,7 +51,7 @@ public class AcctListViewHolder extends RecyclerView.ViewHolder{
                     .into((ImageView) itemView.findViewById(R.id.list_account_image));
         } else {
             Uri icon = ResUtil.getInstance(null)
-                .getBmpUri(CategoryHelper.getInstance(null).getCategoryById(account.getId()).getIcon());
+                .getBmpUri(CategoryHelper.getInstance(null).getCategoryById(account.getCategory()).getIcon());
             Picasso.with(this.itemView.getContext())
                     .load(icon)
                     .fit()
