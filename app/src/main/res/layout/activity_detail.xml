@@ -50,15 +50,6 @@
                 android:textColor="#FFF"
                 android:gravity="bottom"
                 android:hint="Title" />
-            <!--<android.support.v7.widget.Toolbar-->
-                <!--android:id="@+id/toolbar_title"-->
-                <!--android:layout_width="match_parent"-->
-                <!--android:layout_height="60dp"-->
-                <!--android:background="@null"-->
-                <!--android:layout_marginTop="120dp"-->
-                <!--app:popupTheme="@style/AppTheme.PopupOverlay"-->
-                <!--app:layout_collapseMode="pin"-->
-                <!--/>-->
         </android.support.design.widget.CollapsingToolbarLayout>
     </android.support.design.widget.AppBarLayout>
 

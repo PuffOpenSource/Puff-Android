@@ -70,7 +70,7 @@
                     android:layout_marginLeft="16dp"
                     android:layout_marginRight="16dp">
                     <!--Use drawableLeft attr to add an Icon on Button-->
-                    <Button
+                    <android.support.v7.widget.AppCompatButton
                         android:layout_width="0dp"
                         android:layout_weight="1.0"
                         android:layout_height="60dp"
@@ -79,8 +79,10 @@
                         android:textAlignment="center"
                         android:layout_alignParentBottom="true"
                         android:layout_marginRight="10dp"
+                        android:textColor="#009688"
+                        android:background="@null"
                         />
-                    <Button
+                    <android.support.v7.widget.AppCompatButton
                         android:layout_width="0dp"
                         android:layout_weight="1.0"
                         android:layout_height="60dp"
@@ -89,8 +91,10 @@
                         android:textAlignment="center"
                         android:layout_alignParentBottom="true"
                         android:layout_marginRight="10dp"
+                        android:textColor="#009688"
+                        android:background="@null"
                         />
-                    <Button
+                    <android.support.v7.widget.AppCompatButton
                         android:layout_width="0dp"
                         android:layout_weight="1.0"
                         android:layout_height="60dp"
@@ -98,6 +102,8 @@
                         android:text="Copy"
                         android:textAlignment="center"
                         android:layout_alignParentBottom="true"
+                        android:textColor="#009688"
+                        android:background="@null"
                         />
                 </LinearLayout>
             </RelativeLayout>
