@@ -100,7 +100,9 @@ public class AddAccountActivity extends AppCompatActivity {
                         account.setType(((AcctType) spinnerType.getSelectedItem()).getId());
                         account.setCategory(((Category) spinnerCategory.getSelectedItem()).getId());
                         account.setTag("");
-                        account.setIcon(StringUtil.isNullOrEmpty(iconPath) ? "" : iconPath);
+                        account.setIcon(StringUtil.isNullOrEmpty(iconPath) ?
+                                ((Category) spinnerCategory.getSelectedItem()).getIcon() :
+                                iconPath);
                         AccountHelper.getInstance(AddAccountActivity.this).saveAccount(account);
                         finish();
                     }

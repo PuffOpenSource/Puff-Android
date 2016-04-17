@@ -28,6 +28,7 @@
                 android:scaleType="centerCrop"
                 android:background="#ccc"
                 android:alpha="0.8"
+                android:id="@+id/account_image"
                 android:src="@drawable/ic_lock"/>
             <android.support.v7.widget.Toolbar
                 android:id="@+id/toolbar"
@@ -46,7 +47,7 @@
                 android:layout_marginRight="16dp"
                 android:textSize="20dp"
                 android:textColor="#FFF"
-                android:gravity="center_vertical"
+                android:gravity="bottom"
                 android:hint="Title" />
             <!--<android.support.v7.widget.Toolbar-->
                 <!--android:id="@+id/toolbar_title"-->

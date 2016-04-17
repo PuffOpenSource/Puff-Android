@@ -1,8 +1,10 @@
 package sun.bob.leela.adapters;
 
 import android.animation.ValueAnimator;
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.net.Uri;
+import android.os.Bundle;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.View;
@@ -13,12 +15,15 @@ import android.widget.TextView;
 
 import com.squareup.picasso.Picasso;
 
+import java.util.ArrayList;
+
 import de.greenrobot.event.EventBus;
 import sun.bob.leela.R;
 import sun.bob.leela.db.Account;
 import sun.bob.leela.db.Category;
 import sun.bob.leela.db.CategoryHelper;
 import sun.bob.leela.events.ItemUIEvent;
+import sun.bob.leela.ui.activities.DetailActivity;
 import sun.bob.leela.utils.CryptoUtil;
 import sun.bob.leela.utils.ResUtil;
 import sun.bob.leela.utils.StringUtil;
@@ -33,6 +38,7 @@ public class AcctListViewHolder extends RecyclerView.ViewHolder{
 
     private TextView name, accountName;
     private ImageView image;
+    private Account account;
 
     public AcctListViewHolder(View itemView) {
         super(itemView);
@@ -41,6 +47,7 @@ public class AcctListViewHolder extends RecyclerView.ViewHolder{
     }
 
     public void configureWithAccount(final Account account) {
+        this.account = account;
         ((TextView) itemView.findViewById(R.id.list_name)).setText(account.getName());
         ((TextView) itemView.findViewById(R.id.list_account_name)).setText(account.getMasked_account());
         if (!StringUtil.isNullOrEmpty(account.getIcon())) {
@@ -67,6 +74,14 @@ public class AcctListViewHolder extends RecyclerView.ViewHolder{
                     @Override
                     public void onDecrypted(String account, String passwd, String addt) {
                         Log.e("LEELA", account + "|" + passwd + "|" + addt);
+                        Intent intent = new Intent(itemView.getContext(), DetailActivity.class);
+                        ArrayList<String> list = new ArrayList();
+                        list.add(account);
+                        list.add(passwd);
+                        list.add(addt);
+                        intent.putStringArrayListExtra("credentials", list);
+                        intent.putExtra("account", AcctListViewHolder.this.account.getId());
+                        itemView.getContext().startActivity(intent);
                     }
                 }).runDecrypt(account.getAccount(), account.getHash(), account.getAdditional(),
                         account.getAccount_salt(), account.getSalt(), account.getAdditional_salt());
