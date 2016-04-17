@@ -30,7 +30,7 @@
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".ui.activities.DetailActivity"
-            android:label="@string/title_activity_detail"
+            android:label="@null"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".ui.activities.AddAccountActivity"

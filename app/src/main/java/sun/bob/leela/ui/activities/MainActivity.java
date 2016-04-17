@@ -153,8 +153,11 @@ public class MainActivity extends AppCompatActivity
 //            Intent intent = new Intent(this, AuthorizeActivity.class);
 //            startActivity(intent);
 
-            boolean is = RegExUtil.isEmail("bob.sun@glowing.com");
-            Log.e("LEELA", String.valueOf(is));
+//            boolean is = RegExUtil.isEmail("bob.sun@glowing.com");
+//            Log.e("LEELA", String.valueOf(is));
+
+            Intent intent = new Intent(this, DetailActivity.class);
+            startActivity(intent);
             return true;
         }
 
