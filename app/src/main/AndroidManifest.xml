@@ -57,7 +57,9 @@
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".ui.activities.AuthorizeActivity"
-            android:label="@string/title_activity_authorize" />
+            android:label="@string/title_activity_authorize"
+            android:theme="@style/AppCompatAlertDialogStyle"
+            android:windowSoftInputMode="stateHidden"/>
         <activity
             android:name=".ui.activities.SetMasterPasswordActivity"
             android:theme="@style/AppTheme.NoActionBar"
