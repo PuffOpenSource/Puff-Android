@@ -67,7 +67,7 @@ public class MainActivity extends AppCompatActivity
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                View reveal = findViewById(R.id.reveal_background);
+                final View reveal = findViewById(R.id.reveal_background);
                 // get the center for the clipping circle
                 int centerX = (reveal.getLeft() + reveal.getRight()) / 2;
                 int centerY = (reveal.getTop() + reveal.getBottom()) / 2;
@@ -94,6 +94,7 @@ public class MainActivity extends AppCompatActivity
                         Intent intent = new Intent(MainActivity.this, AddAccountActivity.class);
                         startActivity(intent);
                         overridePendingTransition(0, 0);
+//                        reveal.setVisibility(View.INVISIBLE);
                     }
 
                     @Override
@@ -157,6 +158,12 @@ public class MainActivity extends AppCompatActivity
         } else {
             super.onBackPressed();
         }
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        findViewById(R.id.reveal_background).setVisibility(View.INVISIBLE);
     }
 
     @Override

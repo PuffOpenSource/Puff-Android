@@ -36,8 +36,9 @@ public class AccountDao extends AbstractDao<Account, Long> {
         public final static Property Additional_salt = new Property(10, String.class, "additional_salt", false, "ADDITIONAL_SALT");
         public final static Property Category = new Property(11, long.class, "category", false, "CATEGORY");
         public final static Property Tag = new Property(12, String.class, "tag", false, "TAG");
-        public final static Property Last_access = new Property(13, Long.class, "last_access", false, "LAST_ACCESS");
-        public final static Property Icon = new Property(14, String.class, "icon", false, "ICON");
+        public final static Property Website = new Property(13, String.class, "website", false, "WEBSITE");
+        public final static Property Last_access = new Property(14, Long.class, "last_access", false, "LAST_ACCESS");
+        public final static Property Icon = new Property(15, String.class, "icon", false, "ICON");
     };
 
 
@@ -66,8 +67,9 @@ public class AccountDao extends AbstractDao<Account, Long> {
                 "'ADDITIONAL_SALT' TEXT," + // 10: additional_salt
                 "'CATEGORY' INTEGER NOT NULL ," + // 11: category
                 "'TAG' TEXT NOT NULL ," + // 12: tag
-                "'LAST_ACCESS' INTEGER," + // 13: last_access
-                "'ICON' TEXT);"); // 14: icon
+                "'WEBSITE' TEXT," + // 13: website
+                "'LAST_ACCESS' INTEGER," + // 14: last_access
+                "'ICON' TEXT);"); // 15: icon
     }
 
     /** Drops the underlying database table. */
@@ -122,14 +124,19 @@ public class AccountDao extends AbstractDao<Account, Long> {
         stmt.bindLong(12, entity.getCategory());
         stmt.bindString(13, entity.getTag());
  
+        String website = entity.getWebsite();
+        if (website != null) {
+            stmt.bindString(14, website);
+        }
+ 
         Long last_access = entity.getLast_access();
         if (last_access != null) {
-            stmt.bindLong(14, last_access);
+            stmt.bindLong(15, last_access);
         }
  
         String icon = entity.getIcon();
         if (icon != null) {
-            stmt.bindString(15, icon);
+            stmt.bindString(16, icon);
         }
     }
 
@@ -156,8 +163,9 @@ public class AccountDao extends AbstractDao<Account, Long> {
             cursor.isNull(offset + 10) ? null : cursor.getString(offset + 10), // additional_salt
             cursor.getLong(offset + 11), // category
             cursor.getString(offset + 12), // tag
-            cursor.isNull(offset + 13) ? null : cursor.getLong(offset + 13), // last_access
-            cursor.isNull(offset + 14) ? null : cursor.getString(offset + 14) // icon
+            cursor.isNull(offset + 13) ? null : cursor.getString(offset + 13), // website
+            cursor.isNull(offset + 14) ? null : cursor.getLong(offset + 14), // last_access
+            cursor.isNull(offset + 15) ? null : cursor.getString(offset + 15) // icon
         );
         return entity;
     }
@@ -178,8 +186,9 @@ public class AccountDao extends AbstractDao<Account, Long> {
         entity.setAdditional_salt(cursor.isNull(offset + 10) ? null : cursor.getString(offset + 10));
         entity.setCategory(cursor.getLong(offset + 11));
         entity.setTag(cursor.getString(offset + 12));
-        entity.setLast_access(cursor.isNull(offset + 13) ? null : cursor.getLong(offset + 13));
-        entity.setIcon(cursor.isNull(offset + 14) ? null : cursor.getString(offset + 14));
+        entity.setWebsite(cursor.isNull(offset + 13) ? null : cursor.getString(offset + 13));
+        entity.setLast_access(cursor.isNull(offset + 14) ? null : cursor.getLong(offset + 14));
+        entity.setIcon(cursor.isNull(offset + 15) ? null : cursor.getString(offset + 15));
      }
     
     /** @inheritdoc */

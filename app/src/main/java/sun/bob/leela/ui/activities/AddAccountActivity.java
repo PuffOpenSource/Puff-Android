@@ -97,8 +97,8 @@ public class AddAccountActivity extends AppCompatActivity {
                         account.setAdditional(addtHash);
                         account.setAdditional_salt(addtSalt);
                         account.setMasked_account(disPlayName);
-                        account.setType(((AcctType) spinnerType.getSelectedItem()).getId());
-                        account.setCategory(((Category) spinnerCategory.getSelectedItem()).getId());
+                        account.setType(type);
+                        account.setCategory(category);
                         account.setTag("");
                         account.setIcon(StringUtil.isNullOrEmpty(iconPath) ?
                                 ((Category) spinnerCategory.getSelectedItem()).getIcon() :
@@ -115,6 +115,7 @@ public class AddAccountActivity extends AppCompatActivity {
         spinnerType = (AppCompatSpinner) findViewById(R.id.spinner_type);
         spinnerType.setPrompt("Type");
         spinnerType.setAdapter(new TypeSpinnerAdapter(this, android.R.layout.simple_dropdown_item_1line));
+        type = ((AcctType) spinnerType.getAdapter().getItem(0)).getId();
         spinnerType.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
@@ -137,6 +138,7 @@ public class AddAccountActivity extends AppCompatActivity {
 
         spinnerCategory = (AppCompatSpinner) findViewById(R.id.spinner_category);
         spinnerCategory.setAdapter(new CategorySpinnerAdapter(this, android.R.layout.simple_dropdown_item_1line));
+        category = ((Category) spinnerCategory.getAdapter().getItem(0)).getId();
         spinnerCategory.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {

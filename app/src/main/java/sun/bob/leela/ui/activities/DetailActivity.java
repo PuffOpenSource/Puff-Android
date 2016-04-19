@@ -47,7 +47,6 @@ public class DetailActivity extends AppCompatActivity {
         passwd = list.get(1);
         addt = list.get(2);
 
-
         tvTitle.setText(account.getName());
         tvAccount.setText(acct);
         tvPasswd.setText(passwd);

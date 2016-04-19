@@ -39,6 +39,7 @@ public class Main {
         account.addStringProperty("additional_salt");
         account.addLongProperty("category").notNull();
         account.addStringProperty("tag").notNull();
+        account.addStringProperty("website");
         account.addLongProperty("last_access");
         account.addStringProperty("icon");
         account.setHasKeepSections(true);

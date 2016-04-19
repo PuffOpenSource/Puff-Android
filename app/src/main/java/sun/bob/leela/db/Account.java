@@ -26,6 +26,7 @@ public class Account {
     private long category;
     /** Not-null value. */
     private String tag;
+    private String website;
     private Long last_access;
     private String icon;
 
@@ -39,7 +40,7 @@ public class Account {
         this.id = id;
     }
 
-    public Account(Long id, String name, long type, String account, String masked_account, Boolean hide_name, String account_salt, String salt, String hash, String additional, String additional_salt, long category, String tag, Long last_access, String icon) {
+    public Account(Long id, String name, long type, String account, String masked_account, Boolean hide_name, String account_salt, String salt, String hash, String additional, String additional_salt, long category, String tag, String website, Long last_access, String icon) {
         this.id = id;
         this.name = name;
         this.type = type;
@@ -53,6 +54,7 @@ public class Account {
         this.additional_salt = additional_salt;
         this.category = category;
         this.tag = tag;
+        this.website = website;
         this.last_access = last_access;
         this.icon = icon;
     }
@@ -167,6 +169,14 @@ public class Account {
     /** Not-null value; ensure this value is available before it is saved to the database. */
     public void setTag(String tag) {
         this.tag = tag;
+    }
+
+    public String getWebsite() {
+        return website;
+    }
+
+    public void setWebsite(String website) {
+        this.website = website;
     }
 
     public Long getLast_access() {
