@@ -1,5 +1,6 @@
 package sun.bob.leela.ui.activities;
 
+import android.animation.Animator;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.drawable.BitmapDrawable;
@@ -29,6 +30,8 @@ import com.squareup.picasso.Target;
 import java.io.IOException;
 import java.util.HashMap;
 
+import io.codetail.animation.SupportAnimator;
+import io.codetail.animation.ViewAnimationUtils;
 import sun.bob.leela.R;
 import sun.bob.leela.db.AccountHelper;
 import sun.bob.leela.db.Category;
@@ -64,10 +67,45 @@ public class MainActivity extends AppCompatActivity
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-//                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-//                        .setAction("Action", null).show();
-                Intent intent = new Intent(MainActivity.this, AddAccountActivity.class);
-                startActivity(intent);
+                View reveal = findViewById(R.id.reveal_background);
+                // get the center for the clipping circle
+                int centerX = (reveal.getLeft() + reveal.getRight()) / 2;
+                int centerY = (reveal.getTop() + reveal.getBottom()) / 2;
+
+                int startRadius = 0;
+                // get the final radius for the clipping circle
+                int endRadius = Math.max(reveal.getWidth(), reveal.getHeight());
+
+                // create the animator for this view (the start radius is zero)
+                SupportAnimator anim =
+                        ViewAnimationUtils.createCircularReveal(reveal, centerX, centerY, startRadius, endRadius);
+
+                // make the view visible and start the animation
+                reveal.setVisibility(View.VISIBLE);
+                anim.start();
+                anim.addListener(new SupportAnimator.AnimatorListener() {
+                    @Override
+                    public void onAnimationStart() {
+
+                    }
+
+                    @Override
+                    public void onAnimationEnd() {
+                        Intent intent = new Intent(MainActivity.this, AddAccountActivity.class);
+                        startActivity(intent);
+                        overridePendingTransition(0, 0);
+                    }
+
+                    @Override
+                    public void onAnimationCancel() {
+
+                    }
+
+                    @Override
+                    public void onAnimationRepeat() {
+
+                    }
+                });
             }
         });
 
