@@ -4,111 +4,107 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_margin="16dp">
-    <RelativeLayout
+    <android.support.v7.widget.CardView
+        xmlns:card_view="http://schemas.android.com/apk/res-auto"
         android:layout_width="match_parent"
-        android:layout_height="250dp"
-
+        android:layout_height="wrap_content"
+        android:minHeight="260dp"
+        android:id="@+id/list_item_card_view"
+        card_view:cardUseCompatPadding="true"
+        card_view:cardPreventCornerOverlap="false"
+        card_view:cardElevation="10dp"
         >
-        <android.support.v7.widget.CardView
-            xmlns:card_view="http://schemas.android.com/apk/res-auto"
+        <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="260dp"
-            android:id="@+id/list_item_card_view"
-            card_view:cardUseCompatPadding="true"
-            card_view:cardPreventCornerOverlap="false"
-            card_view:cardElevation="10dp"
-            >
-            <RelativeLayout
+            android:layout_height="match_parent"
+            android:layout_margin="16dp"
+            android:id="@+id/id_item_content_expand">
+            <ImageView
+                android:layout_width="130dp"
+                android:layout_height="130dp"
+                android:id="@+id/list_account_image"
+                android:src="@drawable/ic_lock"/>
+
+            <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_margin="16dp"
-                android:id="@+id/id_item_content_expand">
-                <ImageView
-                    android:layout_width="130dp"
-                    android:layout_height="130dp"
-                    android:id="@+id/list_account_image"
-                    android:src="@drawable/ic_lock"/>
-
-                <LinearLayout
+                android:layout_height="wrap_content"
+                android:minHeight="130dp"
+                android:orientation="vertical"
+                android:layout_toRightOf="@id/list_account_image"
+                android:gravity="center_vertical"
+                android:layout_marginLeft="16dp">
+                <TextView
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:orientation="vertical"
-                    android:layout_toRightOf="@id/list_account_image"
-                    android:gravity="center_vertical"
-                    android:layout_marginLeft="16dp">
-                    <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:text="Item name"
-                        android:id="@+id/list_name"
-                        android:textSize="16dp"
-                        />
+                    android:layout_height="wrap_content"
+                    android:text="Item name"
+                    android:id="@+id/list_name"
+                    android:textSize="16dp"
+                    />
 
-                    <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:text="Account"
-                        android:textSize="16dp"
-                        android:id="@+id/list_account_name"
-                        android:layout_centerVertical="true"
-                        android:layout_marginBottom="16dp"
-                        android:layout_marginTop="16dp"
-                        />
-
-                    <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:textSize="16dp"
-                        android:id="@+id/list_account_category" />
-                </LinearLayout>
-
-                <LinearLayout
+                <TextView
                     android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Account"
+                    android:textSize="16dp"
+                    android:id="@+id/list_account_name"
+                    android:layout_centerVertical="true"
+                    android:layout_marginBottom="16dp"
+                    android:layout_marginTop="16dp"
+                    />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textSize="16dp"
+                    android:id="@+id/list_account_category" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="60dp"
+                android:orientation="horizontal"
+                android:layout_below="@id/list_account_image"
+                android:layout_marginLeft="16dp"
+                android:layout_marginRight="16dp">
+                <!--Use drawableLeft attr to add an Icon on Button-->
+                <android.support.v7.widget.AppCompatButton
+                    android:layout_width="0dp"
+                    android:layout_weight="1.0"
                     android:layout_height="60dp"
-                    android:orientation="horizontal"
-                    android:layout_below="@id/list_account_image"
-                    android:layout_marginLeft="16dp"
-                    android:layout_marginRight="16dp">
-                    <!--Use drawableLeft attr to add an Icon on Button-->
-                    <android.support.v7.widget.AppCompatButton
-                        android:layout_width="0dp"
-                        android:layout_weight="1.0"
-                        android:layout_height="60dp"
-                        android:id="@+id/pin_button"
-                        android:text="Pin"
-                        android:textAlignment="center"
-                        android:layout_alignParentBottom="true"
-                        android:layout_marginRight="10dp"
-                        android:textColor="#009688"
-                        android:background="@null"
-                        />
-                    <android.support.v7.widget.AppCompatButton
-                        android:layout_width="0dp"
-                        android:layout_weight="1.0"
-                        android:layout_height="60dp"
-                        android:id="@+id/view_button"
-                        android:text="View"
-                        android:textAlignment="center"
-                        android:layout_alignParentBottom="true"
-                        android:layout_marginRight="10dp"
-                        android:textColor="#009688"
-                        android:background="@null"
-                        />
-                    <android.support.v7.widget.AppCompatButton
-                        android:layout_width="0dp"
-                        android:layout_weight="1.0"
-                        android:layout_height="60dp"
-                        android:id="@+id/copy_button"
-                        android:text="Copy"
-                        android:textAlignment="center"
-                        android:layout_alignParentBottom="true"
-                        android:textColor="#009688"
-                        android:background="@null"
-                        />
-                </LinearLayout>
-            </RelativeLayout>
+                    android:id="@+id/pin_button"
+                    android:text="Pin"
+                    android:textAlignment="center"
+                    android:layout_alignParentBottom="true"
+                    android:layout_marginRight="10dp"
+                    android:textColor="#009688"
+                    android:background="@null"
+                    />
+                <android.support.v7.widget.AppCompatButton
+                    android:layout_width="0dp"
+                    android:layout_weight="1.0"
+                    android:layout_height="60dp"
+                    android:id="@+id/view_button"
+                    android:text="View"
+                    android:textAlignment="center"
+                    android:layout_alignParentBottom="true"
+                    android:layout_marginRight="10dp"
+                    android:textColor="#009688"
+                    android:background="@null"
+                    />
+                <android.support.v7.widget.AppCompatButton
+                    android:layout_width="0dp"
+                    android:layout_weight="1.0"
+                    android:layout_height="60dp"
+                    android:id="@+id/copy_button"
+                    android:text="Copy"
+                    android:textAlignment="center"
+                    android:layout_alignParentBottom="true"
+                    android:textColor="#009688"
+                    android:background="@null"
+                    />
+            </LinearLayout>
+        </RelativeLayout>
 
-        </android.support.v7.widget.CardView>
-    </RelativeLayout>
+    </android.support.v7.widget.CardView>
 
 </FrameLayout>

@@ -48,7 +48,7 @@
                 android:layout_marginTop="60dp"
                 android:textSize="20dp"
                 android:textColor="#FFF"
-                android:gravity="bottom"
+                android:gravity="center_vertical"
                 android:hint="Title" />
         </android.support.design.widget.CollapsingToolbarLayout>
     </android.support.design.widget.AppBarLayout>
