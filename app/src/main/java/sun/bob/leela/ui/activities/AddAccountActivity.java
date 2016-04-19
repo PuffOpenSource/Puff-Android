@@ -45,7 +45,7 @@ public class AddAccountActivity extends AppCompatActivity {
     private AppCompatSpinner spinnerCategory, spinnerType;
     private Long type;
     private Long category;
-    private EditText name, account, password, addtional;
+    private EditText name, account, password, addtional, website;
     private AppCompatImageView imageView;
     private String iconPath;
 
@@ -99,6 +99,7 @@ public class AddAccountActivity extends AppCompatActivity {
                         account.setMasked_account(disPlayName);
                         account.setType(type);
                         account.setCategory(category);
+                        account.setWebsite(website.getText().toString());
                         account.setTag("");
                         account.setIcon(StringUtil.isNullOrEmpty(iconPath) ?
                                 ((Category) spinnerCategory.getSelectedItem()).getIcon() :
@@ -183,6 +184,7 @@ public class AddAccountActivity extends AppCompatActivity {
         password = (EditText) findViewById(R.id.password);
         addtional = (EditText) findViewById(R.id.additional);
         imageView = (AppCompatImageView) findViewById(R.id.account_image);
+        website = (EditText) findViewById(R.id.website);
     }
 
     @Override

@@ -103,14 +103,30 @@
                     android:minHeight="60dp"
                     android:layout_marginTop="6dp"
                     android:layout_marginBottom="6dp"
-                    android:hint="Additional Code">
+                    android:hint="Additional Code (Optional)">
                     <android.support.v7.widget.AppCompatEditText
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:minHeight="60dp"
                         android:id="@+id/additional"
                         android:inputType="textPassword"
-                        android:hint="Additional Code"/>
+                        android:hint="Additional Code (Optional)"/>
+                </android.support.design.widget.TextInputLayout>
+
+                <android.support.design.widget.TextInputLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:minHeight="60dp"
+                    android:layout_marginTop="6dp"
+                    android:layout_marginBottom="6dp"
+                    android:hint="Website link (Optional)">
+                    <android.support.v7.widget.AppCompatEditText
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:minHeight="60dp"
+                        android:id="@+id/website"
+                        android:inputType="textPassword"
+                        android:hint="Website link (Optional)"/>
                 </android.support.design.widget.TextInputLayout>
 
             </LinearLayout>

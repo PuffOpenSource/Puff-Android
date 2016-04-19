@@ -50,6 +50,8 @@ public class AcctListViewHolder extends RecyclerView.ViewHolder{
         this.account = account;
         ((TextView) itemView.findViewById(R.id.list_name)).setText(account.getName());
         ((TextView) itemView.findViewById(R.id.list_account_name)).setText(account.getMasked_account());
+        Category category = CategoryHelper.getInstance(null).getCategoryById(account.getCategory());
+        ((TextView) itemView.findViewById(R.id.list_account_category)).setText(category.getName());
         if (!StringUtil.isNullOrEmpty(account.getIcon())) {
             Picasso.with(this.itemView.getContext())
                     .load(ResUtil.getInstance(null).getBmpUri(account.getIcon()))
