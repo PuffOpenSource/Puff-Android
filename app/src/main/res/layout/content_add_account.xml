@@ -68,40 +68,46 @@
                 android:paddingRight="16dp">
                 <android.support.design.widget.TextInputLayout
                     android:layout_width="match_parent"
-                    android:layout_height="60dp"
+                    android:layout_height="wrap_content"
+                    android:minHeight="60dp"
                     android:layout_marginTop="6dp"
                     android:layout_marginBottom="6dp"
                     android:hint="Account">
                     <android.support.v7.widget.AppCompatEditText
                         android:id="@+id/account"
                         android:layout_width="match_parent"
-                        android:layout_height="match_parent"
+                        android:layout_height="wrap_content"
+                        android:minHeight="60dp"
                         android:hint="Account"/>
                 </android.support.design.widget.TextInputLayout>
 
                 <android.support.design.widget.TextInputLayout
                     android:layout_width="match_parent"
-                    android:layout_height="60dp"
+                    android:layout_height="wrap_content"
+                    android:minHeight="60dp"
                     android:layout_marginTop="6dp"
                     android:layout_marginBottom="6dp"
                     android:hint="Password">
                     <android.support.v7.widget.AppCompatEditText
                         android:id="@+id/password"
                         android:layout_width="match_parent"
-                        android:layout_height="match_parent"
+                        android:layout_height="wrap_content"
+                        android:minHeight="60dp"
                         android:inputType="textPassword"
                         android:hint="Password"/>
                 </android.support.design.widget.TextInputLayout>
 
                 <android.support.design.widget.TextInputLayout
                     android:layout_width="match_parent"
-                    android:layout_height="60dp"
+                    android:layout_height="wrap_content"
+                    android:minHeight="60dp"
                     android:layout_marginTop="6dp"
                     android:layout_marginBottom="6dp"
                     android:hint="Additional Code">
                     <android.support.v7.widget.AppCompatEditText
                         android:layout_width="match_parent"
-                        android:layout_height="match_parent"
+                        android:layout_height="wrap_content"
+                        android:minHeight="60dp"
                         android:id="@+id/additional"
                         android:inputType="textPassword"
                         android:hint="Additional Code"/>

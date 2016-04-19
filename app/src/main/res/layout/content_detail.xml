@@ -28,31 +28,35 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
-                android:paddingLeft="16dp"
-                android:paddingRight="16dp">
+                android:layout_margin="16dp">
 
                 <android.support.v7.widget.AppCompatTextView
                     android:layout_width="match_parent"
                     android:layout_height="20dp"
+                    android:textColor="#0097A7"
                     android:text="Account:"/>
                 <android.support.v7.widget.AppCompatTextView
                     android:id="@+id/account"
                     android:layout_width="match_parent"
-                    android:layout_height="60dp"
+                    android:layout_height="wrap_content"
+                    android:minHeight="60dp"
                     android:layout_marginTop="6dp"
                     android:layout_marginBottom="6dp"
                     android:gravity="center_vertical"
                     android:textSize="20dp"
                     android:text="Account."
                     />
+
                 <android.support.v7.widget.AppCompatTextView
                     android:layout_width="match_parent"
                     android:layout_height="20dp"
+                    android:textColor="#0097A7"
                     android:text="Password:"/>
                 <android.support.v7.widget.AppCompatTextView
                     android:id="@+id/password"
                     android:layout_width="match_parent"
-                    android:layout_height="60dp"
+                    android:layout_height="wrap_content"
+                    android:minHeight="60dp"
                     android:layout_marginTop="6dp"
                     android:layout_marginBottom="6dp"
                     android:text="Password"
@@ -62,10 +66,12 @@
                 <android.support.v7.widget.AppCompatTextView
                     android:layout_width="match_parent"
                     android:layout_height="20dp"
+                    android:textColor="#0097A7"
                     android:text="Additional Code"/>
                 <android.support.v7.widget.AppCompatTextView
                     android:layout_width="match_parent"
-                    android:layout_height="60dp"
+                    android:layout_height="wrap_content"
+                    android:minHeight="60dp"
                     android:layout_marginTop="6dp"
                     android:layout_marginBottom="6dp"
                     android:id="@+id/additional"
@@ -85,32 +91,37 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:orientation="vertical"
-                android:paddingLeft="16dp"
-                android:paddingRight="16dp">
+                android:padding="16dp">
                 <android.support.v7.widget.AppCompatTextView
                     android:layout_width="match_parent"
                     android:layout_height="20dp"
+                    android:textColor="#0097A7"
                     android:text="Web Site link"/>
                 <android.support.v7.widget.AppCompatTextView
                     android:layout_width="match_parent"
-                    android:layout_height="40dp"
+                    android:layout_height="wrap_content"
+                    android:minHeight="40dp"
                     android:id="@+id/id_website_link"
+                    android:gravity="center_vertical"
                     android:text="www.google.com"/>
                 <android.support.v7.widget.AppCompatTextView
                     android:layout_width="match_parent"
-                    android:layout_height="20dp"
+                    android:layout_height="wrap_content"
+                    android:minHeight="40dp"
+                    android:textColor="#0097A7"
                     android:text="Last Accessed"/>
                 <android.support.v7.widget.AppCompatTextView
                     android:layout_width="match_parent"
                     android:layout_height="40dp"
                     android:id="@+id/last_accessed"
+                    android:gravity="center_vertical"
                     android:text="2014-6-7 21:00:00"/>
             </LinearLayout>
         </android.support.v7.widget.CardView>
-        <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="@string/large_text"/>
+        <!--<TextView-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:text="@string/large_text"/>-->
     </LinearLayout>
 
 
