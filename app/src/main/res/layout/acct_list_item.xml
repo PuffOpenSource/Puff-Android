@@ -13,6 +13,7 @@
         card_view:cardUseCompatPadding="true"
         card_view:cardPreventCornerOverlap="false"
         card_view:cardElevation="10dp"
+        card_view:cardCornerRadius="2dp"
         >
         <RelativeLayout
             android:layout_width="match_parent"

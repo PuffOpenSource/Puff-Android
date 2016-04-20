@@ -20,7 +20,7 @@ public class StringUtil {
             return phone.substring(0, 1) + getStars(phone.substring(1));
         }
         ret = phone.substring(phone.length() - 4, phone.length());
-        ret += getStars(phone.substring(0, phone.length() - 4));
+        ret = getStars(phone.substring(0, phone.length() - 4)) + ret;
         return ret;
     }
 
