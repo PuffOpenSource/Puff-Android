@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    <android.support.v7.widget.AppCompatCheckBox
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:id="@+id/checkbox_numbers"
+        android:text="Numbers Only"/>
+
+    <android.support.v7.widget.AppCompatCheckBox
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:id="@+id/checkbox_all"
+        android:text="Secure Password"/>
+
+    <android.support.v7.widget.AppCompatCheckBox
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:id="@+id/checkbox_easy"
+        android:text="Easy to memory"/>
+
+</LinearLayout>

@@ -10,9 +10,9 @@
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
+        android:largeHeap="true"
         android:supportsRtl="true"
-        android:theme="@style/AppTheme"
-        android:largeHeap="true">
+        android:theme="@style/AppTheme">
         <activity
             android:name=".ui.activities.SplashActivity"
             android:label="Puff"
@@ -46,12 +46,12 @@
             android:name=".ui.activities.AddTypeDialogActivity"
             android:label="Add New Account Type"
             android:theme="@style/AppCompatAlertDialogStyle"
-            android:windowSoftInputMode="stateHidden" />
+            android:windowSoftInputMode="stateHidden|adjustPan" />
         <activity
             android:name=".ui.activities.AddCategoryDialogActivity"
             android:label="Add New Category"
             android:theme="@style/AppCompatAlertDialogStyle"
-            android:windowSoftInputMode="stateHidden" />
+            android:windowSoftInputMode="stateHidden|adjustPan" />
         <activity
             android:name=".ui.activities.ImageCropActivity"
             android:theme="@style/AppTheme.NoActionBar" />
@@ -59,12 +59,13 @@
             android:name=".ui.activities.AuthorizeActivity"
             android:label="@string/title_activity_authorize"
             android:theme="@style/AppCompatAlertDialogStyle"
-            android:windowSoftInputMode="stateHidden"/>
+            android:windowSoftInputMode="stateHidden|adjustPan" />
         <activity
             android:name=".ui.activities.SetMasterPasswordActivity"
-            android:theme="@style/AppTheme.NoActionBar"
             android:label="@null"
-            android:windowSoftInputMode="stateHidden"></activity>
+            android:theme="@style/AppTheme.NoActionBar"
+            android:windowSoftInputMode="stateHidden|adjustPan" />
+        <activity android:name=".ui.activities.PasswordGenActivity"></activity>
     </application>
 
 </manifest>
