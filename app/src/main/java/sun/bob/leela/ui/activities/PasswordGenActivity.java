@@ -37,7 +37,7 @@ public class PasswordGenActivity extends IntroActivity implements SlideListener 
     private int length;
     private PasswordType type;
 
-    private String password;
+    private String password = "";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -77,8 +77,8 @@ public class PasswordGenActivity extends IntroActivity implements SlideListener 
             @Override
             public void onPageSelected(int position) {
                 if (position == 2) {
-                    // TODO: 16/4/22 Pass the password generated to Fragment!
-                    Log.e("Leela", password);
+//                    Log.e("Leela", password);
+                    ((SecureStepDone) getSlide(position).getFragment()).setPassword(password);
                 }
             }
 
@@ -124,10 +124,15 @@ public class PasswordGenActivity extends IntroActivity implements SlideListener 
                 password = PasswordGenerator.getPassword(length, length);
             }
             return;
+        } else {
+            for (String s : words) {
+                password += StringUtil.getMaskedWord(s);
+                if (password.length() > length) {
+                    password = password.substring(0, length);
+                    break;
+                }
+            }
         }
-
-        int randoms = length / 3;
-
     }
 
 

@@ -1,6 +1,11 @@
 package sun.bob.leela.utils;
 
+import android.util.Log;
+
 import java.security.SecureRandom;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
 import java.util.Random;
 
 /**
@@ -42,4 +47,99 @@ public class StringUtil {
     public static boolean isNullOrEmpty(String str) {
         return str == null || "".equalsIgnoreCase(str);
     }
+
+    public static HashMap<String, ArrayList> charMap = null;
+
+    private static HashMap getCharMap() {
+        if (charMap != null) {
+            return charMap;
+        }
+        charMap = new HashMap<>();
+        ArrayList add = new ArrayList();
+        add.add("@");
+        add.add("4");
+        charMap.put("A",add);
+        add = new ArrayList();
+        add.add("8");
+        charMap.put("B", add);
+
+        add = new ArrayList();
+        add.add("3");
+        charMap.put("E", add);
+
+        add = new ArrayList();
+        add.add("6");
+        charMap.put("G", add);
+
+        add = new ArrayList();
+        add.add("#");
+        charMap.put("H", add);
+
+        add = new ArrayList();
+        add.add("!");
+        add.add("1");
+        charMap.put("I", add);
+
+        add = new ArrayList();
+        add.add("0");
+        charMap.put("O", add);
+
+        add = new ArrayList();
+        add.add("9");
+        charMap.put("Q", add);
+
+        add = new ArrayList();
+        add.add("5");
+        add.add("$");
+        charMap.put("S", add);
+
+        add = new ArrayList();
+        add.add("7");
+        charMap.put("T", add);
+
+        add = new ArrayList();
+        add.add("\\/");
+        charMap.put("V", add);
+
+        add = new ArrayList();
+        add.add("2");
+        charMap.put("Z", add);
+
+        return charMap;
+    }
+
+    public static String getMaskedWord(String word) {
+        word = word.toUpperCase();
+        char[] chars = word.toCharArray();
+        StringBuilder ret = new StringBuilder();
+        HashMap<String, ArrayList> map = getCharMap();
+        for (char c : chars) {
+            if (getRandBool()) {
+                if (getRandBool())
+                    c = Character.toLowerCase(c);
+                ret.append(c);
+                continue;
+            }
+            ArrayList<String> masks = map.get(String.valueOf(c));
+            if (masks == null || masks.size() == 0){
+                if (getRandBool())
+                    c = Character.toLowerCase(c);
+                ret.append(c);
+            } else {
+                ret.append(masks.get(getRandInt(masks.size())));
+            }
+        }
+        return ret.toString();
+    }
+
+    public static boolean getRandBool() {
+        SecureRandom random = new SecureRandom();
+        return random.nextBoolean();
+    }
+
+    public static int getRandInt(int range) {
+        SecureRandom random = new SecureRandom();
+        return random.nextInt(range);
+    }
+
 }

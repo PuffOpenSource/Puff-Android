@@ -21,7 +21,7 @@
         android:layout_height="60dp"
         android:id="@+id/password_length"
         android:inputType="number"
-        android:text="4"
+        android:text="12"
         android:gravity="center"
         android:layout_gravity="center_horizontal"/>
 </LinearLayout>
