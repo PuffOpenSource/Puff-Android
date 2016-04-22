@@ -124,7 +124,7 @@ public class SecureStepTypeSelect extends FragmentSlide.FragmentSlideFragment {
         ArrayList<String> ret = new ArrayList<>();
         for (AppCompatEditText e : textViews) {
             if (!StringUtil.isNullOrEmpty(e.getText().toString())) {
-                ret.add(e.getText().toString());
+                ret.add(e.getText().toString().replaceAll("\\s+",""));
             }
         }
 

@@ -53,25 +53,29 @@
             android:text="Tell me your favorite words, I'll generate a secure password from them"/>
         <android.support.v7.widget.AppCompatEditText
             android:layout_width="match_parent"
-            android:layout_height="60dp"
+            android:layout_height="wrap_content"
+            android:minHeight="60dp"
             android:id="@+id/word_one"
             android:textColor="#fff"
             android:hint="Word One"/>
         <android.support.v7.widget.AppCompatEditText
             android:layout_width="match_parent"
-            android:layout_height="60dp"
+            android:layout_height="wrap_content"
+            android:minHeight="60dp"
             android:id="@+id/word_two"
             android:textColor="#fff"
             android:hint="Word Two"/>
         <android.support.v7.widget.AppCompatEditText
             android:layout_width="match_parent"
-            android:layout_height="60dp"
+            android:layout_height="wrap_content"
+            android:minHeight="60dp"
             android:textColor="#fff"
             android:id="@+id/word_three"
             android:hint="Word Three"/>
         <android.support.v7.widget.AppCompatEditText
             android:layout_width="match_parent"
-            android:layout_height="60dp"
+            android:layout_height="wrap_content"
+            android:minHeight="60dp"
             android:textColor="#fff"
             android:id="@+id/word_four"
             android:hint="Word Four"/>

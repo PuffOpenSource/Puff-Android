@@ -1,5 +1,8 @@
 package sun.bob.leela.utils;
 
+import java.security.SecureRandom;
+import java.util.Random;
+
 /**
  * Created by bob.sun on 16/4/11.
  */
