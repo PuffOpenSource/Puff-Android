@@ -59,8 +59,11 @@ public class IntroActivity extends AppCompatActivity {
     private boolean fullscreen = false;
     private boolean skipEnabled = true;
     private boolean finishEnabled = true;
+    private boolean allowFinish = true;
     private int position = 0;
     private float positionOffset = 0;
+
+    private Runnable runWhenFinish;
 
     private NavigationPolicy navigationPolicy = null;
 
@@ -152,6 +155,16 @@ public class IntroActivity extends AppCompatActivity {
 
             setSystemUiFlags(fullscreenFlags, fullscreen);
         }
+    }
+
+    public void setAllowFinish(boolean allowFinish) {
+        this.allowFinish = allowFinish;
+        return;
+    }
+
+    public void setRunWhenFinish(Runnable runWhenFinish) {
+        this.runWhenFinish = runWhenFinish;
+        return;
     }
 
     private void findViews(){
@@ -251,9 +264,16 @@ public class IntroActivity extends AppCompatActivity {
 
     private void finishIfNeeded() {
         if (positionOffset == 0 && position == adapter.getCount()) {
-            setResult(RESULT_OK);
-            finish();
-            overridePendingTransition(0, 0);
+            if (allowFinish) {
+                setResult(RESULT_OK);
+                finish();
+                overridePendingTransition(0, 0);
+            } else {
+                if (runWhenFinish != null) {
+                    runWhenFinish.run();
+                }
+            }
+
         }
     }
 

@@ -8,6 +8,9 @@ import android.util.Log;
 import com.heinrichreimersoftware.materialintro.app.IntroActivity;
 import com.heinrichreimersoftware.materialintro.app.NavigationPolicy;
 import com.heinrichreimersoftware.materialintro.slide.FragmentSlide;
+import com.heinrichreimersoftware.materialintro.slide.Slide;
+
+import java.util.ArrayList;
 
 import sun.bob.leela.R;
 import sun.bob.leela.listeners.SlideListener;
@@ -35,12 +38,20 @@ public class PasswordGenActivity extends IntroActivity implements SlideListener 
     SecureStepTypeSelect typeSlideFragment;
     SecureStepWords wordsSlideFragment;
     SecureStepIntro introStepFragment;
+    private ArrayList<String> words;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setSkipEnabled(false);
         setFinishEnabled(true);
+        setAllowFinish(false);
+        setRunWhenFinish(new Runnable() {
+            @Override
+            public void run() {
+                words = wordsSlideFragment.getWords();
+            }
+        });
         getSupportActionBar().setTitle("Secure Password Generator");
 
         wireRefs();
@@ -73,6 +84,13 @@ public class PasswordGenActivity extends IntroActivity implements SlideListener 
 //                        .fragment(two)
 //                        .build();
 //                addSlide(slide1);
+                if (position > 0) {
+                    Slide slide = getSlide(position - 1);
+                    if (slide.getFragment() instanceof SecureStepWords) {
+                        words = ((SecureStepWords) slide.getFragment()).getWords();
+                    }
+                }
+
 
             }
 
@@ -99,7 +117,6 @@ public class PasswordGenActivity extends IntroActivity implements SlideListener 
 //        addSlide(slide1);
 
         addSlide(introSlide);
-
         addSlide(typeSlide);
     }
 
@@ -129,7 +146,16 @@ public class PasswordGenActivity extends IntroActivity implements SlideListener 
         removeSlide(wordsSlide);
     }
 
+
     private void wireRefs() {
+
+        introStepFragment = SecureStepIntro.newInstance(R.layout.fragment_step_words);
+        introSlide = new SecureSlide.Builder()
+                .fragment(introStepFragment)
+                .background(R.color.colorPrimary)
+                .backgroundDark(R.color.colorPrimaryDark)
+                .build();
+
         typeSlideFragment = SecureStepTypeSelect.newInstance(R.layout.fragment_step_type_select);
         typeSlideFragment.setSlideListener(this);
         typeSlide = new SecureSlide.Builder()
@@ -142,13 +168,6 @@ public class PasswordGenActivity extends IntroActivity implements SlideListener 
         wordsSlideFragment.setSlideListener(this);
         wordsSlide = new SecureSlide.Builder()
                 .fragment(wordsSlideFragment)
-                .background(R.color.colorPrimary)
-                .backgroundDark(R.color.colorPrimaryDark)
-                .build();
-
-        introStepFragment = SecureStepIntro.newInstance(R.layout.fragment_step_words);
-        introSlide = new SecureSlide.Builder()
-                .fragment(introStepFragment)
                 .background(R.color.colorPrimary)
                 .backgroundDark(R.color.colorPrimaryDark)
                 .build();

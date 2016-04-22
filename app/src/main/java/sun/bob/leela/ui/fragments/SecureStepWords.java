@@ -2,6 +2,7 @@ package sun.bob.leela.ui.fragments;
 
 import android.os.Bundle;
 import android.support.annotation.LayoutRes;
+import android.support.v7.widget.AppCompatEditText;
 import android.support.v7.widget.AppCompatTextView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -21,12 +22,16 @@ import sun.bob.leela.utils.StringUtil;
 public class SecureStepWords extends FragmentSlide.FragmentSlideFragment {
 
     private SlideListener slideListener;
-    private AppCompatTextView word1, word2, word3, word4;
+    private AppCompatEditText word1, word2, word3, word4;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View ret = super.onCreateView(inflater, container, savedInstanceState);
-        word1 = (AppCompatTextView) ret.findViewById(R.id.word_one);
+        word1 = (AppCompatEditText) ret.findViewById(R.id.word_one);
+        word2 = (AppCompatEditText) ret.findViewById(R.id.word_two);
+        word3 = (AppCompatEditText) ret.findViewById(R.id.word_three);
+        word4 = (AppCompatEditText) ret.findViewById(R.id.word_four);
+
         return ret;
     }
 
@@ -41,14 +46,14 @@ public class SecureStepWords extends FragmentSlide.FragmentSlideFragment {
     }
 
     public ArrayList<String> getWords() {
-        ArrayList<AppCompatTextView> textViews = new ArrayList();
+        ArrayList<AppCompatEditText> textViews = new ArrayList();
         textViews.add(word1);
         textViews.add(word2);
         textViews.add(word3);
         textViews.add(word4);
         ArrayList<String> ret = new ArrayList<>();
-        for (AppCompatTextView e : textViews) {
-            if (StringUtil.isNullOrEmpty(e.getText().toString())) {
+        for (AppCompatEditText e : textViews) {
+            if (!StringUtil.isNullOrEmpty(e.getText().toString())) {
                 ret.add(e.getText().toString());
             }
         }
