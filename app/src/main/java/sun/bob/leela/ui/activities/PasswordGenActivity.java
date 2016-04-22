@@ -18,7 +18,10 @@ import sun.bob.leela.ui.fragments.SecureStepTypeSelect;
 
 public class PasswordGenActivity extends IntroActivity implements SlideListener {
 
-//    private ViewPager viewPager;
+    public enum PasswordType {
+        Number,
+        Secure
+    }
 
     private SecureSlide introSlide, typeSlide, wordsSlide, doneSlide;
     SecureStepTypeSelect typeSlideFragment;
@@ -67,14 +70,16 @@ public class PasswordGenActivity extends IntroActivity implements SlideListener 
 
     @Override
     public void willLeaveSlide(int position) {
-        if (position == 0) {
-            length = ((SecureStepIntro) getSlide(0).getFragment()).getLength();
-            return;
+        switch (position) {
+            case 0:
+                length = ((SecureStepIntro) getSlide(0).getFragment()).getLength();
+                break;
+            case 1:
+                words = ((SecureStepTypeSelect) getSlide(1).getFragment()).getWords();
+                break;
+            default:
+                break;
         }
-        Slide slide = getSlide(position);
-//        if (slide.getFragment() instanceof SecureStepWords) {
-//            words = ((SecureStepWords) slide.getFragment()).getWords();
-//        }
     }
 
 
