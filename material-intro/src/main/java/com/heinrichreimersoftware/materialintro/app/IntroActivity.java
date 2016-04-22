@@ -626,7 +626,9 @@ public class IntroActivity extends AppCompatActivity {
     }
 
     protected boolean removeSlide(Object object) {
-        return adapter.removeSlide(object);
+        boolean ret =  adapter.removeSlide(object);
+        adapter.notifyDataSetChanged();
+        return ret;
     }
 
     protected boolean removeSlides(@NonNull Collection<?> collection) {

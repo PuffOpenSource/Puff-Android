@@ -1,8 +1,6 @@
 package sun.bob.leela.ui.activities;
 
-import android.support.v4.view.ViewPager;
 import android.os.Bundle;
-import android.util.Log;
 
 
 import com.heinrichreimersoftware.materialintro.app.IntroActivity;
@@ -14,26 +12,19 @@ import java.util.ArrayList;
 import sun.bob.leela.R;
 import com.heinrichreimersoftware.materialintro.app.SlideListener;
 import sun.bob.leela.ui.fragments.SecureSlide;
+import sun.bob.leela.ui.fragments.SecureStepDone;
 import sun.bob.leela.ui.fragments.SecureStepIntro;
 import sun.bob.leela.ui.fragments.SecureStepTypeSelect;
-import sun.bob.leela.ui.fragments.SecureStepWords;
 
 public class PasswordGenActivity extends IntroActivity implements SlideListener {
 
 //    private ViewPager viewPager;
 
-    private enum LayoutType {
-        NUMBER,
-        ALPHA,
-        ALL
-    }
-
-    private LayoutType layoutType;
-
-    private SecureSlide introSlide, typeSlide, wordsSlide;
+    private SecureSlide introSlide, typeSlide, wordsSlide, doneSlide;
     SecureStepTypeSelect typeSlideFragment;
-    SecureStepWords wordsSlideFragment;
+//    SecureStepWords wordsSlideFragment;
     SecureStepIntro introStepFragment;
+    SecureStepDone doneSlideFragment;
     private ArrayList<String> words;
     private int length;
 
@@ -46,7 +37,8 @@ public class PasswordGenActivity extends IntroActivity implements SlideListener 
         setRunWhenFinish(new Runnable() {
             @Override
             public void run() {
-                words = wordsSlideFragment.getWords();
+//                words = wordsSlideFragment.getWords();
+//                finish();
             }
         });
         getSupportActionBar().setTitle("Secure Password Generator");
@@ -61,7 +53,7 @@ public class PasswordGenActivity extends IntroActivity implements SlideListener 
 
             @Override
             public boolean canGoBackward(int position) {
-                return true;
+                return position <= 1;
             }
         });
 
@@ -85,33 +77,9 @@ public class PasswordGenActivity extends IntroActivity implements SlideListener 
 
         addSlide(introSlide);
         addSlide(typeSlide);
+        addSlide(doneSlide);
     }
 
-    @Override
-    public void layoutNumber() {
-        this.layoutType = LayoutType.NUMBER;
-    }
-
-    @Override
-    public void layoutAlphaOnly() {
-        this.layoutType = LayoutType.ALPHA;
-    }
-
-    @Override
-    public void layoutAll() {
-        this.layoutType = LayoutType.ALL;
-
-    }
-
-    @Override
-    public void addWordsSlide() {
-        addSlide(wordsSlide);
-    }
-
-    @Override
-    public void removeWordsSlide() {
-        removeSlide(wordsSlide);
-    }
 
     @Override
     public void willLeaveSlide(int position) {
@@ -120,9 +88,9 @@ public class PasswordGenActivity extends IntroActivity implements SlideListener 
             return;
         }
         Slide slide = getSlide(position);
-        if (slide.getFragment() instanceof SecureStepWords) {
-            words = ((SecureStepWords) slide.getFragment()).getWords();
-        }
+//        if (slide.getFragment() instanceof SecureStepWords) {
+//            words = ((SecureStepWords) slide.getFragment()).getWords();
+//        }
     }
 
 
@@ -143,10 +111,9 @@ public class PasswordGenActivity extends IntroActivity implements SlideListener 
                 .backgroundDark(R.color.colorPrimaryDark)
                 .build();
 
-        wordsSlideFragment = SecureStepWords.newInstance(R.layout.fragment_step_words);
-        wordsSlideFragment.setSlideListener(this);
-        wordsSlide = new SecureSlide.Builder()
-                .fragment(wordsSlideFragment)
+        doneSlideFragment = SecureStepDone.newInstance(R.layout.fragment_step_done);
+        doneSlide = new SecureSlide.Builder()
+                .fragment(doneSlideFragment)
                 .background(R.color.colorPrimary)
                 .backgroundDark(R.color.colorPrimaryDark)
                 .build();

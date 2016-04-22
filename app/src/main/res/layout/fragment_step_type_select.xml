@@ -11,13 +11,43 @@
     <android.support.v7.widget.AppCompatCheckBox
         android:layout_width="match_parent"
         android:layout_height="40dp"
-        android:id="@+id/checkbox_all"
-        android:text="Secure Password"/>
-
-    <android.support.v7.widget.AppCompatCheckBox
-        android:layout_width="match_parent"
-        android:layout_height="40dp"
         android:id="@+id/checkbox_easy"
         android:text="Easy to memory"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+        <android.support.v7.widget.AppCompatTextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textSize="20dp"
+            android:textColor="#FFF"
+            android:text="Tell me your favorite words, I'll generate a secure password from them"/>
+        <android.support.v7.widget.AppCompatEditText
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:id="@+id/word_one"
+            android:textColor="#fff"
+            android:hint="Word One"/>
+        <android.support.v7.widget.AppCompatEditText
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:id="@+id/word_two"
+            android:textColor="#fff"
+            android:hint="Word Two"/>
+        <android.support.v7.widget.AppCompatEditText
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:textColor="#fff"
+            android:id="@+id/word_three"
+            android:hint="Word Three"/>
+        <android.support.v7.widget.AppCompatEditText
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:textColor="#fff"
+            android:id="@+id/word_four"
+            android:hint="Word Four"/>
+    </LinearLayout>
 
 </LinearLayout>
