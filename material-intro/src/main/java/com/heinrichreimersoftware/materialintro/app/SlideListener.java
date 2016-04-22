@@ -1,6 +1,5 @@
-package sun.bob.leela.listeners;
+package com.heinrichreimersoftware.materialintro.app;
 
-import sun.bob.leela.ui.fragments.SecureSlide;
 
 /**
  * Created by bob.sun on 16/4/21.
@@ -12,4 +11,6 @@ public interface SlideListener {
 
     void addWordsSlide();
     void removeWordsSlide();
+
+    void willLeaveSlide(int position);
 }

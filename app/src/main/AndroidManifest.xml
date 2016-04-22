@@ -65,7 +65,8 @@
             android:label="@null"
             android:theme="@style/AppTheme.NoActionBar"
             android:windowSoftInputMode="stateHidden|adjustPan" />
-        <activity android:name=".ui.activities.PasswordGenActivity"></activity>
+        <activity android:name=".ui.activities.PasswordGenActivity"
+            android:windowSoftInputMode="stateHidden|adjustPan"></activity>
     </application>
 
 </manifest>

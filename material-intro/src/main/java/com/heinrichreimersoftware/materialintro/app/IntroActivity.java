@@ -65,6 +65,8 @@ public class IntroActivity extends AppCompatActivity {
 
     private Runnable runWhenFinish;
 
+    private SlideListener slideListener;
+
     private NavigationPolicy navigationPolicy = null;
 
     private List<OnNavigationBlockedListener> navigationBlockedListeners = new ArrayList<>();
@@ -167,6 +169,11 @@ public class IntroActivity extends AppCompatActivity {
         return;
     }
 
+    public void setSlideListener(SlideListener slideListener) {
+        this.slideListener = slideListener;
+        return;
+    }
+
     private void findViews(){
         frame = (FrameLayout) findViewById(R.id.mi_frame);
         pager = (FadeableViewPager) findViewById(R.id.mi_pager);
@@ -207,6 +214,8 @@ public class IntroActivity extends AppCompatActivity {
             return;
         }
         if (canGoForward(currentItem, true)) {
+            if (this.slideListener != null)
+                slideListener.willLeaveSlide(currentItem);
             pager.setCurrentItem(++currentItem, true);
         }
         else {
@@ -219,6 +228,8 @@ public class IntroActivity extends AppCompatActivity {
         int currentItem = pager.getCurrentItem();
 
         if (canGoBackward(currentItem, true)) {
+            if (this.slideListener != null)
+                slideListener.willLeaveSlide(currentItem);
             pager.setCurrentItem(--currentItem, true);
         }
         else {

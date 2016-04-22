@@ -7,18 +7,14 @@ import android.util.Log;
 
 import com.heinrichreimersoftware.materialintro.app.IntroActivity;
 import com.heinrichreimersoftware.materialintro.app.NavigationPolicy;
-import com.heinrichreimersoftware.materialintro.slide.FragmentSlide;
 import com.heinrichreimersoftware.materialintro.slide.Slide;
 
 import java.util.ArrayList;
 
 import sun.bob.leela.R;
-import sun.bob.leela.listeners.SlideListener;
+import com.heinrichreimersoftware.materialintro.app.SlideListener;
 import sun.bob.leela.ui.fragments.SecureSlide;
-import sun.bob.leela.ui.fragments.SecureStepAll;
-import sun.bob.leela.ui.fragments.SecureStepAlphaOnly;
 import sun.bob.leela.ui.fragments.SecureStepIntro;
-import sun.bob.leela.ui.fragments.SecureStepNumber;
 import sun.bob.leela.ui.fragments.SecureStepTypeSelect;
 import sun.bob.leela.ui.fragments.SecureStepWords;
 
@@ -39,6 +35,7 @@ public class PasswordGenActivity extends IntroActivity implements SlideListener 
     SecureStepWords wordsSlideFragment;
     SecureStepIntro introStepFragment;
     private ArrayList<String> words;
+    private int length;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -68,37 +65,7 @@ public class PasswordGenActivity extends IntroActivity implements SlideListener 
             }
         });
 
-        addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
-            @Override
-            public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
-
-            }
-
-            @Override
-            public void onPageSelected(int position) {
-                Log.e("scrolled", String.valueOf(position));
-//                SecureStepWords two = SecureStepWords.newInstance(R.layout.fragment_step_words);
-//                SecureSlide slide1 = new SecureSlide.Builder()
-//                        .background(R.color.colorPrimary)
-//                        .backgroundDark(R.color.colorPrimaryDark)
-//                        .fragment(two)
-//                        .build();
-//                addSlide(slide1);
-                if (position > 0) {
-                    Slide slide = getSlide(position - 1);
-                    if (slide.getFragment() instanceof SecureStepWords) {
-                        words = ((SecureStepWords) slide.getFragment()).getWords();
-                    }
-                }
-
-
-            }
-
-            @Override
-            public void onPageScrollStateChanged(int state) {
-
-            }
-        });
+        setSlideListener(this);
 
 //        FragmentSlide slide0 = new FragmentSlide.Builder()
 //                .background(R.color.colorPrimary)
@@ -146,10 +113,22 @@ public class PasswordGenActivity extends IntroActivity implements SlideListener 
         removeSlide(wordsSlide);
     }
 
+    @Override
+    public void willLeaveSlide(int position) {
+        if (position == 0) {
+            length = ((SecureStepIntro) getSlide(0).getFragment()).getLength();
+            return;
+        }
+        Slide slide = getSlide(position);
+        if (slide.getFragment() instanceof SecureStepWords) {
+            words = ((SecureStepWords) slide.getFragment()).getWords();
+        }
+    }
+
 
     private void wireRefs() {
 
-        introStepFragment = SecureStepIntro.newInstance(R.layout.fragment_step_words);
+        introStepFragment = SecureStepIntro.newInstance(R.layout.fragment_step_intro);
         introSlide = new SecureSlide.Builder()
                 .fragment(introStepFragment)
                 .background(R.color.colorPrimary)

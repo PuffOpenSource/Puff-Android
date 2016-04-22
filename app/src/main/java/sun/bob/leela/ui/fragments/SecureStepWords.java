@@ -3,7 +3,6 @@ package sun.bob.leela.ui.fragments;
 import android.os.Bundle;
 import android.support.annotation.LayoutRes;
 import android.support.v7.widget.AppCompatEditText;
-import android.support.v7.widget.AppCompatTextView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,7 +12,7 @@ import com.heinrichreimersoftware.materialintro.slide.FragmentSlide;
 import java.util.ArrayList;
 
 import sun.bob.leela.R;
-import sun.bob.leela.listeners.SlideListener;
+import com.heinrichreimersoftware.materialintro.app.SlideListener;
 import sun.bob.leela.utils.StringUtil;
 
 /**

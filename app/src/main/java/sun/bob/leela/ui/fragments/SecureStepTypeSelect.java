@@ -12,7 +12,7 @@ import android.widget.CompoundButton;
 import com.heinrichreimersoftware.materialintro.slide.FragmentSlide;
 
 import sun.bob.leela.R;
-import sun.bob.leela.listeners.SlideListener;
+import com.heinrichreimersoftware.materialintro.app.SlideListener;
 
 /**
  * Created by bob.sun on 16/4/21.
