@@ -38,10 +38,10 @@ public class PasswordGenActivity extends IntroActivity implements SlideListener 
             @Override
             public void run() {
 //                words = wordsSlideFragment.getWords();
-//                finish();
+                finish();
             }
         });
-        getSupportActionBar().setTitle("Secure Password Generator");
+//        getSupportActionBar().setTitle("Secure Password Generator");
 
         wireRefs();
 
@@ -58,22 +58,6 @@ public class PasswordGenActivity extends IntroActivity implements SlideListener 
         });
 
         setSlideListener(this);
-
-//        FragmentSlide slide0 = new FragmentSlide.Builder()
-//                .background(R.color.colorPrimary)
-//                .backgroundDark(R.color.colorPrimaryDark)
-//                .fragment(R.layout.activity_password_gen, R.style.AppTheme)
-//                .build();
-//
-//        SecureStepWords two = SecureStepWords.newInstance(R.layout.fragment_step_words);
-//        SecureSlide slide1 = new SecureSlide.Builder()
-//                .background(R.color.colorPrimary)
-//                .backgroundDark(R.color.colorPrimaryDark)
-//                .fragment(two)
-//                .build();
-//
-//        addSlide(slide0);
-//        addSlide(slide1);
 
         addSlide(introSlide);
         addSlide(typeSlide);
