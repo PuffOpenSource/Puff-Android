@@ -188,7 +188,11 @@ public class IntroActivity extends AppCompatActivity {
 
     public void nextSlide() {
         int currentItem = pager.getCurrentItem();
-
+        if (currentItem == pager.getAdapter().getCount() - 1) {
+            position += 1;
+            finishIfNeeded();
+            return;
+        }
         if (canGoForward(currentItem, true)) {
             pager.setCurrentItem(++currentItem, true);
         }
@@ -524,6 +528,7 @@ public class IntroActivity extends AppCompatActivity {
 
     protected boolean addSlide(Slide object) {
         boolean ret = adapter.addSlide(object);
+        adapter.notifyDataSetChanged();
         return ret;
     }
 

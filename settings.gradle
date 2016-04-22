@@ -1,1 +1,1 @@
-include ':app', ':material-intro'
+include ':app', ':material-intro', ':intropager'

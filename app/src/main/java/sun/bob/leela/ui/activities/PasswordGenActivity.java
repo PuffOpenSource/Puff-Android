@@ -14,6 +14,7 @@ import sun.bob.leela.listeners.SlideListener;
 import sun.bob.leela.ui.fragments.SecureSlide;
 import sun.bob.leela.ui.fragments.SecureStepAll;
 import sun.bob.leela.ui.fragments.SecureStepAlphaOnly;
+import sun.bob.leela.ui.fragments.SecureStepIntro;
 import sun.bob.leela.ui.fragments.SecureStepNumber;
 import sun.bob.leela.ui.fragments.SecureStepTypeSelect;
 import sun.bob.leela.ui.fragments.SecureStepWords;
@@ -30,9 +31,10 @@ public class PasswordGenActivity extends IntroActivity implements SlideListener 
 
     private LayoutType layoutType;
 
-    private SecureSlide typeSlide, wordsSlide;
+    private SecureSlide introSlide, typeSlide, wordsSlide;
     SecureStepTypeSelect typeSlideFragment;
     SecureStepWords wordsSlideFragment;
+    SecureStepIntro introStepFragment;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -96,6 +98,8 @@ public class PasswordGenActivity extends IntroActivity implements SlideListener 
 //        addSlide(slide0);
 //        addSlide(slide1);
 
+        addSlide(introSlide);
+
         addSlide(typeSlide);
     }
 
@@ -138,6 +142,13 @@ public class PasswordGenActivity extends IntroActivity implements SlideListener 
         wordsSlideFragment.setSlideListener(this);
         wordsSlide = new SecureSlide.Builder()
                 .fragment(wordsSlideFragment)
+                .background(R.color.colorPrimary)
+                .backgroundDark(R.color.colorPrimaryDark)
+                .build();
+
+        introStepFragment = SecureStepIntro.newInstance(R.layout.fragment_step_words);
+        introSlide = new SecureSlide.Builder()
+                .fragment(introStepFragment)
                 .background(R.color.colorPrimary)
                 .backgroundDark(R.color.colorPrimaryDark)
                 .build();
