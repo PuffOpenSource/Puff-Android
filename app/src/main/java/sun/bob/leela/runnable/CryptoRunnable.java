@@ -8,7 +8,6 @@ import javax.crypto.spec.SecretKeySpec;
 import de.greenrobot.event.EventBus;
 import sun.bob.leela.events.CryptoEvent;
 import sun.bob.leela.utils.AppConstants;
-import sun.bob.leela.utils.HexUtil;
 
 /**
  * Created by bob.sun on 16/1/25.
@@ -52,7 +51,6 @@ public class CryptoRunnable implements Runnable {
         if (this.runModel == AppConstants.TYPE_ENCRYPT){
             try {
                 byte[] rawRslt = encrypt();
-//                String rslt = new String(HexUtil.encodeHex(rawRslt));
                 String rslt = Base64.encodeToString(rawRslt, Base64.DEFAULT);
                 result = new CryptoEvent(rslt, AppConstants.TYPE_ENCRYPT, this.field);
             } catch (Exception e){
@@ -63,7 +61,6 @@ public class CryptoRunnable implements Runnable {
             }
         } else if (this.runModel == AppConstants.TYPE_DECRYPT){
             try {
-//                this.rawText = HexUtil.decodeHex(this.text.toCharArray());
                 this.rawText = Base64.decode(this.text, Base64.DEFAULT);
                 String rslt = new String(decrypt());
                 result = new CryptoEvent(rslt, AppConstants.TYPE_DECRYPT, this.field);

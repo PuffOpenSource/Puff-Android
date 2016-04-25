@@ -77,8 +77,7 @@
                         android:id="@+id/account"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:minHeight="60dp"
-                        android:hint="Account"/>
+                        android:minHeight="60dp" />
                 </android.support.design.widget.TextInputLayout>
 
                 <android.support.design.widget.TextInputLayout
@@ -93,8 +92,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:minHeight="60dp"
-                        android:inputType="textPassword"
-                        android:hint="Password"/>
+                        android:inputType="textPassword" />
                 </android.support.design.widget.TextInputLayout>
 
                 <android.support.design.widget.TextInputLayout
@@ -109,8 +107,7 @@
                         android:layout_height="wrap_content"
                         android:minHeight="60dp"
                         android:id="@+id/additional"
-                        android:inputType="textPassword"
-                        android:hint="Additional Code (Optional)"/>
+                        android:inputType="textPassword" />
                 </android.support.design.widget.TextInputLayout>
 
                 <android.support.design.widget.TextInputLayout
@@ -125,8 +122,7 @@
                         android:layout_height="wrap_content"
                         android:minHeight="60dp"
                         android:id="@+id/website"
-                        android:inputType="textPassword"
-                        android:hint="Website link (Optional)"/>
+                        android:inputType="textPassword" />
                 </android.support.design.widget.TextInputLayout>
 
             </LinearLayout>
