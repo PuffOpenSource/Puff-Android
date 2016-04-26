@@ -16,11 +16,22 @@ public class IMEService extends InputMethodService implements KeyboardView.OnKey
 
     private KeyboardView kv;
     private Keyboard keyboard;
+    private String account, password, additional;
 
     public IMEService() {
     }
 
     @Override
+    public int onStartCommand(Intent intent, int flags, int startId) {
+        if (intent.getAction() == "INIT") {
+            account = intent.getStringExtra("account");
+            password = intent.getStringExtra("password");
+            additional = intent.getStringExtra("additional");
+        }
+        return START_STICKY;
+    }
+
+        @Override
     public View onCreateInputView() {
         kv = (KeyboardView)getLayoutInflater().inflate(R.layout.layout_ime, null);
         keyboard = new Keyboard(this, R.xml.keyboard_layout);
@@ -43,13 +54,13 @@ public class IMEService extends InputMethodService implements KeyboardView.OnKey
         InputConnection ic = getCurrentInputConnection();
         switch(primaryCode){
             case -11 :
-                ic.commitText("Account", 1);
+                ic.commitText(account, 1);
                 break;
             case -12:
-                ic.commitText("Password", 1);
+                ic.commitText(password, 1);
                 break;
             case -13:
-                ic.commitText("Additional", 1);
+                ic.commitText(additional, 1);
                 break;
             case Keyboard.KEYCODE_DONE:
                 ic.sendKeyEvent(new KeyEvent(KeyEvent.ACTION_DOWN, KeyEvent.KEYCODE_ENTER));
