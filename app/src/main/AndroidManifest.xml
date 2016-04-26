@@ -65,9 +65,26 @@
             android:label="@null"
             android:theme="@style/AppTheme.NoActionBar"
             android:windowSoftInputMode="stateHidden|adjustPan" />
-        <activity android:name=".ui.activities.PasswordGenActivity"
+        <activity
+            android:name=".ui.activities.PasswordGenActivity"
             android:theme="@style/AppTheme.NoActionBar"
-            android:windowSoftInputMode="stateHidden|adjustPan"></activity>
+            android:windowSoftInputMode="stateHidden|adjustPan" />
+
+        <service
+            android:name=".services.NotificatoinService"
+            android:exported="false" />
+        <service
+            android:name=".services.IMEService"
+            android:label="Puff IME"
+            android:enabled="true"
+            android:exported="true"
+            android:permission="android.permission.BIND_INPUT_METHOD">
+            <intent-filter>
+                <action android:name="android.view.InputMethod" />
+            </intent-filter>
+            <meta-data android:name="android.view.im"
+                android:resource="@xml/method" />
+        </service>
     </application>
 
 </manifest>

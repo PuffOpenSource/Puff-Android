@@ -36,6 +36,7 @@ import sun.bob.leela.R;
 import sun.bob.leela.db.AccountHelper;
 import sun.bob.leela.db.Category;
 import sun.bob.leela.db.CategoryHelper;
+import sun.bob.leela.services.NotificatoinService;
 import sun.bob.leela.ui.drawable.ColorSquare;
 import sun.bob.leela.ui.fragments.AcctListFragment;
 import sun.bob.leela.utils.AppConstants;
@@ -204,8 +205,12 @@ public class MainActivity extends AppCompatActivity
 //            Intent intent = new Intent(this, DetailActivity.class);
 //            startActivity(intent);
 
-            Intent intent = new Intent(this, PasswordGenActivity.class);
-            startActivity(intent);
+//            Intent intent = new Intent(this, PasswordGenActivity.class);
+//            startActivity(intent);
+
+            Intent intent = new Intent(this, NotificatoinService.class);
+            intent.setAction("start");
+            startService(intent);
             return true;
         }
 
