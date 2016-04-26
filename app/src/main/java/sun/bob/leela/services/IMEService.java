@@ -1,24 +1,28 @@
 package sun.bob.leela.services;
 
-import android.app.Service;
 import android.content.Intent;
 import android.inputmethodservice.InputMethodService;
 import android.inputmethodservice.Keyboard;
 import android.inputmethodservice.KeyboardView;
-import android.os.IBinder;
+import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.inputmethod.InputConnection;
 
 import sun.bob.leela.R;
+import sun.bob.leela.ui.views.PuffKeyboardView;
 
 public class IMEService extends InputMethodService implements KeyboardView.OnKeyboardActionListener{
 
-    private KeyboardView kv;
+    private PuffKeyboardView kv;
     private Keyboard keyboard;
+
     private String account, password, additional;
 
     public IMEService() {
+        account = "";
+        password = "";
+        additional = "";
     }
 
     @Override
@@ -33,8 +37,9 @@ public class IMEService extends InputMethodService implements KeyboardView.OnKey
 
         @Override
     public View onCreateInputView() {
-        kv = (KeyboardView)getLayoutInflater().inflate(R.layout.layout_ime, null);
-        keyboard = new Keyboard(this, R.xml.keyboard_layout);
+        Log.e("Leela IME", "onCreateInputView");
+        kv = (PuffKeyboardView)getLayoutInflater().inflate(R.layout.layout_ime, null);
+        keyboard = new Keyboard(this, R.xml.keyboard_layout_qwerty);
         kv.setKeyboard(keyboard);
         kv.setOnKeyboardActionListener(this);
         return kv;
@@ -66,9 +71,9 @@ public class IMEService extends InputMethodService implements KeyboardView.OnKey
                 ic.sendKeyEvent(new KeyEvent(KeyEvent.ACTION_DOWN, KeyEvent.KEYCODE_ENTER));
                 break;
             default:
+                char code = (char)primaryCode;
+                ic.commitText(String.valueOf(code),1);
                 break;
-//                char code = (char)primaryCode;
-//                ic.commitText(String.valueOf(code),1);
         }
     }
 
