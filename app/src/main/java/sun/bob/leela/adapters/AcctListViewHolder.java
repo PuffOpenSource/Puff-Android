@@ -3,6 +3,7 @@ package sun.bob.leela.adapters;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.net.Uri;
+import android.support.design.widget.Snackbar;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.View;
@@ -21,6 +22,7 @@ import sun.bob.leela.db.TypeHelper;
 import sun.bob.leela.services.NotificationService;
 import sun.bob.leela.ui.activities.DetailActivity;
 import sun.bob.leela.utils.AppConstants;
+import sun.bob.leela.utils.ClipboardUtil;
 import sun.bob.leela.utils.CryptoUtil;
 import sun.bob.leela.utils.ResUtil;
 import sun.bob.leela.utils.StringUtil;
@@ -110,6 +112,21 @@ public class AcctListViewHolder extends RecyclerView.ViewHolder{
                         intent.putExtra("icon", iconStr);
 
                         itemView.getContext().startService(intent);
+                        Snackbar.make(itemView,"Pinned!", Snackbar.LENGTH_SHORT).show();
+                    }
+                }).runDecrypt(account.getAccount(), account.getHash(), account.getAdditional(),
+                        account.getAccount_salt(), account.getSalt(), account.getAdditional_salt());
+            }
+        });
+
+        this.itemView.findViewById(R.id.copy_button).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                new CryptoUtil(v.getContext(), new CryptoUtil.OnDecryptedListener() {
+                    @Override
+                    public void onDecrypted(String account, String passwd, String addt) {
+                        ClipboardUtil.getInstance(itemView.getContext()).setText(passwd);
+                        Snackbar.make(itemView,"Copied!", Snackbar.LENGTH_SHORT).show();
                     }
                 }).runDecrypt(account.getAccount(), account.getHash(), account.getAdditional(),
                         account.getAccount_salt(), account.getSalt(), account.getAdditional_salt());
