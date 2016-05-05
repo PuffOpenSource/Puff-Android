@@ -48,6 +48,14 @@ public class StringUtil {
         return str == null || "".equalsIgnoreCase(str);
     }
 
+    public static boolean isNullOrEmpty(String ... strs) {
+        for (String s : strs) {
+            if (!isNullOrEmpty(s))
+                return false;
+        }
+        return true;
+    }
+
     public static HashMap<String, ArrayList> charMap = null;
 
     private static HashMap getCharMap() {

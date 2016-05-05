@@ -1,31 +1,19 @@
 package sun.bob.leela.ui.activities;
 
-import android.animation.Animator;
 import android.content.Intent;
-import android.graphics.Bitmap;
 import android.graphics.drawable.BitmapDrawable;
-import android.graphics.drawable.Drawable;
-import android.net.Uri;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.NavigationView;
-import android.support.design.widget.Snackbar;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.view.menu.MenuItemImpl;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.SubMenu;
 import android.view.View;
-import android.widget.AdapterView;
-
-import com.squareup.picasso.Picasso;
-import com.squareup.picasso.RequestCreator;
-import com.squareup.picasso.Target;
 
 import java.io.IOException;
 import java.util.HashMap;
@@ -37,12 +25,8 @@ import sun.bob.leela.db.AccountHelper;
 import sun.bob.leela.db.Category;
 import sun.bob.leela.db.CategoryHelper;
 import sun.bob.leela.services.IMEService;
-import sun.bob.leela.services.NotificatoinService;
-import sun.bob.leela.ui.drawable.ColorSquare;
 import sun.bob.leela.ui.fragments.AcctListFragment;
 import sun.bob.leela.utils.AppConstants;
-import sun.bob.leela.utils.CryptoUtil;
-import sun.bob.leela.utils.RegExUtil;
 import sun.bob.leela.utils.ResUtil;
 
 /**
@@ -210,7 +194,7 @@ public class MainActivity extends AppCompatActivity
 //            Intent intent = new Intent(this, PasswordGenActivity.class);
 //            startActivity(intent);
 
-//            Intent intent = new Intent(this, NotificatoinService.class);
+//            Intent intent = new Intent(this, NotificationService.class);
 //            intent.setAction("start");
 //            startService(intent);
 

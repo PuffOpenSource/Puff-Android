@@ -71,7 +71,7 @@
             android:windowSoftInputMode="stateHidden|adjustPan" />
 
         <service
-            android:name=".services.NotificatoinService"
+            android:name=".services.NotificationService"
             android:exported="false" />
         <service
             android:name=".services.IMEService"

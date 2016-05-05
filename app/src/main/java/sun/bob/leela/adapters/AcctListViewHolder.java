@@ -1,15 +1,11 @@
 package sun.bob.leela.adapters;
 
-import android.animation.ValueAnimator;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.net.Uri;
-import android.os.Bundle;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.View;
-import android.view.ViewGroup;
-import android.view.animation.AccelerateDecelerateInterpolator;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -17,13 +13,13 @@ import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 
-import de.greenrobot.event.EventBus;
 import sun.bob.leela.R;
 import sun.bob.leela.db.Account;
 import sun.bob.leela.db.Category;
 import sun.bob.leela.db.CategoryHelper;
-import sun.bob.leela.events.ItemUIEvent;
+import sun.bob.leela.services.NotificationService;
 import sun.bob.leela.ui.activities.DetailActivity;
+import sun.bob.leela.utils.AppConstants;
 import sun.bob.leela.utils.CryptoUtil;
 import sun.bob.leela.utils.ResUtil;
 import sun.bob.leela.utils.StringUtil;
@@ -84,6 +80,27 @@ public class AcctListViewHolder extends RecyclerView.ViewHolder{
                         intent.putStringArrayListExtra("credentials", list);
                         intent.putExtra("account", AcctListViewHolder.this.account.getId());
                         itemView.getContext().startActivity(intent);
+                    }
+                }).runDecrypt(account.getAccount(), account.getHash(), account.getAdditional(),
+                        account.getAccount_salt(), account.getSalt(), account.getAdditional_salt());
+            }
+        });
+
+        this.itemView.findViewById(R.id.pin_button).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                new CryptoUtil(v.getContext(), new CryptoUtil.OnDecryptedListener() {
+                    @Override
+                    public void onDecrypted(String account, String passwd, String addt) {
+                        Intent intent = new Intent(itemView.getContext(), NotificationService.class);
+                        intent.setAction(AppConstants.SERVICE_CMD_START);
+
+                        intent.putExtra("name", AcctListViewHolder.this.account.getName());
+                        intent.putExtra("account", account);
+                        intent.putExtra("password", passwd);
+                        intent.putExtra("additional", addt);
+
+                        itemView.getContext().startService(intent);
                     }
                 }).runDecrypt(account.getAccount(), account.getHash(), account.getAdditional(),
                         account.getAccount_salt(), account.getSalt(), account.getAdditional_salt());
