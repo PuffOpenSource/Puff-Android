@@ -102,6 +102,7 @@ public class NotificationService extends Service {
         notification = builder.build();
         notification.flags |= Notification.FLAG_NO_CLEAR;
         notification.bigContentView = remoteViews;
+        notification.contentView = remoteViews;
 
         //Wire up actions.
         Intent pasteAccountIntent = new Intent(this, NotificationService.class);
