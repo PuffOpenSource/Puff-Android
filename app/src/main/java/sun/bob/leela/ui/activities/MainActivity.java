@@ -53,6 +53,7 @@ public class MainActivity extends AppCompatActivity
 
     private AcctListFragment acctListFragment;
     private AcctListFragment currentFragment;
+    private Toolbar toolbar;
     private HashMap<Long, AcctListFragment> fragments;
     private SubMenu categoriesMenu;
 
@@ -60,19 +61,19 @@ public class MainActivity extends AppCompatActivity
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
         fragments = new HashMap<>();
 
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
+        final FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 final View reveal = findViewById(R.id.reveal_background);
                 // get the center for the clipping circle
-                int centerX = (reveal.getLeft() + reveal.getRight()) / 2;
-                int centerY = (reveal.getTop() + reveal.getBottom()) / 2;
+                int centerX = (fab.getLeft() + fab.getRight()) / 2;
+                int centerY = (fab.getTop() + fab.getBottom()) / 2;
 
                 int startRadius = 0;
                 // get the final radius for the clipping circle

@@ -6,7 +6,6 @@
     android:layout_height="wrap_content"
     android:layout_alignParentBottom="true"
     android:keyPreviewLayout ="@layout/layout_ime_preview"
-    android:keyBackground="@drawable/ime_key_bg"
-    android:background="#FFF"
-    android:keyTextColor="#ccc"
-    />
+    android:keyBackground="@drawable/ime_key_bg"/>
+    <!--android:background="#FFF"-->
+    <!--android:keyTextColor="#ccc"-->

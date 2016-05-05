@@ -24,17 +24,6 @@
 
     <include layout="@layout/content_main"/>
 
-    <io.codetail.widget.RevealFrameLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent">
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:id="@+id/reveal_background"
-            android:background="?attr/colorAccent"
-            android:visibility="invisible"
-            />
-    </io.codetail.widget.RevealFrameLayout>
     <android.support.design.widget.FloatingActionButton
         android:id="@+id/fab"
         android:layout_width="wrap_content"
