@@ -10,15 +10,18 @@ import android.support.v7.app.NotificationCompat;
 import android.view.View;
 import android.widget.RemoteViews;
 
+import com.squareup.picasso.Picasso;
+
 import sun.bob.leela.R;
 import sun.bob.leela.ui.activities.MainActivity;
 import sun.bob.leela.utils.AppConstants;
 import sun.bob.leela.utils.ClipboardUtil;
+import sun.bob.leela.utils.ResUtil;
 import sun.bob.leela.utils.StringUtil;
 
 public class NotificationService extends Service {
 
-    private String name, account, password, additional;
+    private String name, account, password, additional, icon;
     private RemoteViews remoteViews;
     private Notification notification;
     private NotificationManager notificationmanager;
@@ -47,6 +50,7 @@ public class NotificationService extends Service {
             account = intent.getStringExtra("account");
             password = intent.getStringExtra("password");
             additional = intent.getStringExtra("additional");
+            icon = intent.getStringExtra("icon");
             if (StringUtil.isNullOrEmpty(name, account, password, additional))
                 return START_NOT_STICKY;
             pingNotification();
@@ -64,32 +68,33 @@ public class NotificationService extends Service {
             updateNotification(NotificationElement.Additional);
         }
 
+        if (cmd.equalsIgnoreCase("stop")) {
+            stopForeground(true);
+            stopSelf();
+        }
+
         return START_NOT_STICKY;
     }
 
     private void pingNotification(){
+        notificationmanager = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
+
         remoteViews = new RemoteViews(getPackageName(),
                 R.layout.remote_notification);
 
-        // Set Notification Title
-        String strtitle = "title";
-        // Set Notification Text
-        String strtext = "text";
 
         // Open NotificationView Class on Notification Click
         Intent intent = new Intent(this, MainActivity.class);
         // Send data to NotificationView Class
-        intent.putExtra("title", strtitle);
-        intent.putExtra("text", strtext);
         // Open NotificationView.java Activity
         PendingIntent pIntent = PendingIntent.getService(this, 0, intent,
                 PendingIntent.FLAG_UPDATE_CURRENT);
 
         android.support.v4.app.NotificationCompat.Builder builder = new NotificationCompat.Builder(this)
                 // Set Icon
-                .setSmallIcon(R.drawable.ic_lock)
+                .setSmallIcon(R.mipmap.ic_launcher)
                 // Set Ticker Message
-                .setTicker("Ticker?")
+                .setTicker("Use notification to paste account info")
                 // Set PendingIntent into Notification
                 .setContentIntent(pIntent);
 
@@ -114,6 +119,13 @@ public class NotificationService extends Service {
         PendingIntent pasteAddtPendingIntent = PendingIntent.getService(this, 0, pasteAddtIntent, 0);
         remoteViews.setOnClickPendingIntent(R.id.additional, pasteAddtPendingIntent);
 
+        Intent clearIntent = new Intent(this, NotificationService.class);
+        clearIntent.setAction("stop");
+        PendingIntent clearPendingIntent = PendingIntent.getService(this, 0, clearIntent, 0);
+        remoteViews.setOnClickPendingIntent(R.id.clear, clearPendingIntent);
+
+
+
         //Setup remote views.
         if (StringUtil.isNullOrEmpty(account))
             remoteViews.setViewVisibility(R.id.account, View.GONE);
@@ -122,17 +134,11 @@ public class NotificationService extends Service {
         if (StringUtil.isNullOrEmpty(additional))
             remoteViews.setViewVisibility(R.id.additional, View.GONE);
 
+        remoteViews.setTextViewText(R.id.remote_name, name);
+        Picasso.with(this).load(ResUtil.getInstance(getApplicationContext()).getBmpUri(icon))
+                .into(remoteViews, R.id.remote_icon, 22333, notification);
 
         startForeground(22333, notification);
-
-        notificationmanager = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
-
-//        // Create Notification Manager
-//        NotificationManager notificationmanager = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
-//        // Build Notification with Notification Manager
-//        notificationmanager.notify(0, notification);
-
-
     }
 
     private void updateNotification(NotificationElement removed){

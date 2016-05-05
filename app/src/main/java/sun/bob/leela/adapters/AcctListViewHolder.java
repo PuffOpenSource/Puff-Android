@@ -35,6 +35,7 @@ public class AcctListViewHolder extends RecyclerView.ViewHolder{
     private TextView name, accountName;
     private ImageView image;
     private Account account;
+    private String iconStr;
 
     public AcctListViewHolder(View itemView) {
         super(itemView);
@@ -48,15 +49,18 @@ public class AcctListViewHolder extends RecyclerView.ViewHolder{
         ((TextView) itemView.findViewById(R.id.list_account_name)).setText(account.getMasked_account());
         Category category = CategoryHelper.getInstance(null).getCategoryById(account.getCategory());
         ((TextView) itemView.findViewById(R.id.list_account_category)).setText(category.getName());
-        if (!StringUtil.isNullOrEmpty(account.getIcon())) {
+
+        iconStr = account.getIcon();
+        if (!StringUtil.isNullOrEmpty(iconStr)) {
             Picasso.with(this.itemView.getContext())
                     .load(ResUtil.getInstance(null).getBmpUri(account.getIcon()))
                     .fit()
                     .config(Bitmap.Config.RGB_565)
                     .into((ImageView) itemView.findViewById(R.id.list_account_image));
         } else {
+            iconStr = CategoryHelper.getInstance(null).getCategoryById(account.getCategory()).getIcon();
             Uri icon = ResUtil.getInstance(null)
-                .getBmpUri(CategoryHelper.getInstance(null).getCategoryById(account.getCategory()).getIcon());
+                .getBmpUri(iconStr);
             Picasso.with(this.itemView.getContext())
                     .load(icon)
                     .fit()
@@ -93,12 +97,16 @@ public class AcctListViewHolder extends RecyclerView.ViewHolder{
                     @Override
                     public void onDecrypted(String account, String passwd, String addt) {
                         Intent intent = new Intent(itemView.getContext(), NotificationService.class);
+
+                        itemView.getContext().stopService(intent);
+
                         intent.setAction(AppConstants.SERVICE_CMD_START);
 
                         intent.putExtra("name", AcctListViewHolder.this.account.getName());
                         intent.putExtra("account", account);
                         intent.putExtra("password", passwd);
                         intent.putExtra("additional", addt);
+                        intent.putExtra("icon", iconStr);
 
                         itemView.getContext().startService(intent);
                     }
