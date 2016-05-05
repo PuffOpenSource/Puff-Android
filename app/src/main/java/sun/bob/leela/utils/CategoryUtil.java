@@ -32,10 +32,10 @@ public class CategoryUtil {
         CategoryHelper helper = CategoryHelper.getInstance(context);
         Category cat = new Category();
 
-        cat.setName("Default");
+        cat.setName("Recent");
         cat.setType(AppConstants.CAT_TYPE_BUILTIN);
-        cat.setId(AppConstants.CAT_ID_DEFAULT);
-        cat.setIcon("icon_category/cat_default.png");
+        cat.setId(AppConstants.CAT_ID_RECENT);
+        cat.setIcon("icon_category/cat_recent.png");
         helper.saveCategory(cat);
 
         cat = new Category();

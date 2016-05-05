@@ -26,7 +26,7 @@ public class AppConstants {
 
     //Builtin Category ID
     public static final long CAT_ID_PRIVATE  = -1;
-    public static final long CAT_ID_DEFAULT  = 1;
+    public static final long CAT_ID_RECENT  = 1;
     public static final long CAT_ID_MAIL     = 2;
     public static final long CAT_ID_SOCIAL   = 3;
     public static final long CAT_ID_CARDS    = 4;

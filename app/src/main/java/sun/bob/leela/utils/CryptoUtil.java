@@ -156,7 +156,7 @@ public class CryptoUtil {
                         return;
                 }
                 if (this.account != null && this.passwd != null && this.addt != null) {
-                    Log.e("LEELA", "Decrypted Callback");
+//                    Log.e("LEELA", "Decrypted Callback");
                     account = account.replace(salts[0], "");
                     passwd = passwd.replace(salts[1], "");
                     addt = addt.replace(salts[2], "");

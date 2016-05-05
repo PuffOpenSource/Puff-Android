@@ -11,6 +11,7 @@ import java.util.ArrayList;
 import sun.bob.leela.R;
 import sun.bob.leela.db.Account;
 import sun.bob.leela.db.AccountHelper;
+import sun.bob.leela.utils.AppConstants;
 
 /**
  * Created by bob.sun on 16/3/19.
@@ -56,6 +57,11 @@ public class AcctListAdapter extends RecyclerView.Adapter<AcctListViewHolder> {
     }
 
     public void loadAccountsInCategory(Long category){
+        if (category == AppConstants.CAT_ID_RECENT) {
+            data = AccountHelper.getInstance(context).getRecentUsed(10);
+            this.notifyDataSetChanged();
+            return;
+        }
         data = AccountHelper.getInstance(context).getAccountsByCategory(category);
         this.notifyDataSetChanged();
     }

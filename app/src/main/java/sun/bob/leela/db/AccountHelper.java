@@ -104,4 +104,13 @@ public class AccountHelper {
                         .orderDesc(AccountDao.Properties.Id)
                         .list();
     }
+
+    public  ArrayList<Account> getRecentUsed(int limit) {
+        return (ArrayList) accountDao.queryBuilder()
+                .where(AccountDao.Properties.Type.notEq(AppConstants.TYPE_MASTER))
+                .orderDesc(AccountDao.Properties.Last_access)
+                .limit(limit)
+                .list();
+
+    }
 }

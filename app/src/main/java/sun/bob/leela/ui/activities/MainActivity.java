@@ -111,13 +111,15 @@ public class MainActivity extends AppCompatActivity
 
         loadCategoriesInNavigation();
 
-        acctListFragment = AcctListFragment.newInstance(AppConstants.CAT_ID_DEFAULT);
-        fragments.put(AppConstants.CAT_ID_DEFAULT, acctListFragment);
+        acctListFragment = AcctListFragment.newInstance(AppConstants.CAT_ID_RECENT);
+        fragments.put(AppConstants.CAT_ID_RECENT, acctListFragment);
 
         getSupportFragmentManager().beginTransaction()
                 .add(R.id.id_fragment_container, acctListFragment, "AcctListFragment")
                 .commit();
         currentFragment = acctListFragment;
+        loadAccountByCategory(CategoryHelper.getInstance(this).getCategoryById(AppConstants.CAT_ID_RECENT));
+
 
         if (!AccountHelper.getInstance(this).hasMasterPassword()) {
             Intent intent = new Intent(this, SetMasterPasswordActivity.class);
