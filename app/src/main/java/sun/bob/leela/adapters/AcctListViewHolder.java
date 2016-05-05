@@ -6,16 +6,21 @@ import android.net.Uri;
 import android.support.design.widget.Snackbar;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
+import android.util.TimeUtils;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.squareup.picasso.Picasso;
 
+import java.sql.Time;
+import java.sql.Timestamp;
 import java.util.ArrayList;
+import java.util.Calendar;
 
 import sun.bob.leela.R;
 import sun.bob.leela.db.Account;
+import sun.bob.leela.db.AccountHelper;
 import sun.bob.leela.db.AcctType;
 import sun.bob.leela.db.Category;
 import sun.bob.leela.db.CategoryHelper;
@@ -88,6 +93,7 @@ public class AcctListViewHolder extends RecyclerView.ViewHolder{
                         intent.putStringArrayListExtra("credentials", list);
                         intent.putExtra("account", AcctListViewHolder.this.account.getId());
                         itemView.getContext().startActivity(intent);
+                        updateAccess();
                     }
                 }).runDecrypt(account.getAccount(), account.getHash(), account.getAdditional(),
                         account.getAccount_salt(), account.getSalt(), account.getAdditional_salt());
@@ -114,6 +120,7 @@ public class AcctListViewHolder extends RecyclerView.ViewHolder{
 
                         itemView.getContext().startService(intent);
                         Snackbar.make(itemView,"Pinned!", Snackbar.LENGTH_SHORT).show();
+                        updateAccess();
                     }
                 }).runDecrypt(account.getAccount(), account.getHash(), account.getAdditional(),
                         account.getAccount_salt(), account.getSalt(), account.getAdditional_salt());
@@ -126,6 +133,7 @@ public class AcctListViewHolder extends RecyclerView.ViewHolder{
                 new CryptoUtil(v.getContext(), new CryptoUtil.OnDecryptedListener() {
                     @Override
                     public void onDecrypted(String account, String passwd, String addt) {
+                        updateAccess();
                         ClipboardUtil.getInstance(itemView.getContext()).setText(passwd);
                         Snackbar.make(itemView,"Copied!", Snackbar.LENGTH_SHORT).show();
                     }
@@ -135,6 +143,11 @@ public class AcctListViewHolder extends RecyclerView.ViewHolder{
         });
 //        ((TextView) itemView.findViewById(R.id.list_account_category)).setText(account.getCategory());
 //        ((CardView) this.itemView.findViewById(R.id.list_item_card_view)).setCardBackgroundColor(Color.parseColor("#CDDC39"));
+    }
+
+    private void updateAccess() {
+        account.setLast_access(Calendar.getInstance().getTimeInMillis());
+        AccountHelper.getInstance(null).saveAccount(account);
     }
 
 //    public void setHeight(int height) {
