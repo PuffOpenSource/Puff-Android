@@ -47,4 +47,8 @@ public class UserDefault {
     public String getString(String key) {
         return sharedPreferences.getString(key, "");
     }
+
+    public int getAutoClearTimeInSeconds() {
+        return 60;
+    }
 }

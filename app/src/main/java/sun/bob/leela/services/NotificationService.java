@@ -5,6 +5,7 @@ import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.app.Service;
 import android.content.Intent;
+import android.os.Handler;
 import android.os.IBinder;
 import android.support.v7.app.NotificationCompat;
 import android.view.View;
@@ -18,6 +19,7 @@ import sun.bob.leela.utils.AppConstants;
 import sun.bob.leela.utils.ClipboardUtil;
 import sun.bob.leela.utils.ResUtil;
 import sun.bob.leela.utils.StringUtil;
+import sun.bob.leela.utils.UserDefault;
 
 public class NotificationService extends Service {
 
@@ -25,6 +27,8 @@ public class NotificationService extends Service {
     private RemoteViews remoteViews;
     private Notification notification;
     private NotificationManager notificationmanager;
+    private Handler handler;
+    private Runnable autoClearRunnable;
 
     private enum NotificationElement {
         Account,
@@ -33,6 +37,14 @@ public class NotificationService extends Service {
     }
 
     public NotificationService() {
+        handler = new Handler();
+        autoClearRunnable = new Runnable() {
+            @Override
+            public void run() {
+                stopForeground(true);
+                stopSelf();
+            }
+        };
     }
 
     @Override
@@ -54,6 +66,7 @@ public class NotificationService extends Service {
             if (StringUtil.isNullOrEmpty(name, account, password, additional))
                 return START_NOT_STICKY;
             pingNotification();
+            setAutoClear();
         }
         if (cmd.equalsIgnoreCase(AppConstants.SERVICE_CMD_PASTE_ACCT)) {
             pasteText(account);
@@ -172,4 +185,11 @@ public class NotificationService extends Service {
     private void pasteText(final String text) {
         ClipboardUtil.getInstance(this.getApplicationContext()).setText(text);
     }
+
+    private void setAutoClear(){
+        int sec = UserDefault.getInstance(getApplicationContext()).getAutoClearTimeInSeconds();
+        handler.removeCallbacks(autoClearRunnable);
+        handler.postDelayed(autoClearRunnable, sec * 1000);
+    }
+
 }
