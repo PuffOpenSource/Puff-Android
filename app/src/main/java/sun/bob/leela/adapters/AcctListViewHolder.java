@@ -16,6 +16,7 @@ import java.util.ArrayList;
 
 import sun.bob.leela.R;
 import sun.bob.leela.db.Account;
+import sun.bob.leela.db.AcctType;
 import sun.bob.leela.db.Category;
 import sun.bob.leela.db.CategoryHelper;
 import sun.bob.leela.db.TypeHelper;
@@ -50,8 +51,8 @@ public class AcctListViewHolder extends RecyclerView.ViewHolder{
         this.account = account;
         ((TextView) itemView.findViewById(R.id.list_name)).setText(account.getName());
         ((TextView) itemView.findViewById(R.id.list_account_name)).setText(account.getMasked_account());
-        Category category = CategoryHelper.getInstance(null).getCategoryById(account.getCategory());
-        ((TextView) itemView.findViewById(R.id.list_account_category)).setText(category.getName());
+        AcctType type = TypeHelper.getInstance(null).getTypeById(account.getType());
+        ((TextView) itemView.findViewById(R.id.list_account_category)).setText(type.getName());
 
         iconStr = account.getIcon();
         if (!StringUtil.isNullOrEmpty(iconStr)) {

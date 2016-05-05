@@ -55,7 +55,7 @@ public class AddAccountActivity extends AppCompatActivity {
         setContentView(R.layout.activity_add_account);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-        EventBus.getDefault().register(this);
+//        EventBus.getDefault().register(this);
 
         wireViews();
 
@@ -168,15 +168,15 @@ public class AddAccountActivity extends AppCompatActivity {
                 .into(imageView);
     }
 
-    public void onEventMainThread(CryptoEvent event){
-        switch (event.getType()) {
-            case AppConstants.TYPE_FINISHED:
-                // TODO: 16/4/4 Dismiss self and pop up snack bar.
-                break;
-            default:
-                break;
-        }
-    }
+//    public void onEventMainThread(CryptoEvent event){
+//        switch (event.getType()) {
+//            case AppConstants.TYPE_FINISHED:
+//                // TODO: 16/4/4 Dismiss self and pop up snack bar.
+//                break;
+//            default:
+//                break;
+//        }
+//    }
 
     private void wireViews() {
         name = (EditText) findViewById(R.id.id_name);
