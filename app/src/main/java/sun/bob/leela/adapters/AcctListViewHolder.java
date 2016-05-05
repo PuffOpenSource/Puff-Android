@@ -17,6 +17,7 @@ import sun.bob.leela.R;
 import sun.bob.leela.db.Account;
 import sun.bob.leela.db.Category;
 import sun.bob.leela.db.CategoryHelper;
+import sun.bob.leela.db.TypeHelper;
 import sun.bob.leela.services.NotificationService;
 import sun.bob.leela.ui.activities.DetailActivity;
 import sun.bob.leela.utils.AppConstants;
@@ -58,7 +59,7 @@ public class AcctListViewHolder extends RecyclerView.ViewHolder{
                     .config(Bitmap.Config.RGB_565)
                     .into((ImageView) itemView.findViewById(R.id.list_account_image));
         } else {
-            iconStr = CategoryHelper.getInstance(null).getCategoryById(account.getCategory()).getIcon();
+            iconStr = TypeHelper.getInstance(null).getTypeById(account.getType()).getIcon();
             Uri icon = ResUtil.getInstance(null)
                 .getBmpUri(iconStr);
             Picasso.with(this.itemView.getContext())

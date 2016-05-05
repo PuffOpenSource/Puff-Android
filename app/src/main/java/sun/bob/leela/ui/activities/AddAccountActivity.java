@@ -102,7 +102,7 @@ public class AddAccountActivity extends AppCompatActivity {
                         account.setWebsite(website.getText().toString());
                         account.setTag("");
                         account.setIcon(StringUtil.isNullOrEmpty(iconPath) ?
-                                ((Category) spinnerCategory.getSelectedItem()).getIcon() :
+                                ((AcctType) spinnerType.getSelectedItem()).getIcon() :
                                 iconPath);
                         AccountHelper.getInstance(AddAccountActivity.this).saveAccount(account);
                         finish();
