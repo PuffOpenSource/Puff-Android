@@ -11,8 +11,8 @@
             android:layout_width="80dp"
             android:layout_height="80dp"
             android:foregroundGravity="center"
-            android:id="@+id/remote_icon"
-            android:src="@drawable/ic_lock"/>
+            android:id="@+id/remote_icon"/>
+            <!--android:src="@drawable/ic_lock"/>-->
         <TextView
             android:layout_width="0dp"
             android:layout_weight="1.0"
@@ -30,24 +30,28 @@
             android:layout_height="match_parent"
             android:layout_weight="1.0"
             android:id="@+id/account"
+            android:background="@null"
             android:text="Account"/>
         <Button
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1.0"
             android:text="Password"
+            android:background="@null"
             android:id="@id/password"/>
         <Button
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1.0"
             android:text="Additional"
+            android:background="@null"
             android:id="@+id/additional"/>
         <Button
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1.0"
             android:text="Clear"
+            android:background="@null"
             android:id="@+id/clear"/>
     </LinearLayout>
     
