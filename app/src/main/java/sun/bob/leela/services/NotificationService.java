@@ -10,6 +10,7 @@ import android.os.IBinder;
 import android.support.v7.app.NotificationCompat;
 import android.view.View;
 import android.widget.RemoteViews;
+import android.widget.Toast;
 
 import com.squareup.picasso.Picasso;
 
@@ -71,14 +72,17 @@ public class NotificationService extends Service {
         if (cmd.equalsIgnoreCase(AppConstants.SERVICE_CMD_PASTE_ACCT)) {
             pasteText(account);
             updateNotification(NotificationElement.Account);
+            Toast.makeText(this, "Copied!", Toast.LENGTH_SHORT).show();
         }
         if (cmd.equalsIgnoreCase(AppConstants.SERVICE_CMD_PASTE_PSWD)) {
             pasteText(password);
             updateNotification(NotificationElement.Password);
+            Toast.makeText(this, "Copied!", Toast.LENGTH_SHORT).show();
         }
         if (cmd.equalsIgnoreCase(AppConstants.SERVICE_CMD_PASTE_ADDT)) {
             pasteText(additional);
             updateNotification(NotificationElement.Additional);
+            Toast.makeText(this, "Copied!", Toast.LENGTH_SHORT).show();
         }
 
         if (cmd.equalsIgnoreCase("stop")) {

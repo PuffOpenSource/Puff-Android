@@ -20,6 +20,7 @@
             android:layout_height="match_parent"
             android:textSize="30dp"
             android:paddingLeft="16dp"
+            android:textColor="#FFF"
             android:gravity="center|left"/>
     </LinearLayout>
     <LinearLayout
