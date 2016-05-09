@@ -75,16 +75,21 @@
             android:exported="false" />
         <service
             android:name=".services.IMEService"
-            android:label="Puff IME"
             android:enabled="true"
             android:exported="true"
+            android:label="Puff IME"
             android:permission="android.permission.BIND_INPUT_METHOD">
             <intent-filter>
                 <action android:name="android.view.InputMethod" />
             </intent-filter>
-            <meta-data android:name="android.view.im"
+
+            <meta-data
+                android:name="android.view.im"
                 android:resource="@xml/method" />
         </service>
+
+        <activity android:name=".ui.activities.DialogAcctList"
+            android:theme="@style/AppCompatAlertDialogStyle"></activity>
     </application>
 
 </manifest>

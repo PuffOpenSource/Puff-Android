@@ -1,8 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <Keyboard xmlns:android="http://schemas.android.com/apk/res/android"
     android:keyWidth="33.333%p"
-    android:horizontalGap="2px"
-    android:verticalGap="2px">
+    android:horizontalGap="2dp"
+    android:verticalGap="2dp"
+    android:keyHeight="36dp">
     <Row>
         <Key android:codes="-10" android:keyLabel="Account List" android:keyEdgeFlags="left"/>
         <Key android:codes="-11" android:keyLabel="Account" />

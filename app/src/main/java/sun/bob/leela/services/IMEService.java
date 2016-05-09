@@ -10,6 +10,7 @@ import android.view.View;
 import android.view.inputmethod.InputConnection;
 
 import sun.bob.leela.R;
+import sun.bob.leela.ui.activities.DialogAcctList;
 import sun.bob.leela.ui.views.PuffKeyboardView;
 
 public class IMEService extends InputMethodService implements KeyboardView.OnKeyboardActionListener{
@@ -58,6 +59,11 @@ public class IMEService extends InputMethodService implements KeyboardView.OnKey
     public void onKey(int primaryCode, int[] keyCodes) {
         InputConnection ic = getCurrentInputConnection();
         switch(primaryCode){
+            case -10 :
+                Intent intent = new Intent(this, DialogAcctList.class);
+                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_EXCLUDE_FROM_RECENTS);
+                startActivity(intent);
+                break;
             case -11 :
                 ic.commitText(account, 1);
                 break;
