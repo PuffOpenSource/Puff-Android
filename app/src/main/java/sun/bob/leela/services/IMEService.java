@@ -16,9 +16,11 @@ import sun.bob.leela.ui.views.PuffKeyboardView;
 public class IMEService extends InputMethodService implements KeyboardView.OnKeyboardActionListener{
 
     private PuffKeyboardView kv;
-    private Keyboard keyboard;
+    private Keyboard normalKeyboard, symbolKeyboard, symsftKeyboard;
 
     private String account, password, additional;
+
+    private boolean caps = false;
 
     public IMEService() {
         account = "";
@@ -40,8 +42,10 @@ public class IMEService extends InputMethodService implements KeyboardView.OnKey
     public View onCreateInputView() {
         Log.e("Leela IME", "onCreateInputView");
         kv = (PuffKeyboardView)getLayoutInflater().inflate(R.layout.layout_ime, null);
-        keyboard = new Keyboard(this, R.xml.keyboard_layout_qwerty);
-        kv.setKeyboard(keyboard);
+        normalKeyboard = new Keyboard(this, R.xml.keyboard_layout_qwerty);
+        kv.setKeyboard(normalKeyboard);
+        symbolKeyboard = new Keyboard(this, R.xml.keyboard_layout_symbol);
+        symsftKeyboard = new Keyboard(this, R.xml.keyboard_layout_symsft);
         kv.setOnKeyboardActionListener(this);
         return kv;
     }
@@ -76,8 +80,35 @@ public class IMEService extends InputMethodService implements KeyboardView.OnKey
             case Keyboard.KEYCODE_DONE:
                 ic.sendKeyEvent(new KeyEvent(KeyEvent.ACTION_DOWN, KeyEvent.KEYCODE_ENTER));
                 break;
+            case Keyboard.KEYCODE_DELETE:
+                ic.deleteSurroundingText(1, 0);
+                break;
+            case Keyboard.KEYCODE_MODE_CHANGE:
+                if(kv.getKeyboard() == normalKeyboard) {
+                    kv.setKeyboard(symbolKeyboard);
+                } else {
+                    kv.setKeyboard(normalKeyboard);
+                }
+                break;
+            case Keyboard.KEYCODE_SHIFT:
+                if (kv.getKeyboard() == normalKeyboard) {
+                    caps = !caps;
+                    normalKeyboard.setShifted(caps);
+                    kv.invalidateAllKeys();
+                }
+                break;
+            case Keyboard.KEYCODE_ALT:
+                if (kv.getKeyboard() == symbolKeyboard) {
+                    kv.setKeyboard(symsftKeyboard);
+                } else {
+                    kv.setKeyboard(symbolKeyboard);
+                }
+                break;
             default:
                 char code = (char)primaryCode;
+                if (caps) {
+                    code = Character.toUpperCase(code);
+                }
                 ic.commitText(String.valueOf(code),1);
                 break;
         }

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <Keyboard xmlns:android="http://schemas.android.com/apk/res/android"
-    android:keyWidth="33.333%p"
+    android:keyWidth="10%p"
     android:horizontalGap="2px"
     android:verticalGap="2px"
     android:keyHeight="56dip">
@@ -34,9 +34,10 @@
     </Row>
 
     <Row>
-        <!--<Key android:codes="-1" android:keyLabel="@string/password_keyboard_label_alt_key"-->
-            <!--android:keyWidth="15%p" android:isModifier="true"-->
-            <!--android:isSticky="true" android:keyEdgeFlags="left"/>-->
+        <Key android:codes="-6" android:keyLabel="ALT"
+            android:isModifier="true"
+            android:keyWidth="15%p"
+            android:keyEdgeFlags="left"/>
         <Key android:keyLabel="!"/>
         <Key android:keyLabel="&quot;"/>
         <Key android:keyLabel="\'"/>
@@ -44,10 +45,11 @@
         <Key android:keyLabel=";"/>
         <Key android:keyLabel="/" />
         <Key android:keyLabel="\?"/>
-        <!--<Key android:codes="-5" android:keyIcon="@drawable/sym_keyboard_delete"-->
-            <!--android:keyWidth="15%p" android:keyEdgeFlags="right"-->
-            <!--android:iconPreview="@drawable/sym_keyboard_feedback_delete"-->
-            <!--android:isRepeatable="true"/>-->
+        <Key android:codes="-5"
+            android:keyLabel="DEL"
+            android:keyWidth="15%p" android:keyEdgeFlags="right"
+            android:isRepeatable="true"
+            />
     </Row>
 
     <Row  android:rowEdgeFlags="bottom">
