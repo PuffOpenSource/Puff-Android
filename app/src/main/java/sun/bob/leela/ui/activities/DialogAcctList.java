@@ -4,6 +4,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.view.Window;
 
 import de.greenrobot.event.EventBus;
 import sun.bob.leela.R;
@@ -20,12 +21,11 @@ public class DialogAcctList extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_dialog_acct_list);
-        EventBus.getDefault().register(this);
         initUI();
+        setTitle("Choose Category & Account");
+        EventBus.getDefault().register(this);
         adapter = new SimpleListAdapter();
         adapter.loadCategory();
-//        getSupportFragmentManager().beginTransaction()
-//                .add()
         RecyclerView recyclerView = (RecyclerView) findViewById(R.id.recycler_view);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         recyclerView.setAdapter(adapter);
