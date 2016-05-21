@@ -9,11 +9,13 @@ import android.view.ViewGroup;
 
 import java.util.ArrayList;
 
+import de.greenrobot.event.EventBus;
 import sun.bob.leela.R;
 import sun.bob.leela.db.Account;
 import sun.bob.leela.db.AccountHelper;
 import sun.bob.leela.db.Category;
 import sun.bob.leela.db.CategoryHelper;
+import sun.bob.leela.events.DialogEvent;
 import sun.bob.leela.runnable.CryptoRunnable;
 import sun.bob.leela.services.IMEService;
 import sun.bob.leela.utils.CryptoUtil;
@@ -25,6 +27,8 @@ public class SimpleListAdapter extends RecyclerView.Adapter<SimpleListViewHolder
 
     private ArrayList data;
     private Context context;
+    private SimpleListViewHolder.SimpleListViewType type;
+
     @Override
     public SimpleListViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         if (context == null) {
@@ -59,11 +63,13 @@ public class SimpleListAdapter extends RecyclerView.Adapter<SimpleListViewHolder
     }
 
     public void loadCategory(){
+        type = SimpleListViewHolder.SimpleListViewType.SimpleListViewTypeCategory;
         data = CategoryHelper.getInstance(null).getAllCategory();
         this.notifyDataSetChanged();
     }
 
     public void loadAccountInCategory(Long category) {
+        type = SimpleListViewHolder.SimpleListViewType.SimpleListViewTypeCategory;
         data = AccountHelper.getInstance(null).getAccountsByCategory(category);
         this.notifyDataSetChanged();
     }
@@ -85,16 +91,27 @@ public class SimpleListAdapter extends RecyclerView.Adapter<SimpleListViewHolder
 
                         // TODO: 16/5/15 Publish an event to tell activity I'm done here.
                         //               Dismiss that activity.
-
+                        EventBus.getDefault().post(new DialogEvent());
                     }
                 }).runDecrypt(account.getAccount(), account.getHash(), account.getAdditional(),
                         account.getAccount_salt(), account.getSalt(), account.getAdditional_salt());
                 break;
             case SimpleListViewTypeCategory:
                 this.loadAccountInCategory(((Category) data.get(index)).getId());
+                this.type = SimpleListViewHolder.SimpleListViewType.SimpleListViewTypeAccount;
                 break;
             default:
                 break;
         }
     }
+
+    public SimpleListViewHolder.SimpleListViewType getCurrentListType() {
+        return type;
+    }
+
+    public void backToCategory() {
+        loadCategory();
+    }
+
+
 }
