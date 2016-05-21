@@ -70,12 +70,15 @@ public class IMEService extends InputMethodService implements KeyboardView.OnKey
                 break;
             case -11 :
                 ic.commitText(account, 1);
+                account = "";
                 break;
             case -12:
                 ic.commitText(password, 1);
+                password = "";
                 break;
             case -13:
                 ic.commitText(additional, 1);
+                additional = "";
                 break;
             case Keyboard.KEYCODE_DONE:
                 ic.sendKeyEvent(new KeyEvent(KeyEvent.ACTION_DOWN, KeyEvent.KEYCODE_ENTER));

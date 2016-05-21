@@ -82,7 +82,7 @@ public class SimpleListAdapter extends RecyclerView.Adapter<SimpleListViewHolder
                         intent.putExtra("password", passwd);
                         intent.putExtra("additional", addt);
                         context.startService(intent);
-                        
+
                         // TODO: 16/5/15 Publish an event to tell activity I'm done here.
                         //               Dismiss that activity.
 

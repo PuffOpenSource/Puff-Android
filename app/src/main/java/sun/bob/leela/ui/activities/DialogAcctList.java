@@ -7,6 +7,7 @@ import android.support.v7.widget.RecyclerView;
 
 import sun.bob.leela.R;
 import sun.bob.leela.adapters.SimpleListAdapter;
+import sun.bob.leela.utils.ResUtil;
 
 public class DialogAcctList extends AppCompatActivity {
 
@@ -14,6 +15,7 @@ public class DialogAcctList extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_dialog_acct_list);
+        initUI();
         SimpleListAdapter adapter = new SimpleListAdapter();
         adapter.loadCategory();
 //        getSupportFragmentManager().beginTransaction()
@@ -21,6 +23,11 @@ public class DialogAcctList extends AppCompatActivity {
         RecyclerView recyclerView = (RecyclerView) findViewById(R.id.recycler_view);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         recyclerView.setAdapter(adapter);
+    }
+
+    private void initUI(){
+        getWindow().setLayout(ResUtil.getInstance(getApplicationContext()).pointToDp(400),
+                ResUtil.getInstance(getApplicationContext()).pointToDp(600));
     }
 
     @Override
