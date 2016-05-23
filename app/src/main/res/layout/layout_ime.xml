@@ -1,11 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <sun.bob.leela.ui.views.PuffKeyboardView
-    xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/keyboard"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_alignParentBottom="true"
-    android:keyPreviewLayout ="@layout/layout_ime_preview"/>
-    <!--android:keyBackground="@drawable/ime_key_bg"/>-->
-    <!--android:background="#FFF"-->
-    <!--android:keyTextColor="#ccc"-->
+    android:keyPreviewLayout="@layout/layout_ime_preview"
+    xmlns:android="http://schemas.android.com/apk/res/android" />

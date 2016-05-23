@@ -1,6 +1,7 @@
 package sun.bob.leela.services;
 
 import android.content.Intent;
+import android.graphics.Color;
 import android.inputmethodservice.InputMethodService;
 import android.inputmethodservice.Keyboard;
 import android.inputmethodservice.KeyboardView;
@@ -38,7 +39,7 @@ public class IMEService extends InputMethodService implements KeyboardView.OnKey
         return START_STICKY;
     }
 
-        @Override
+    @Override
     public View onCreateInputView() {
         Log.e("Leela IME", "onCreateInputView");
         kv = (PuffKeyboardView)getLayoutInflater().inflate(R.layout.layout_ime, null);
