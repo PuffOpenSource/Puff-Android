@@ -118,4 +118,5 @@
     <string name="title_activity_set_master_password">Set Master Password</string>
     <string name="title_activity_password_gen">PasswordGenActivity</string>
     <string name="section_format">Hello World from section: %1$d</string>
+    <string name="title_activity_set_quick_password">SetQuickPasswordActivity</string>
 </resources>

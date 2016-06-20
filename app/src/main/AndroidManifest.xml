@@ -4,6 +4,7 @@
 
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.VIBRATE"/>
 
     <application
         android:name=".App"
@@ -88,9 +89,14 @@
                 android:resource="@xml/method" />
         </service>
 
-        <activity android:name=".ui.activities.DialogAcctList"
+        <activity
+            android:name=".ui.activities.DialogAcctList"
             android:label="@null"
-            android:theme="@style/AppCompatAlertDialogStyle"/>
+            android:theme="@style/AppCompatAlertDialogStyle" />
+        <activity
+            android:name=".ui.activities.SetQuickPasswordActivity"
+            android:label="@string/title_activity_set_quick_password"
+            android:theme="@style/AppTheme.NoActionBar"></activity>
     </application>
 
 </manifest>

@@ -24,6 +24,7 @@ import sun.bob.leela.R;
 import sun.bob.leela.db.AccountHelper;
 import sun.bob.leela.db.Category;
 import sun.bob.leela.db.CategoryHelper;
+import sun.bob.leela.runnable.QuickPassRunnable;
 import sun.bob.leela.services.IMEService;
 import sun.bob.leela.ui.fragments.AcctListFragment;
 import sun.bob.leela.utils.AppConstants;
@@ -193,8 +194,14 @@ public class MainActivity extends AppCompatActivity
 //            Intent intent = new Intent(this, DetailActivity.class);
 //            startActivity(intent);
 
-            Intent intent = new Intent(this, PasswordGenActivity.class);
-            startActivity(intent);
+//            Intent intent = new Intent(this, PasswordGenActivity.class);
+//            startActivity(intent);
+//            Intent intent = new Intent(this, SetQuickPasswordActivity.class);
+//            startActivity(intent);
+
+            new QuickPassRunnable("12345eqrwrefdsafcDASFSASA", "fdasfsafasfewrqwrqgftsvfcsdsadssaddfds").run();
+            new QuickPassRunnable("12345eqrwrefdsafcDASFSASA").run();
+            new QuickPassRunnable("jdaisojd").run();
 
 //            Intent intent = new Intent(this, NotificationService.class);
 //            intent.setAction("start");

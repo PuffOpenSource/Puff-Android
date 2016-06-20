@@ -81,7 +81,7 @@ public class AcctListViewHolder extends RecyclerView.ViewHolder{
         this.itemView.findViewById(R.id.view_button).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                new CryptoUtil(v.getContext(), new CryptoUtil.OnDecryptedListener() {
+                new CryptoUtil(itemView.getContext(), new CryptoUtil.OnDecryptedListener() {
                     @Override
                     public void onDecrypted(String account, String passwd, String addt) {
                         Log.e("LEELA", account + "|" + passwd + "|" + addt);
@@ -103,7 +103,7 @@ public class AcctListViewHolder extends RecyclerView.ViewHolder{
         this.itemView.findViewById(R.id.pin_button).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                new CryptoUtil(v.getContext(), new CryptoUtil.OnDecryptedListener() {
+                new CryptoUtil(itemView.getContext(), new CryptoUtil.OnDecryptedListener() {
                     @Override
                     public void onDecrypted(String account, String passwd, String addt) {
                         Intent intent = new Intent(itemView.getContext(), NotificationService.class);
@@ -130,7 +130,7 @@ public class AcctListViewHolder extends RecyclerView.ViewHolder{
         this.itemView.findViewById(R.id.copy_button).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                new CryptoUtil(v.getContext(), new CryptoUtil.OnDecryptedListener() {
+                new CryptoUtil(itemView.getContext(), new CryptoUtil.OnDecryptedListener() {
                     @Override
                     public void onDecrypted(String account, String passwd, String addt) {
                         updateAccess();
