@@ -193,19 +193,19 @@ public class MainActivity extends AppCompatActivity
 //            Intent intent = new Intent(this, DetailActivity.class);
 //            startActivity(intent);
 
-//            Intent intent = new Intent(this, PasswordGenActivity.class);
-//            startActivity(intent);
+            Intent intent = new Intent(this, PasswordGenActivity.class);
+            startActivity(intent);
 
 //            Intent intent = new Intent(this, NotificationService.class);
 //            intent.setAction("start");
 //            startService(intent);
 
-            Intent intent = new Intent(this, IMEService.class);
-            intent.setAction("INIT");
-            intent.putExtra("account", "widekuan@gmail.com");
-            intent.putExtra("password", "123456");
-            intent.putExtra("additional", "blah");
-            startService(intent);
+//            Intent intent = new Intent(this, IMEService.class);
+//            intent.setAction("INIT");
+//            intent.putExtra("account", "widekuan@gmail.com");
+//            intent.putExtra("password", "123456");
+//            intent.putExtra("additional", "blah");
+//            startService(intent);
             return true;
         }
 
