@@ -199,9 +199,11 @@ public class MainActivity extends AppCompatActivity
 //            Intent intent = new Intent(this, SetQuickPasswordActivity.class);
 //            startActivity(intent);
 
-            new QuickPassRunnable("12345eqrwrefdsafcDASFSASA", "fdasfsafasfewrqwrqgftsvfcsdsadssaddfds").run();
-            new QuickPassRunnable("12345eqrwrefdsafcDASFSASA").run();
-            new QuickPassRunnable("jdaisojd").run();
+//            new QuickPassRunnable("12345eqrwrefdsafcDASFSASA", "fdasfsafasfewrqwrqgftsvfcsdsadssaddfds").run();
+//            new QuickPassRunnable("12345eqrwrefdsafcDASFSASA").run();
+//            new QuickPassRunnable("jdaisojd").run();
+
+            startActivity(new Intent(MainActivity.this, SettingsActivity.class));
 
 //            Intent intent = new Intent(this, NotificationService.class);
 //            intent.setAction("start");

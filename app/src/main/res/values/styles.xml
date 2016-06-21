@@ -23,4 +23,11 @@
         <item name="colorAccent">@color/colorAccent</item>
     </style>
 
+    <style name="MaterialSettings" parent="MaterialSettingsTheme">
+        <item name="msColorPrimary">@color/colorPrimary</item>
+        <item name="msColorPrimaryDark">@color/colorPrimaryDark</item>
+        <item name="msColorAccent">@color/colorAccent</item>
+        <item name="msColorHeader">@color/colorPrimary</item>
+    </style>
+
 </resources>

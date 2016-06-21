@@ -97,6 +97,14 @@
             android:name=".ui.activities.SetQuickPasswordActivity"
             android:label="@string/title_activity_set_quick_password"
             android:theme="@style/AppTheme.NoActionBar"></activity>
+        <activity
+            android:name=".ui.activities.SettingsActivity"
+            android:parentActivityName=".ui.activities.MainActivity"
+            android:theme="@style/MaterialSettings">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="sun.bob.leela.ui.activities.MainActivity" />
+        </activity>
     </application>
 
 </manifest>

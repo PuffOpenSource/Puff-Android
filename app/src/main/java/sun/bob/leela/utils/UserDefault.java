@@ -3,10 +3,14 @@ package sun.bob.leela.utils;
 import android.content.Context;
 import android.content.SharedPreferences;
 
+import com.kenumir.materialsettings.storage.StorageInterface;
+
+import java.util.Map;
+
 /**
  * Created by bob.sun on 16/3/19.
  */
-public class UserDefault {
+public class UserDefault extends StorageInterface {
     private Context context;
     private static UserDefault ourInstance;
     private SharedPreferences sharedPreferences;
@@ -50,5 +54,60 @@ public class UserDefault {
 
     public int getAutoClearTimeInSeconds() {
         return 60;
+    }
+
+    @Override
+    public void save(String s, Boolean aBoolean) {
+        sharedPreferences.edit().putBoolean(s, aBoolean).commit();
+    }
+
+    @Override
+    public boolean load(String s, Boolean aBoolean) {
+        return sharedPreferences.getBoolean(s, false);
+    }
+
+    @Override
+    public void save(String s, String s1) {
+        sharedPreferences.edit().putString(s, s1).commit();
+    }
+
+    @Override
+    public String load(String s, String s1) {
+        return sharedPreferences.getString(s, s1);
+    }
+
+    @Override
+    public void save(String s, Integer integer) {
+        sharedPreferences.edit().putInt(s, integer).commit();
+    }
+
+    @Override
+    public Integer load(String s, Integer integer) {
+        return sharedPreferences.getInt(s, integer);
+    }
+
+    @Override
+    public void save(String s, Float aFloat) {
+        sharedPreferences.edit().putFloat(s, aFloat).commit();
+    }
+
+    @Override
+    public Float load(String s, Float aFloat) {
+        return sharedPreferences.getFloat(s, aFloat);
+    }
+
+    @Override
+    public void save(String s, Long aLong) {
+        sharedPreferences.edit().putLong(s, aLong).commit();
+    }
+
+    @Override
+    public Long load(String s, Long aLong) {
+        return sharedPreferences.getLong(s, aLong);
+    }
+
+    @Override
+    public Map<String, ?> getAll() {
+        return sharedPreferences.getAll();
     }
 }
