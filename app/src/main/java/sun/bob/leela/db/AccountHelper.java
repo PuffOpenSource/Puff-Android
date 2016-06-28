@@ -97,17 +97,26 @@ public class AccountHelper {
         return result.size() == 0 ? null : (Account) result.get(0);
     }
 
+    public Account getQuickAccount() {
+        List result = accountDao.queryBuilder()
+                .where(AccountDao.Properties.Type.eq(AppConstants.TYPE_QUICK))
+                .list();
+        return result.size() == 0 ? null : (Account) result.get(0);
+    }
+
     public ArrayList<Account> getAccountsByCategory(Long category) {
         return (ArrayList) accountDao.queryBuilder()
                 .where(AccountDao.Properties.Category.eq(category),
-                        AccountDao.Properties.Type.notEq(AppConstants.TYPE_MASTER))
+                        AccountDao.Properties.Type.notEq(AppConstants.TYPE_MASTER),
+                        AccountDao.Properties.Type.notEq(AppConstants.TYPE_QUICK))
                         .orderDesc(AccountDao.Properties.Id)
                         .list();
     }
 
     public  ArrayList<Account> getRecentUsed(int limit) {
         return (ArrayList) accountDao.queryBuilder()
-                .where(AccountDao.Properties.Type.notEq(AppConstants.TYPE_MASTER))
+                .where(AccountDao.Properties.Type.notEq(AppConstants.TYPE_MASTER),
+                        AccountDao.Properties.Type.notEq(AppConstants.TYPE_QUICK))
                 .orderDesc(AccountDao.Properties.Last_access)
                 .limit(limit)
                 .list();

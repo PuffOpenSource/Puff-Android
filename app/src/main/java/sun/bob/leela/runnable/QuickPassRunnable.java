@@ -14,6 +14,10 @@ import javax.crypto.spec.IvParameterSpec;
 import javax.crypto.spec.PBEKeySpec;
 import javax.crypto.spec.SecretKeySpec;
 
+import de.greenrobot.event.EventBus;
+import sun.bob.leela.db.Account;
+import sun.bob.leela.db.AccountHelper;
+import sun.bob.leela.events.CryptoEvent;
 import sun.bob.leela.utils.AppConstants;
 
 /**
@@ -39,7 +43,8 @@ public class QuickPassRunnable implements Runnable {
 
     private void getPasswordHash() {
         // TODO: 16/6/20 Get password hash from db
-        this.passwordHash = "128:PNkbKgdRSGDBQ3pU+QPqWLZBNj+SZz+2tk665J3vbFq21HX7Tf2Ledz/NIQ8vM9B:YJM4YeLk8FTIJiCqZMQkxw==:mn3RivWFHZ5v8T7eQiyr8A==";
+        Account account = AccountHelper.getInstance(null).getQuickAccount();
+        this.passwordHash = account.getHash();
     }
 
     @Override
@@ -47,14 +52,14 @@ public class QuickPassRunnable implements Runnable {
         switch (type) {
             case AppConstants.TYPE_DECRYPT:
                 try {
-                    decrypt();
+                    EventBus.getDefault().post(new CryptoEvent(decrypt(), AppConstants.TYPE_DECRYPT));
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
                 break;
             case AppConstants.TYPE_ENCRYPT:
                 try {
-                    encrypt();
+                    EventBus.getDefault().post(new CryptoEvent(encrypt(), AppConstants.TYPE_ENCRYPT));
                 } catch (Exception e) {
                     e.printStackTrace();
                 }

@@ -1,13 +1,17 @@
 package sun.bob.leela.ui.activities;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.widget.Toast;
 
 import com.kenumir.materialsettings.MaterialSettings;
 import com.kenumir.materialsettings.items.CheckboxItem;
 import com.kenumir.materialsettings.items.HeaderItem;
+import com.kenumir.materialsettings.items.SwitcherItem;
+import com.kenumir.materialsettings.items.TextItem;
 import com.kenumir.materialsettings.storage.StorageInterface;
 
+import sun.bob.leela.utils.CryptoUtil;
 import sun.bob.leela.utils.UserDefault;
 
 /**
@@ -26,6 +30,25 @@ public class SettingsActivity extends MaterialSettings {
             @Override
             public void onCheckedChange(CheckboxItem cbi, boolean isChecked) {
 
+            }
+        }));
+
+        addItem(new SwitcherItem(this, "quick_pass").setTitle("Enable Gesture Lock").setOnCheckedChangeListener(new CheckboxItem.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChange(CheckboxItem checkboxItem, boolean b) {
+                Intent intent = new Intent(SettingsActivity.this, SetQuickPasswordActivity.class);
+                intent.putExtra("type", SetQuickPasswordActivity.ShowTypeSet);
+                startActivity(intent);
+            }
+        }));
+
+        // TODO: 16/6/28 Delete below
+        addItem(new SwitcherItem(this, "quick_pass").setTitle("Enable Gesture Lock").setOnCheckedChangeListener(new CheckboxItem.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChange(CheckboxItem checkboxItem, boolean b) {
+                Intent intent = new Intent(SettingsActivity.this, SetQuickPasswordActivity.class);
+                intent.putExtra("type", SetQuickPasswordActivity.ShowTypeVerify);
+                startActivity(intent);
             }
         }));
     }
