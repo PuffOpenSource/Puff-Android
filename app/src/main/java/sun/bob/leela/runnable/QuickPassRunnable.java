@@ -19,6 +19,7 @@ import sun.bob.leela.db.Account;
 import sun.bob.leela.db.AccountHelper;
 import sun.bob.leela.events.CryptoEvent;
 import sun.bob.leela.utils.AppConstants;
+import sun.bob.leela.utils.UserDefault;
 
 /**
  * Created by bob.sun on 16/6/20.
@@ -52,7 +53,7 @@ public class QuickPassRunnable implements Runnable {
         switch (type) {
             case AppConstants.TYPE_DECRYPT:
                 try {
-                    EventBus.getDefault().post(new CryptoEvent(decrypt(), AppConstants.TYPE_DECRYPT));
+                    EventBus.getDefault().post(new CryptoEvent(decrypt(), AppConstants.TYPE_MASTERPWD));
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
@@ -60,6 +61,7 @@ public class QuickPassRunnable implements Runnable {
             case AppConstants.TYPE_ENCRYPT:
                 try {
                     EventBus.getDefault().post(new CryptoEvent(encrypt(), AppConstants.TYPE_ENCRYPT));
+                    UserDefault.getInstance(null).setHasQuickPassword();
                 } catch (Exception e) {
                     e.printStackTrace();
                 }

@@ -16,7 +16,8 @@ public class UserDefault extends StorageInterface {
     private SharedPreferences sharedPreferences;
 
     public static UserDefault getInstance(Context context) {
-        ourInstance = new UserDefault(context);
+        if (ourInstance == null)
+            ourInstance = new UserDefault(context);
         return ourInstance;
     }
 
@@ -38,6 +39,18 @@ public class UserDefault extends StorageInterface {
     public UserDefault writeBoolean(String key, boolean value) {
         sharedPreferences.edit().putBoolean(key, value).commit();
         return this;
+    }
+
+    public boolean hasQuickPassword() {
+        return sharedPreferences.getBoolean(kSettingsHasQuickPassword, false);
+    }
+
+    public void setHasQuickPassword() {
+        sharedPreferences.edit().putBoolean(kSettingsHasQuickPassword, true).commit();
+    }
+
+    public void clearQuickPassword() {
+        sharedPreferences.edit().putBoolean(kSettingsHasQuickPassword, false).commit();
     }
 
     public int getInt(String key) {
@@ -110,4 +123,6 @@ public class UserDefault extends StorageInterface {
     public Map<String, ?> getAll() {
         return sharedPreferences.getAll();
     }
+
+    public static final String kSettingsHasQuickPassword    = "kSettingsHasQuickPassword";
 }

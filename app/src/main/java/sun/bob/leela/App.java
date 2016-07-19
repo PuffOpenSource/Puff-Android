@@ -8,6 +8,7 @@ import sun.bob.leela.db.TypeHelper;
 import sun.bob.leela.utils.CategoryUtil;
 import sun.bob.leela.utils.EnvUtil;
 import sun.bob.leela.utils.ResUtil;
+import sun.bob.leela.utils.UserDefault;
 
 /**
  * Created by bob.sun on 16/3/19.
@@ -31,6 +32,7 @@ public class App extends Application {
         ResUtil.getInstance(getApplicationContext());
         CategoryUtil.getInstance(getApplicationContext());
         EnvUtil.getInstance(getApplicationContext());
+        UserDefault.getInstance(getApplicationContext());
 
     }
 }

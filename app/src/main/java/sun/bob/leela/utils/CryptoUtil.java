@@ -18,6 +18,7 @@ import sun.bob.leela.db.AccountHelper;
 import sun.bob.leela.events.CryptoEvent;
 import sun.bob.leela.runnable.CryptoRunnable;
 import sun.bob.leela.ui.activities.AuthorizeActivity;
+import sun.bob.leela.ui.activities.SetQuickPasswordActivity;
 
 /**
  * Created by bob.sun on 16/4/3.
@@ -117,13 +118,18 @@ public class CryptoUtil {
     }
 
     public void askForMasterPassword() {
-        // TODO: 16/4/5 Un-comment below code!
         if (!AccountHelper.getInstance(this.context).hasMasterPassword()) {
             return;
         }
-        Intent intent = new Intent(this.context, AuthorizeActivity.class);
-        this.context.startActivity(intent);
-        return;
+
+        if (UserDefault.getInstance(this.context).hasQuickPassword()) {
+            Intent intent = new Intent(this.context, SetQuickPasswordActivity.class);
+            intent.putExtra("type", SetQuickPasswordActivity.ShowTypeVerify);
+            this.context.startActivity(intent);
+        } else {
+            Intent intent = new Intent(this.context, AuthorizeActivity.class);
+            this.context.startActivity(intent);
+        }
     }
 
     public void onEventMainThread(CryptoEvent event) {
