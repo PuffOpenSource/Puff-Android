@@ -14,6 +14,7 @@ import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 
+import de.greenrobot.event.EventBus;
 import sun.bob.leela.R;
 import sun.bob.leela.db.Account;
 import sun.bob.leela.db.AccountHelper;
@@ -56,6 +57,12 @@ public class DetailActivity extends AppCompatActivity {
                 .load(ResUtil.getInstance(null).getBmpUri(account.getIcon()))
                 .into(image);
 
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+        EventBus.getDefault().unregister(this);
     }
 
     private void wireUpViews(){

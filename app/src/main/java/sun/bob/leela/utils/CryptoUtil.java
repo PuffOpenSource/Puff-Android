@@ -172,7 +172,6 @@ public class CryptoUtil {
                 dialog.dismiss();
                 break;
             case AppConstants.TYPE_ENCRYPT:
-                // TODO: 16/4/4 Encrypted, save it & dismiss dialog.
                 switch (event.getField()) {
                     case "account":
                         this.accountHash = event.getResult();

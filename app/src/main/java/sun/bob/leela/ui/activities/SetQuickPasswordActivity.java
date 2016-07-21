@@ -56,8 +56,10 @@ public class SetQuickPasswordActivity extends AppCompatActivity {
 
         if (type == ShowTypeVerify) {
             masterPassword = getIntent().getStringExtra("masterPassword");
+            getSupportActionBar().setTitle("Verify Quick Password");
             fab.setVisibility(View.INVISIBLE);
         } else {
+            getSupportActionBar().setTitle("Set Quick Password");
             fab.setVisibility(View.VISIBLE);
         }
 
@@ -70,6 +72,12 @@ public class SetQuickPasswordActivity extends AppCompatActivity {
                 startActivity(new Intent(SetQuickPasswordActivity.this, AuthorizeActivity.class));
             }
         });
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+        EventBus.getDefault().unregister(this);
     }
 
     private boolean validateInput() {
@@ -92,7 +100,8 @@ public class SetQuickPasswordActivity extends AppCompatActivity {
         }
         switch (((CryptoEvent) event).getType()) {
             case AppConstants.TYPE_DECRYPT :
-                Log.e("Master password", ((CryptoEvent) event).getResult());
+//                Log.e("Master password", ((CryptoEvent) event).getResult());
+                finish();
                 break;
             case AppConstants.TYPE_ENCRYPT :
                 Account save = new Account();
@@ -108,6 +117,9 @@ public class SetQuickPasswordActivity extends AppCompatActivity {
             case AppConstants.TYPE_MASTERPWD:
                 masterPassword = ((CryptoEvent) event).getResult();
                 saveQuickPass();
+                break;
+            case AppConstants.TYPE_SHTHPPN:
+                patternView.setPattern(PatternView.DisplayMode.Wrong, patternView.getPattern());
                 break;
             default:
                 break;

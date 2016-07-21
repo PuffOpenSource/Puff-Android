@@ -23,7 +23,7 @@ public class UserDefault extends StorageInterface {
 
     private UserDefault(Context context) {
         this.context = context;
-        this.sharedPreferences = context.getSharedPreferences("UserDefautPrivate", Context.MODE_PRIVATE);
+        this.sharedPreferences = context.getSharedPreferences("UserDefaultPrivate", Context.MODE_PRIVATE);
     }
 
     public UserDefault writeInt(String key, int value) {

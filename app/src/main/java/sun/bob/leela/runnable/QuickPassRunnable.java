@@ -43,7 +43,6 @@ public class QuickPassRunnable implements Runnable {
     }
 
     private void getPasswordHash() {
-        // TODO: 16/6/20 Get password hash from db
         Account account = AccountHelper.getInstance(null).getQuickAccount();
         this.passwordHash = account.getHash();
     }
@@ -55,6 +54,7 @@ public class QuickPassRunnable implements Runnable {
                 try {
                     EventBus.getDefault().post(new CryptoEvent(decrypt(), AppConstants.TYPE_MASTERPWD));
                 } catch (Exception e) {
+                    EventBus.getDefault().post(new CryptoEvent("", AppConstants.TYPE_SHTHPPN));
                     e.printStackTrace();
                 }
                 break;
@@ -63,6 +63,7 @@ public class QuickPassRunnable implements Runnable {
                     EventBus.getDefault().post(new CryptoEvent(encrypt(), AppConstants.TYPE_ENCRYPT));
                     UserDefault.getInstance(null).setHasQuickPassword();
                 } catch (Exception e) {
+                    EventBus.getDefault().post(new CryptoEvent("", AppConstants.TYPE_SHTHPPN));
                     e.printStackTrace();
                 }
                 break;
