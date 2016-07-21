@@ -8,16 +8,18 @@ import android.inputmethodservice.KeyboardView;
 import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
+import android.view.inputmethod.EditorInfo;
 import android.view.inputmethod.InputConnection;
 
 import sun.bob.leela.R;
 import sun.bob.leela.ui.activities.DialogAcctList;
+import sun.bob.leela.ui.views.PuffKeyboard;
 import sun.bob.leela.ui.views.PuffKeyboardView;
 
 public class IMEService extends InputMethodService implements KeyboardView.OnKeyboardActionListener{
 
     private PuffKeyboardView kv;
-    private Keyboard normalKeyboard, symbolKeyboard, symsftKeyboard;
+    private PuffKeyboard normalKeyboard, symbolKeyboard, symsftKeyboard, currentKeyboard;
 
     private String account, password, additional;
 
@@ -38,17 +40,30 @@ public class IMEService extends InputMethodService implements KeyboardView.OnKey
         }
         return START_STICKY;
     }
-
+    @Override
+    public void onInitializeInterface() {
+        normalKeyboard = new PuffKeyboard(this, R.xml.keyboard_layout_qwerty);
+        symbolKeyboard = new PuffKeyboard(this, R.xml.keyboard_layout_symbol);
+        symsftKeyboard = new PuffKeyboard(this, R.xml.keyboard_layout_symsft);
+        currentKeyboard = normalKeyboard;
+    }
     @Override
     public View onCreateInputView() {
         Log.e("Leela IME", "onCreateInputView");
         kv = (PuffKeyboardView)getLayoutInflater().inflate(R.layout.layout_ime, null);
-        normalKeyboard = new Keyboard(this, R.xml.keyboard_layout_qwerty);
-        kv.setKeyboard(normalKeyboard);
-        symbolKeyboard = new Keyboard(this, R.xml.keyboard_layout_symbol);
-        symsftKeyboard = new Keyboard(this, R.xml.keyboard_layout_symsft);
+        kv.setKeyboard(currentKeyboard);
         kv.setOnKeyboardActionListener(this);
         return kv;
+    }
+
+    @Override
+    public void onStartInput(EditorInfo attribute, boolean restarting) {
+        super.onStartInput(attribute, restarting);
+        switch (attribute.inputType & EditorInfo.TYPE_MASK_CLASS) {
+            default:
+                break;
+        }
+        currentKeyboard.setIMEOptions(getResources(), attribute.imeOptions);
     }
     @Override
     public void onPress(int primaryCode) {
@@ -89,10 +104,11 @@ public class IMEService extends InputMethodService implements KeyboardView.OnKey
                 break;
             case Keyboard.KEYCODE_MODE_CHANGE:
                 if(kv.getKeyboard() == normalKeyboard) {
-                    kv.setKeyboard(symbolKeyboard);
+                    currentKeyboard = symbolKeyboard;
                 } else {
-                    kv.setKeyboard(normalKeyboard);
+                    currentKeyboard = normalKeyboard;
                 }
+                kv.setKeyboard(currentKeyboard);
                 break;
             case Keyboard.KEYCODE_SHIFT:
                 if (kv.getKeyboard() == normalKeyboard) {
@@ -103,10 +119,11 @@ public class IMEService extends InputMethodService implements KeyboardView.OnKey
                 break;
             case Keyboard.KEYCODE_ALT:
                 if (kv.getKeyboard() == symbolKeyboard) {
-                    kv.setKeyboard(symsftKeyboard);
+                    currentKeyboard = symsftKeyboard;
                 } else {
-                    kv.setKeyboard(symbolKeyboard);
+                    currentKeyboard = symbolKeyboard;
                 }
+                kv.setKeyboard(currentKeyboard);
                 break;
             default:
                 char code = (char)primaryCode;

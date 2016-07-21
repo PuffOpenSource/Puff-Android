@@ -4,6 +4,7 @@ import android.content.Context;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
+import android.graphics.drawable.Drawable;
 import android.inputmethodservice.Keyboard;
 import android.inputmethodservice.KeyboardView;
 import android.support.v7.widget.RecyclerView;
@@ -13,6 +14,7 @@ import android.view.View;
 
 import java.util.List;
 
+import sun.bob.leela.R;
 import sun.bob.leela.utils.ResUtil;
 
 /**
@@ -25,8 +27,9 @@ public class PuffKeyboardView extends KeyboardView {
         QWERTY
     }
 
-    private Paint linePaint, keyTextPaint, smallTextPaint;
+    private Paint linePaint, keyTextPaint, smallTextPaint, keyPaint;
     int normalSize, smallSize;
+    private Drawable keyDrawable;
 
     public PuffKeyboardView(Context context, AttributeSet attrs) {
         super(context, attrs);
@@ -47,18 +50,22 @@ public class PuffKeyboardView extends KeyboardView {
         smallSize = ResUtil.getInstance(getContext()).pointToDp(12);
         smallTextPaint.setTextSize(smallSize);
         smallTextPaint.setColor(Color.WHITE);
+
+        keyPaint = new Paint();
+        keyDrawable = context.getResources().getDrawable(R.drawable.key_rect);
     }
 
     @Override
     public void onDraw(Canvas canvas) {
         canvas.drawColor(Color.DKGRAY);
 
-
         List<Keyboard.Key> keys = getKeyboard().getKeys();
         for(Keyboard.Key key: keys) {
             if(key.codes[0] > -10) {
+                Drawable d = getContext().getResources().getDrawable(R.drawable.key_rect);
+                d.setBounds(key.x, key.y, key.x + key.width, key.y + key.height);
+                d.draw(canvas);
                 canvas.drawText(key.label.toString(), key.x + (key.width / 2), key.y + (key.height / 2) + normalSize / 2, keyTextPaint);
-//                canvas.drawRect(key.x + 2, key.y + 2, key.x + key.width - 2, key.y + key.height - 2, linePaint);
             } else {
                 canvas.drawText(key.label.toString(), key.x + (key.width / 2), key.y + (key.height / 2) + smallSize / 2, smallTextPaint);
             }

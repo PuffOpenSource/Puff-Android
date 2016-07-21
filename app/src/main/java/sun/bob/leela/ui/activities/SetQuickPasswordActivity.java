@@ -77,6 +77,11 @@ public class SetQuickPasswordActivity extends AppCompatActivity {
     @Override
     public void onPause() {
         super.onPause();
+    }
+
+    @Override
+    public void onStop() {
+        super.onStop();
         EventBus.getDefault().unregister(this);
     }
 
