@@ -1,6 +1,8 @@
 package sun.bob.leela.ui.views;
 
 import android.content.Context;
+import android.content.res.Resources;
+import android.content.res.XmlResourceParser;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
@@ -44,6 +46,9 @@ public class PuffKeyboardView extends KeyboardView {
         normalSize = ResUtil.getInstance(getContext()).pointToDp(20);
         keyTextPaint.setTextSize(normalSize);
         keyTextPaint.setColor(Color.WHITE);
+        keyTextPaint.setShadowLayer(5, 0, 0, Color.BLACK);
+        keyTextPaint.setFakeBoldText(true);
+
 
         smallTextPaint = new Paint();
         smallTextPaint.setTextAlign(Paint.Align.CENTER);
@@ -57,13 +62,14 @@ public class PuffKeyboardView extends KeyboardView {
 
     @Override
     public void onDraw(Canvas canvas) {
+//        super.onDraw(canvas);
         canvas.drawColor(Color.DKGRAY);
 
         List<Keyboard.Key> keys = getKeyboard().getKeys();
         for(Keyboard.Key key: keys) {
             if(key.codes[0] > -10) {
                 Drawable d = getContext().getResources().getDrawable(R.drawable.key_rect);
-                d.setBounds(key.x, key.y, key.x + key.width, key.y + key.height);
+                d.setBounds(key.x, key.y + 4, key.x + key.width, key.y + key.height - 2);
                 d.draw(canvas);
                 canvas.drawText(key.label.toString(), key.x + (key.width / 2), key.y + (key.height / 2) + normalSize / 2, keyTextPaint);
             } else {

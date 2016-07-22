@@ -105,7 +105,6 @@ public class SetQuickPasswordActivity extends AppCompatActivity {
         }
         switch (((CryptoEvent) event).getType()) {
             case AppConstants.TYPE_DECRYPT :
-//                Log.e("Master password", ((CryptoEvent) event).getResult());
                 finish();
                 break;
             case AppConstants.TYPE_ENCRYPT :
@@ -118,6 +117,8 @@ public class SetQuickPasswordActivity extends AppCompatActivity {
                 save.setTag("");
 
                 AccountHelper.getInstance(null).saveAccount(save);
+                setResult(RESULT_OK);
+                finish();
                 break;
             case AppConstants.TYPE_MASTERPWD:
                 masterPassword = ((CryptoEvent) event).getResult();
@@ -131,7 +132,10 @@ public class SetQuickPasswordActivity extends AppCompatActivity {
         }
     }
 
-//    @Override
-//    protected void onActivityResult(int reqCode, int resultCode, Intent data) {}
+    @Override
+    public void onBackPressed() {
+        setResult(RESULT_CANCELED);
+        finish();
+    }
 
 }

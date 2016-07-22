@@ -19,6 +19,9 @@ import sun.bob.leela.utils.UserDefault;
  */
 public class SettingsActivity extends MaterialSettings {
 
+    public static final int RequestCodeSetMainPassword = 0x700;
+    private TextItem quickSwitcher;
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -33,24 +36,40 @@ public class SettingsActivity extends MaterialSettings {
             }
         }));
 
-        addItem(new SwitcherItem(this, "quick_pass").setTitle("Enable Gesture Lock").setOnCheckedChangeListener(new CheckboxItem.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChange(CheckboxItem checkboxItem, boolean b) {
-                Intent intent = new Intent(SettingsActivity.this, SetQuickPasswordActivity.class);
-                intent.putExtra("type", SetQuickPasswordActivity.ShowTypeSet);
-                startActivity(intent);
-            }
-        }));
+        String title = UserDefault.getInstance(null).hasQuickPassword() ? "Disable Gesture Lock" : "Enable Gesture Lock";
 
-        // TODO: 16/6/28 Delete below
-        addItem(new SwitcherItem(this, "quick_pass").setTitle("Enable Gesture Lock").setOnCheckedChangeListener(new CheckboxItem.OnCheckedChangeListener() {
+        quickSwitcher = new TextItem(this, "quick_pass").setTitle(title).setOnclick(new TextItem.OnClickListener() {
             @Override
-            public void onCheckedChange(CheckboxItem checkboxItem, boolean b) {
-                Intent intent = new Intent(SettingsActivity.this, SetQuickPasswordActivity.class);
-                intent.putExtra("type", SetQuickPasswordActivity.ShowTypeVerify);
-                startActivity(intent);
+            public void onClick(TextItem textItem) {
+                if (UserDefault.getInstance(null).hasQuickPassword()) {
+                    UserDefault.getInstance(null).clearQuickPassword();
+                    quickSwitcher.updateTitle("Enable Gesture Lock");
+                } else {
+                    Intent intent = new Intent(SettingsActivity.this, SetQuickPasswordActivity.class);
+                    intent.putExtra("type", SetQuickPasswordActivity.ShowTypeSet);
+                    startActivityForResult(intent, RequestCodeSetMainPassword);
+                }
             }
-        }));
+        });
+        addItem(quickSwitcher);
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        quickSwitcher.updateTitle(UserDefault.getInstance(null).hasQuickPassword() ? "Disable Gesture Lock" : "Enable Gesture Lock");
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if (requestCode != RequestCodeSetMainPassword ) {
+            return;
+        }
+        if (resultCode != RESULT_OK) {
+            UserDefault.getInstance(null).clearQuickPassword();
+        } else {
+            UserDefault.getInstance(null).setHasQuickPassword();
+        }
     }
 
     @Override

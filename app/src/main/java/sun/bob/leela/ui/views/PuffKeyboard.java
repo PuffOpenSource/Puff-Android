@@ -13,9 +13,10 @@ public class PuffKeyboard extends Keyboard{
         super(context, xmlLayoutResId);
     }
     @Override
-    protected Key createKeyFromXml(Resources res, Row parent, int x, int y,
-                                   XmlResourceParser parser) {
-       return super.createKeyFromXml(res, parent, x, y, parser);
+    protected Keyboard.Key createKeyFromXml(Resources res, Keyboard.Row parent, int x, int y,
+                                            XmlResourceParser parser) {
+        Keyboard.Key key = new PuffKey(res, parent, x, y, parser);
+        return key;
     }
     
     public void setIMEOptions(Resources res, int ImeOptions) {
