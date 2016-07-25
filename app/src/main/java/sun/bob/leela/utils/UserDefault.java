@@ -124,5 +124,17 @@ public class UserDefault extends StorageInterface {
         return sharedPreferences.getAll();
     }
 
+    public long getQuickPassByte() {
+        return sharedPreferences.getLong(kSettingsQuickPassByte, v4x4);
+    }
+
+    public void setQuickPassByte(long b) {
+        sharedPreferences.edit().putLong(kSettingsQuickPassByte, b).commit();
+    }
+
+
     public static final String kSettingsHasQuickPassword    = "kSettingsHasQuickPassword";
+    public static final String kSettingsQuickPassByte       = "kSettingsQuickPassByte";
+    public static final long v3x3                           = 0x1033;
+    public static final long v4x4                           = 0x1044;
 }

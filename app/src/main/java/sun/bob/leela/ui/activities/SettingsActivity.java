@@ -2,6 +2,8 @@ package sun.bob.leela.ui.activities;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
+import android.widget.AdapterView;
 import android.widget.Toast;
 
 import com.kenumir.materialsettings.MaterialSettings;
@@ -11,6 +13,8 @@ import com.kenumir.materialsettings.items.SwitcherItem;
 import com.kenumir.materialsettings.items.TextItem;
 import com.kenumir.materialsettings.storage.StorageInterface;
 
+import sun.bob.leela.adapters.SettingsSpinnerAdapter;
+import sun.bob.leela.ui.views.SelectorItem;
 import sun.bob.leela.utils.CryptoUtil;
 import sun.bob.leela.utils.UserDefault;
 
@@ -21,6 +25,7 @@ public class SettingsActivity extends MaterialSettings {
 
     public static final int RequestCodeSetMainPassword = 0x700;
     private TextItem quickSwitcher;
+    private SelectorItem selectorItem;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -52,6 +57,31 @@ public class SettingsActivity extends MaterialSettings {
             }
         });
         addItem(quickSwitcher);
+
+//        if (UserDefault.getInstance(null).hasQuickPassword()) {
+//            selectorItem = new SelectorItem(this, UserDefault.kSettingsQuickPassByte).setAdapter(new SettingsSpinnerAdapter()).setOnItemClickListener(new AdapterView.OnItemSelectedListener() {
+//                @Override
+//                public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+//                    getStorageInterface().save(UserDefault.kSettingsQuickPassByte, id);
+//                }
+//
+//                @Override
+//                public void onNothingSelected(AdapterView<?> parent) {
+//
+//                }
+//            });
+//
+//            if (UserDefault.getInstance(null).getQuickPassByte() == UserDefault.v4x4) {
+//                selectorItem.setSelectedPos(1);
+//            } else {
+//                selectorItem.setSelectedPos(0);
+//            }
+//
+//            addItem(selectorItem);
+//        } else {
+//
+//        }
+
     }
 
     @Override
