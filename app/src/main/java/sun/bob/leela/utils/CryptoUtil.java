@@ -172,6 +172,12 @@ public class CryptoUtil {
                 dialog.dismiss();
                 break;
             case AppConstants.TYPE_ENCRYPT:
+                if (event.getField() == null) {
+                    if (dialog != null) {
+                        dialog.dismiss();
+                    }
+                    return;
+                }
                 switch (event.getField()) {
                     case "account":
                         this.accountHash = event.getResult();
@@ -200,6 +206,7 @@ public class CryptoUtil {
                 EventBus.getDefault().unregister(this);
                 break;
             case AppConstants.TYPE_SHTHPPN:
+                dialog.dismiss();
                 Log.e("LEELA", "Something went wrong");
                 break;
             default:

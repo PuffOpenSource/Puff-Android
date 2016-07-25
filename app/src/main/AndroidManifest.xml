@@ -96,7 +96,7 @@
         <activity
             android:name=".ui.activities.SetQuickPasswordActivity"
             android:label="@string/title_activity_set_quick_password"
-            android:theme="@style/AppTheme.NoActionBar"></activity>
+            android:theme="@style/AppTheme.GestureLock"></activity>
         <activity
             android:name=".ui.activities.SettingsActivity"
             android:parentActivityName=".ui.activities.MainActivity"

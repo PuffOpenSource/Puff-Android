@@ -33,8 +33,8 @@ public class SetQuickPasswordActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_set_quick_password);
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
+//        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+//        setSupportActionBar(toolbar);
         EventBus.getDefault().register(this);
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
 
@@ -56,10 +56,10 @@ public class SetQuickPasswordActivity extends AppCompatActivity {
 
         if (type == ShowTypeVerify) {
             masterPassword = getIntent().getStringExtra("masterPassword");
-            getSupportActionBar().setTitle("Verify Quick Password");
+//            getSupportActionBar().setTitle("Verify Quick Password");
             fab.setVisibility(View.INVISIBLE);
         } else {
-            getSupportActionBar().setTitle("Set Quick Password");
+//            getSupportActionBar().setTitle("Set Quick Password");
             fab.setVisibility(View.VISIBLE);
         }
 
@@ -103,6 +103,10 @@ public class SetQuickPasswordActivity extends AppCompatActivity {
         if (!(event instanceof CryptoEvent)) {
             return;
         }
+        if (event == null || ((CryptoEvent) event).getField() == null) {
+            patternView.setPattern(PatternView.DisplayMode.Wrong, patternView.getPattern());
+            return;
+        }
         switch (((CryptoEvent) event).getType()) {
             case AppConstants.TYPE_DECRYPT :
                 finish();
@@ -122,7 +126,8 @@ public class SetQuickPasswordActivity extends AppCompatActivity {
                 break;
             case AppConstants.TYPE_MASTERPWD:
                 masterPassword = ((CryptoEvent) event).getResult();
-                saveQuickPass();
+                if (type == ShowTypeVerify)
+                    saveQuickPass();
                 break;
             case AppConstants.TYPE_SHTHPPN:
                 patternView.setPattern(PatternView.DisplayMode.Wrong, patternView.getPattern());

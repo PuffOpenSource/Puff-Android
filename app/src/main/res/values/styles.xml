@@ -30,4 +30,13 @@
         <item name="msColorHeader">@color/colorPrimary</item>
     </style>
 
+    <style name="AppTheme.GestureLock" parent="Theme.AppCompat.NoActionBar">
+        <!-- Customize your theme here. -->
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+        <item name="colorAccent">@color/colorAccent</item>
+        <item name="android:windowBackground">@color/tPuffGreen</item>
+        <item name="android:windowIsTranslucent">true</item>
+    </style>
+
 </resources>
