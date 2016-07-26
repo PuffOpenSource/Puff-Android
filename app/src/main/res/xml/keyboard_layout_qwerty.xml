@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <Keyboard xmlns:android="http://schemas.android.com/apk/res/android"
     android:keyWidth="10%p"
-    android:horizontalGap="2dp"
+    android:horizontalGap="2px"
     android:verticalGap="2dp"
-    android:keyHeight="36dp">
+    android:keyHeight="48dp">
     <Row>
         <Key android:codes="-10" android:keyLabel="Account List"
             android:keyEdgeFlags="left"
@@ -63,12 +63,10 @@
 
     <!--<Row android:keyboardMode="@+id/mode_normal" android:rowEdgeFlags="bottom">-->
     <Row android:rowEdgeFlags="bottom">
-        <Key android:codes="-2" android:keyLabel="SYM" android:keyWidth="10%p" android:keyEdgeFlags="left"/>
+        <Key android:codes="-2" android:keyLabel="\?123" android:keyWidth="10%p" android:keyEdgeFlags="left"/>
         <Key android:keyLabel="," android:keyWidth="10%p"/>
-        <Key android:keyLabel="-" android:keyWidth="10%p"/>
         <Key android:codes="32" android:keyLabel="space"
-            android:keyWidth="40%p"/>
-        <Key android:keyLabel="=" android:keyWidth="10%p"/>
+            android:keyWidth="60%p"/>
         <Key android:keyLabel="." android:keyWidth="10%p"/>
         <Key android:codes="10" android:keyLabel="OK" android:keyWidth="10%p" android:keyEdgeFlags="right"/>
     </Row>
