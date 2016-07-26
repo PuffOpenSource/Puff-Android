@@ -6,6 +6,7 @@ import android.content.res.XmlResourceParser;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
+import android.graphics.Rect;
 import android.graphics.drawable.Drawable;
 import android.inputmethodservice.Keyboard;
 import android.inputmethodservice.KeyboardView;
@@ -67,13 +68,24 @@ public class PuffKeyboardView extends KeyboardView {
         backgroundDrawable.draw(canvas);
         List<Keyboard.Key> keys = getKeyboard().getKeys();
         for(Keyboard.Key key: keys) {
+            Rect bounds = new Rect(key.x, key.y + 4, key.x + key.width, key.y + key.height - 2);
             if(key.codes[0] > -10) {
                 Drawable d = getContext().getResources().getDrawable(R.drawable.key_rect);
-                d.setBounds(key.x, key.y + 4, key.x + key.width, key.y + key.height - 2);
+                d.setBounds(bounds);
                 d.draw(canvas);
-                canvas.drawText(key.label.toString(), key.x + (key.width / 2), key.y + (key.height / 2) + normalSize / 2, keyTextPaint);
+                if (key.label != null) {
+                    canvas.drawText(key.label.toString(), key.x + (key.width / 2), key.y + (key.height / 2) + normalSize / 2, keyTextPaint);
+                } else {
+                    key.icon.setBounds(bounds);
+                    key.icon.draw(canvas);
+                }
             } else {
-                canvas.drawText(key.label.toString(), key.x + (key.width / 2), key.y + (key.height / 2) + smallSize / 2, smallTextPaint);
+                if (key.label != null) {
+                    canvas.drawText(key.label.toString(), key.x + (key.width / 2), key.y + (key.height / 2) + smallSize / 2, smallTextPaint);
+                } else {
+                    key.icon.setBounds(bounds);
+                    key.icon.draw(canvas);
+                }
             }
         }
     }
