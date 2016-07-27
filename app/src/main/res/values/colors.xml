@@ -3,6 +3,11 @@
     <color name="colorPrimary">#3F51B5</color>
     <color name="colorPrimaryDark">#303F9F</color>
     <color name="colorAccent">#FF4081</color>
+
+    <!--<color name="colorPrimary">#4CAF50</color>-->
+    <!--<color name="colorPrimaryDark">#388E3C</color>-->
+    <!--<color name="colorAccent">#FF4081</color>-->
+
     <color name="puffGreen">#FF4CAF50</color>
     <color name="tPuffGreen">#90000000</color>
 </resources>

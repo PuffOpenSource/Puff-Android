@@ -1,10 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <shape xmlns:android="http://schemas.android.com/apk/res/android">
+    <!--<gradient-->
+        <!--android:endColor="#FF50AF50"-->
+        <!--android:startColor="#FF55B455"-->
+        <!--android:angle="270" />-->
     <gradient
-        android:endColor="#FF4CAF50"
-        android:centerColor="#FF4CAF50"
-        android:startColor="#FF4CAF50"
-        android:angle="270" />
+        android:startColor="#FF505050"
+        android:endColor="#FF4B4B4B"
+        />
+    <!--42, 55, 62 -->
+    <!--231, 235, 238 material white #FFE7EBEE-->
     <corners
         android:radius="3dp" />
     <padding

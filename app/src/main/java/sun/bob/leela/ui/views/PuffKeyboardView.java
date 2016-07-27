@@ -46,7 +46,7 @@ public class PuffKeyboardView extends KeyboardView {
         keyTextPaint.setTextAlign(Paint.Align.CENTER);
         normalSize = ResUtil.getInstance(getContext()).pointToDp(20);
         keyTextPaint.setTextSize(normalSize);
-        keyTextPaint.setColor(Color.LTGRAY);
+        keyTextPaint.setColor(Color.rgb(42, 55, 62));
 //        keyTextPaint.setShadowLayer(5, 0, 0, Color.BLACK);
         keyTextPaint.setFakeBoldText(true);
 
@@ -55,7 +55,7 @@ public class PuffKeyboardView extends KeyboardView {
         smallTextPaint.setTextAlign(Paint.Align.CENTER);
         smallSize = ResUtil.getInstance(getContext()).pointToDp(12);
         smallTextPaint.setTextSize(smallSize);
-        smallTextPaint.setColor(Color.WHITE);
+        smallTextPaint.setColor(Color.rgb(42, 55, 62));
 
         keyPaint = new Paint();
         keyDrawable = context.getResources().getDrawable(R.drawable.key_rect);
@@ -70,9 +70,10 @@ public class PuffKeyboardView extends KeyboardView {
         for(Keyboard.Key key: keys) {
             Rect bounds = new Rect(key.x, key.y + 4, key.x + key.width, key.y + key.height - 2);
             if(key.codes[0] > -10) {
-                Drawable d = getContext().getResources().getDrawable(R.drawable.key_rect);
-                d.setBounds(bounds);
-                d.draw(canvas);
+//                Drawable d = getContext().getResources().getDrawable(R.drawable.key_rect);
+//                d.setBounds(bounds);
+//                if (key.codes[0] != 10)
+//                    d.draw(canvas);
                 if (key.label != null) {
                     canvas.drawText(key.label.toString(), key.x + (key.width / 2), key.y + (key.height / 2) + normalSize / 2, keyTextPaint);
                 } else {
