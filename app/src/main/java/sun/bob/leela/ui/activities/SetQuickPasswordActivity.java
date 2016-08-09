@@ -5,13 +5,18 @@ import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.AppCompatTextView;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.View;
+import android.view.ViewGroup;
+import android.view.ViewTreeObserver;
 
 import com.eftimoff.patternview.PatternView;
 
 import de.greenrobot.event.EventBus;
+import jp.wasabeef.blurry.Blurry;
+import jp.wasabeef.blurry.internal.Blur;
 import sun.bob.leela.R;
 import sun.bob.leela.db.Account;
 import sun.bob.leela.db.AccountHelper;
@@ -19,27 +24,43 @@ import sun.bob.leela.events.CryptoEvent;
 import sun.bob.leela.runnable.QuickPassRunnable;
 import sun.bob.leela.utils.AppConstants;
 import sun.bob.leela.utils.CryptoUtil;
+import sun.bob.leela.utils.UserDefault;
 
 public class SetQuickPasswordActivity extends AppCompatActivity {
 
-    public static final int ShowTypeSet         = 0x6001;
-    public static final int ShowTypeVerify      = 0x6002;
+    public static final long ShowTypeSet         = 0x6001;
+    public static final long ShowTypeVerify      = 0x6002;
+
+    public static final String hintStrSet        = "Set Gesture Password";
+    public static final String hintStrVerify     = "Verify Gesture Password";
 
     private PatternView patternView;
-    private int type;
+    private AppCompatTextView hintTextView;
+    private long type;
     private String masterPassword, quickCode;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_set_quick_password);
-//        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-//        setSupportActionBar(toolbar);
         EventBus.getDefault().register(this);
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
 
         patternView = (PatternView) findViewById(R.id.lock_view);
-        type = getIntent().getIntExtra("type", ShowTypeSet);
+        hintTextView = (AppCompatTextView) findViewById(R.id.hint_view);
+        type = getIntent().getLongExtra("type", ShowTypeSet);
+
+//        findViewById(R.id.content_setpassword).getViewTreeObserver().addOnPreDrawListener(new ViewTreeObserver.OnPreDrawListener() {
+//            @Override
+//            public boolean onPreDraw() {
+//
+//                Blurry.with(SetQuickPasswordActivity.this)
+//                        .radius(0)
+//                        .sampling(2)
+//                        .onto((ViewGroup) findViewById(R.id.content_setpassword));
+//                return true;
+//            }
+//        });
 
         patternView.setOnPatternDetectedListener(new PatternView.OnPatternDetectedListener() {
             @Override
@@ -52,15 +73,13 @@ public class SetQuickPasswordActivity extends AppCompatActivity {
             }
         });
 
-
-
         if (type == ShowTypeVerify) {
             masterPassword = getIntent().getStringExtra("masterPassword");
-//            getSupportActionBar().setTitle("Verify Quick Password");
             fab.setVisibility(View.INVISIBLE);
+            hintTextView.setText(hintStrVerify);
         } else {
-//            getSupportActionBar().setTitle("Set Quick Password");
             fab.setVisibility(View.VISIBLE);
+            hintTextView.setText(hintStrSet);
         }
 
 
@@ -73,6 +92,7 @@ public class SetQuickPasswordActivity extends AppCompatActivity {
             }
         });
     }
+
 
     @Override
     public void onPause() {
@@ -103,7 +123,7 @@ public class SetQuickPasswordActivity extends AppCompatActivity {
         if (!(event instanceof CryptoEvent)) {
             return;
         }
-        if (event == null || ((CryptoEvent) event).getField() == null) {
+        if ((event == null || ((CryptoEvent) event).getField() == null) && (type != ShowTypeSet)) {
             patternView.setPattern(PatternView.DisplayMode.Wrong, patternView.getPattern());
             return;
         }
@@ -126,7 +146,7 @@ public class SetQuickPasswordActivity extends AppCompatActivity {
                 break;
             case AppConstants.TYPE_MASTERPWD:
                 masterPassword = ((CryptoEvent) event).getResult();
-                if (type == ShowTypeVerify)
+                if (type == ShowTypeSet)
                     saveQuickPass();
                 break;
             case AppConstants.TYPE_SHTHPPN:

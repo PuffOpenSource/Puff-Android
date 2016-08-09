@@ -1,7 +1,11 @@
 package sun.bob.leela.ui.activities;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.design.widget.Snackbar;
+import android.support.v7.app.AlertDialog;
+import android.support.v7.app.AppCompatDialog;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.Toast;
@@ -13,9 +17,13 @@ import com.kenumir.materialsettings.items.SwitcherItem;
 import com.kenumir.materialsettings.items.TextItem;
 import com.kenumir.materialsettings.storage.StorageInterface;
 
+import de.greenrobot.event.EventBus;
 import sun.bob.leela.adapters.SettingsSpinnerAdapter;
+import sun.bob.leela.events.DBExportEvent;
+import sun.bob.leela.runnable.DBExportRunnable;
 import sun.bob.leela.ui.views.SelectorItem;
 import sun.bob.leela.utils.CryptoUtil;
+import sun.bob.leela.utils.ResUtil;
 import sun.bob.leela.utils.UserDefault;
 
 /**
@@ -26,12 +34,15 @@ public class SettingsActivity extends MaterialSettings {
     public static final int RequestCodeSetMainPassword = 0x700;
     private TextItem quickSwitcher;
     private SelectorItem selectorItem;
+    private AppCompatDialog dialog;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setTitle("Settings");
+
+        EventBus.getDefault().register(this);
 
         addItem(new HeaderItem(this).setTitle("Security"));
         addItem(new CheckboxItem(this, "launch_pass").setTitle("Need password when launch").setOnCheckedChangeListener(new CheckboxItem.OnCheckedChangeListener() {
@@ -57,6 +68,35 @@ public class SettingsActivity extends MaterialSettings {
             }
         });
         addItem(quickSwitcher);
+
+        addItem(new HeaderItem(this).setTitle("Database"));
+        addItem(new TextItem(this, "database").setTitle("Export Database.")
+                .setSubtitle("Database file can be used in other platforms")
+                .setOnclick(new TextItem.OnClickListener() {
+            @Override
+            public void onClick(TextItem textItem) {
+
+                new AlertDialog.Builder(SettingsActivity.this).setTitle("Export Database")
+                        .setMessage("Do you want to export database to external storage? ")
+                        .setCancelable(false)
+                        .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface d, int which) {
+                                d.dismiss();
+                                dialog = ResUtil.getInstance(null).showProgressbar(SettingsActivity.this);
+                                DBExportRunnable runnable = new DBExportRunnable(SettingsActivity.this);
+                                new Thread(runnable).run();
+                            }
+                        })
+                        .setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                dialog.dismiss();
+                            }
+                        }).show();
+
+            }
+        }));
 
 //        if (UserDefault.getInstance(null).hasQuickPassword()) {
 //            selectorItem = new SelectorItem(this, UserDefault.kSettingsQuickPassByte).setAdapter(new SettingsSpinnerAdapter()).setOnItemClickListener(new AdapterView.OnItemSelectedListener() {
@@ -88,6 +128,40 @@ public class SettingsActivity extends MaterialSettings {
     public void onResume() {
         super.onResume();
         quickSwitcher.updateTitle(UserDefault.getInstance(null).hasQuickPassword() ? "Disable Gesture Lock" : "Enable Gesture Lock");
+    }
+
+    @Override
+    public void onStop() {
+        super.onStop();
+        EventBus.getDefault().unregister(this);
+    }
+
+
+    public void onEventMainThread(Object event) {
+        if (!(event instanceof DBExportEvent)) {
+            return;
+        }
+        dialog.dismiss();
+        DBExportEvent dbExportEvent = (DBExportEvent) event;
+        if (dbExportEvent.success) {
+            new AlertDialog.Builder(this).setTitle("Success!").setMessage("Database exported to " + dbExportEvent.filePath)
+                    .setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            dialog.dismiss();
+                        }
+                    })
+                    .show();
+        } else {
+            new AlertDialog.Builder(this).setTitle("Failed!").setMessage("Please try again.")
+                    .setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            dialog.dismiss();
+                        }
+                    })
+                    .show();
+        }
     }
 
     @Override

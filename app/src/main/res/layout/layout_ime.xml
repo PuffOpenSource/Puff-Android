@@ -8,4 +8,5 @@
     android:layout_alignParentBottom="true"
     android:keyBackground="@drawable/key_rect"
     android:background="#FFE7EBEE"
+    android:keyPreviewLayout="@null"
     xmlns:android="http://schemas.android.com/apk/res/android" />

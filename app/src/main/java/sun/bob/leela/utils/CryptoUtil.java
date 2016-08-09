@@ -126,6 +126,7 @@ public class CryptoUtil {
             Intent intent = new Intent(this.context, SetQuickPasswordActivity.class);
             intent.putExtra("type", SetQuickPasswordActivity.ShowTypeVerify);
             this.context.startActivity(intent);
+
         } else {
             Intent intent = new Intent(this.context, AuthorizeActivity.class);
             this.context.startActivity(intent);

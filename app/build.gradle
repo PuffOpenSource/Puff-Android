@@ -10,6 +10,7 @@ android {
         targetSdkVersion 23
         versionCode 1
         versionName "1.0"
+        renderscriptSupportModeEnabled true
     }
     buildTypes {
         release {
@@ -36,4 +37,5 @@ dependencies {
     compile 'com.codevscolor.materialpreference:mp:0.1'
     compile 'com.eftimoff:android-patternview:1.0.5@aar'
     compile 'com.github.kenumir:MaterialSettings:v.1.2.2'
+    compile 'jp.wasabeef:blurry:2.0.2'
 }
