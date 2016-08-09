@@ -98,6 +98,14 @@ public class SettingsActivity extends MaterialSettings {
             }
         }));
 
+        addItem(new HeaderItem(this).setTitle("About"));
+        addItem(new TextItem(this, "about").setTitle("About Puff").setOnclick(new TextItem.OnClickListener() {
+            @Override
+            public void onClick(TextItem textItem) {
+                startActivity(new Intent(SettingsActivity.this, AboutActivity.class));
+            }
+        }));
+
 //        if (UserDefault.getInstance(null).hasQuickPassword()) {
 //            selectorItem = new SelectorItem(this, UserDefault.kSettingsQuickPassByte).setAdapter(new SettingsSpinnerAdapter()).setOnItemClickListener(new AdapterView.OnItemSelectedListener() {
 //                @Override

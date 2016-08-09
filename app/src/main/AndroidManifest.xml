@@ -4,7 +4,7 @@
 
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
-    <uses-permission android:name="android.permission.VIBRATE"/>
+    <uses-permission android:name="android.permission.VIBRATE" />
 
     <application
         android:name=".App"
@@ -96,7 +96,7 @@
         <activity
             android:name=".ui.activities.SetQuickPasswordActivity"
             android:label="@string/title_activity_set_quick_password"
-            android:theme="@style/AppTheme.GestureLock"></activity>
+            android:theme="@style/AppTheme.GestureLock" />
         <activity
             android:name=".ui.activities.SettingsActivity"
             android:parentActivityName=".ui.activities.MainActivity"
@@ -105,6 +105,7 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="sun.bob.leela.ui.activities.MainActivity" />
         </activity>
+        <activity android:name=".ui.activities.AboutActivity"></activity>
     </application>
 
 </manifest>
