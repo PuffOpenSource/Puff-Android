@@ -32,8 +32,8 @@ public class SetMasterPasswordActivity extends AppCompatActivity {
 
     private AppCompatEditText passwd, confirm;
     private AppCompatImageView confirmImgView;
-    private AnimateCheckBox checkBox;
-    private AppCompatTextView checkBoxHint;
+//    private AnimateCheckBox checkBox;
+//    private AppCompatTextView checkBoxHint;
     private TextView helpText;
     private final String uuid = UUID.randomUUID().toString();
 
@@ -128,8 +128,8 @@ public class SetMasterPasswordActivity extends AppCompatActivity {
         passwd = (AppCompatEditText) findViewById(R.id.password);
         confirm = (AppCompatEditText) findViewById(R.id.confirm);
         confirmImgView = (AppCompatImageView) findViewById(R.id.confirm_img);
-        checkBox = (AnimateCheckBox) findViewById(R.id.quick_checkbox);
-        checkBoxHint = (AppCompatTextView) findViewById(R.id.checkbox_hint);
+//        checkBox = (AnimateCheckBox) findViewById(R.id.quick_checkbox);
+//        checkBoxHint = (AppCompatTextView) findViewById(R.id.checkbox_hint);
         helpText = (TextView) findViewById(R.id.help_text);
     }
 
@@ -193,12 +193,12 @@ public class SetMasterPasswordActivity extends AppCompatActivity {
             }
         });
 
-        checkBoxHint.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                checkBox.setChecked(!checkBox.isChecked());
-                helpText.setText("Quick Access will enable gesture lock. <b>But it will make the password database easier to be hack.</b>");
-            }
-        });
+//        checkBoxHint.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                checkBox.setChecked(!checkBox.isChecked());
+//                helpText.setText("Quick Access will enable gesture lock. <b>But it will make the password database easier to be hack.</b>");
+//            }
+//        });
     }
 }
