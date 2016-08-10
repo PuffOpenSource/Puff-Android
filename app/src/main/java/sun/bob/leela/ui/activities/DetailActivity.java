@@ -26,6 +26,11 @@ import sun.bob.leela.utils.StringUtil;
 
 public class DetailActivity extends AppCompatActivity {
 
+    public enum DetailShowMode {
+        ShowModeView,
+        ShowModeEdit,
+    }
+
     private String acct, passwd, addt;
     private Account account;
 

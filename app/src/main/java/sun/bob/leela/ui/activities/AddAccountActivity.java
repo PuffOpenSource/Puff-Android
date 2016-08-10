@@ -6,7 +6,9 @@ import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
+import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.AppCompatButton;
 import android.support.v7.widget.AppCompatImageView;
 import android.support.v7.widget.AppCompatSpinner;
 import android.support.v7.widget.Toolbar;
@@ -47,6 +49,7 @@ public class AddAccountActivity extends AppCompatActivity {
     private Long category;
     private EditText name, account, password, addtional, website;
     private AppCompatImageView imageView;
+    private AppCompatButton generateButton;
     private String iconPath;
 
     @Override
@@ -79,36 +82,7 @@ public class AddAccountActivity extends AppCompatActivity {
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                final String disPlayName;
-                if (RegExUtil.isEmail(account.getText().toString())) {
-                    disPlayName = StringUtil.getMaskedEmail(account.getText().toString());
-                } else {
-                    disPlayName = StringUtil.getMaskedPhoneNumber(account.getText().toString());
-                }
-                new CryptoUtil(AddAccountActivity.this, new CryptoUtil.OnEncryptedListener() {
-                    @Override
-                    public void onEncrypted(String acctHash, String passwdHash, String addtHash, String acctSalt, String passwdSalt, String addtSalt) {
-                        Account account = new Account();
-                        account.setName(name.getText().toString());
-                        account.setAccount(acctHash);
-                        account.setAccount_salt(acctSalt);
-                        account.setHash(passwdHash);
-                        account.setSalt(passwdSalt);
-                        account.setAdditional(addtHash);
-                        account.setAdditional_salt(addtSalt);
-                        account.setMasked_account(disPlayName);
-                        account.setType(type);
-                        account.setCategory(category);
-                        account.setWebsite(website.getText().toString());
-                        account.setTag("");
-                        account.setIcon(StringUtil.isNullOrEmpty(iconPath) ?
-                                ((AcctType) spinnerType.getSelectedItem()).getIcon() :
-                                iconPath);
-                        AccountHelper.getInstance(AddAccountActivity.this).saveAccount(account);
-                        finish();
-                    }
-                }).runEncrypt(account.getText().toString(), password.getText().toString(), addtional.getText().toString());
-
+                doCreateAccount(view);
             }
         });
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
@@ -160,6 +134,13 @@ public class AddAccountActivity extends AppCompatActivity {
             }
         });
 
+        generateButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivityForResult(new Intent(AddAccountActivity.this, PasswordGenActivity.class), AppConstants.REQUEST_CODE_GEN_PWD);
+            }
+        });
+
         Uri icon = ResUtil.getInstance(null)
                 .getBmpUri( ((Category) ((CategorySpinnerAdapter)spinnerCategory.getAdapter()).getItem(0)).getIcon());
         Picasso.with(this).load(icon)
@@ -178,13 +159,48 @@ public class AddAccountActivity extends AppCompatActivity {
 //        }
 //    }
 
-    private void wireViews() {
-        name = (EditText) findViewById(R.id.id_name);
-        account = (EditText) findViewById(R.id.account);
-        password = (EditText) findViewById(R.id.password);
-        addtional = (EditText) findViewById(R.id.additional);
-        imageView = (AppCompatImageView) findViewById(R.id.account_image);
-        website = (EditText) findViewById(R.id.website);
+    private void doCreateAccount(View sender) {
+        String err = validateFields();
+        if (err != null) {
+            Snackbar.make(sender, err, Snackbar.LENGTH_SHORT).show();
+            return;
+        }
+        final String disPlayName;
+        if (RegExUtil.isEmail(account.getText().toString())) {
+            disPlayName = StringUtil.getMaskedEmail(account.getText().toString());
+        } else {
+            disPlayName = StringUtil.getMaskedPhoneNumber(account.getText().toString());
+        }
+        new CryptoUtil(AddAccountActivity.this, new CryptoUtil.OnEncryptedListener() {
+            @Override
+            public void onEncrypted(String acctHash, String passwdHash, String addtHash, String acctSalt, String passwdSalt, String addtSalt) {
+                Account account = new Account();
+                account.setName(name.getText().toString());
+                account.setAccount(acctHash);
+                account.setAccount_salt(acctSalt);
+                account.setHash(passwdHash);
+                account.setSalt(passwdSalt);
+                account.setAdditional(addtHash);
+                account.setAdditional_salt(addtSalt);
+                account.setMasked_account(disPlayName);
+                account.setType(type);
+                account.setCategory(category);
+                account.setWebsite(website.getText().toString());
+                account.setTag("");
+                account.setIcon(StringUtil.isNullOrEmpty(iconPath) ?
+                        ((AcctType) spinnerType.getSelectedItem()).getIcon() :
+                        iconPath);
+                AccountHelper.getInstance(AddAccountActivity.this).saveAccount(account);
+                finish();
+            }
+        }).runEncrypt(account.getText().toString(), password.getText().toString(), addtional.getText().toString());
+    }
+
+    private String validateFields() {
+        String ret = null;
+        if (StringUtil.isNullOrEmpty(password.getText().toString()))
+            ret = "Password is empty!";
+        return ret;
     }
 
     @Override
@@ -233,8 +249,23 @@ public class AddAccountActivity extends AppCompatActivity {
                 break;
             case AppConstants.REQUEST_CODE_ADD_CATE:
                 break;
+            case AppConstants.REQUEST_CODE_GEN_PWD:
+                String result = data.getStringExtra("password");
+                if (!StringUtil.isNullOrEmpty(result))
+                    this.password.setText(result);
+                break;
             default:
                 break;
         }
+    }
+
+    private void wireViews() {
+        name = (EditText) findViewById(R.id.id_name);
+        account = (EditText) findViewById(R.id.account);
+        password = (EditText) findViewById(R.id.password);
+        addtional = (EditText) findViewById(R.id.additional);
+        imageView = (AppCompatImageView) findViewById(R.id.account_image);
+        website = (EditText) findViewById(R.id.website);
+        generateButton = (AppCompatButton) findViewById(R.id.generate_button);
     }
 }
