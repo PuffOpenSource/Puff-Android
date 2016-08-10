@@ -3,7 +3,9 @@ package sun.bob.leela.utils;
 import android.util.Log;
 
 import java.security.SecureRandom;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Random;
@@ -148,6 +150,15 @@ public class StringUtil {
     public static int getRandInt(int range) {
         SecureRandom random = new SecureRandom();
         return random.nextInt(range);
+    }
+
+    public static String timeStampToTime(String timeStamp) {
+        if (isNullOrEmpty(timeStamp)) {
+            return "--:--:--";
+        }
+        Long l = Long.valueOf(timeStamp);
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm");
+        return sdf.format(new Date(l));
     }
 
 }
