@@ -9,6 +9,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.AppCompatImageView;
 import android.support.v7.widget.AppCompatTextView;
 import android.support.v7.widget.Toolbar;
+import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.LinearLayout;
@@ -25,11 +26,6 @@ import sun.bob.leela.utils.ResUtil;
 import sun.bob.leela.utils.StringUtil;
 
 public class DetailActivity extends AppCompatActivity {
-
-    public enum DetailShowMode {
-        ShowModeView,
-        ShowModeEdit,
-    }
 
     private String acct, passwd, addt;
     private Account account;
@@ -49,7 +45,12 @@ public class DetailActivity extends AppCompatActivity {
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         wireUpViews();
+    }
 
+    @Override
+    public void onResume() {
+        //Move loading to onResume for editing.
+        super.onResume();
         Long id = getIntent().getLongExtra("account", -1);
         account = AccountHelper.getInstance(this).getAccount(id);
 
@@ -77,7 +78,6 @@ public class DetailActivity extends AppCompatActivity {
         Picasso.with(this)
                 .load(ResUtil.getInstance(null).getBmpUri(account.getIcon()))
                 .into(image);
-
     }
 
     @Override
@@ -110,11 +110,23 @@ public class DetailActivity extends AppCompatActivity {
             }
         });
     }
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.menu_detail, menu);
+        return true;
+    }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem menuItem) {
         if (menuItem.getItemId() == android.R.id.home) {
             finish();
+        }
+        if (menuItem.getItemId() == R.id.action_edit) {
+            Intent intent = new Intent(this, AddAccountActivity.class);
+            intent.putExtra("acctId", account.getId());
+            intent.putExtra("showMode", AddAccountActivity.AddAccountShowMode.ShowModeEdit);
+            intent.putStringArrayListExtra("credentials", getIntent().getStringArrayListExtra("credentials"));
+            startActivity(intent);
         }
         return super.onOptionsItemSelected(menuItem);
     }

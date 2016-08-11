@@ -23,6 +23,7 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.UUID;
 
 import de.greenrobot.event.EventBus;
@@ -34,6 +35,7 @@ import sun.bob.leela.db.AccountHelper;
 import sun.bob.leela.db.AcctType;
 import sun.bob.leela.db.Category;
 import sun.bob.leela.db.CategoryHelper;
+import sun.bob.leela.db.TypeHelper;
 import sun.bob.leela.events.CryptoEvent;
 import sun.bob.leela.utils.AppConstants;
 import sun.bob.leela.utils.CryptoUtil;
@@ -44,6 +46,11 @@ import sun.bob.leela.utils.StringUtil;
 
 public class AddAccountActivity extends AppCompatActivity {
 
+    public enum AddAccountShowMode {
+        ShowModeAdd,
+        ShowModeEdit,
+    }
+
     private AppCompatSpinner spinnerCategory, spinnerType;
     private Long type;
     private Long category;
@@ -51,6 +58,10 @@ public class AddAccountActivity extends AppCompatActivity {
     private AppCompatImageView imageView;
     private AppCompatButton generateButton;
     private String iconPath;
+    private AddAccountShowMode showMode;
+
+    private Long acctId;
+    private Account accountModel;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -59,6 +70,8 @@ public class AddAccountActivity extends AppCompatActivity {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 //        EventBus.getDefault().register(this);
+
+        showMode = (AddAccountShowMode) getIntent().getSerializableExtra("showMode");
 
         wireViews();
 
@@ -141,8 +154,39 @@ public class AddAccountActivity extends AppCompatActivity {
             }
         });
 
-        Uri icon = ResUtil.getInstance(null)
-                .getBmpUri( ((Category) ((CategorySpinnerAdapter)spinnerCategory.getAdapter()).getItem(0)).getIcon());
+        Uri icon;
+
+        if (showMode == AddAccountShowMode.ShowModeAdd) {
+            icon = ResUtil.getInstance(null)
+                    .getBmpUri( ((Category) ((CategorySpinnerAdapter)spinnerCategory.getAdapter()).getItem(0)).getIcon());
+        } else {
+            acctId = getIntent().getLongExtra("acctId", -1);
+            accountModel = AccountHelper.getInstance(null).getAccount(acctId);
+
+            ArrayList<String> list = getIntent().getStringArrayListExtra("credentials");
+
+            String acct = list.get(0);
+            String passwd = list.get(1);
+            String addt = list.get(2);
+
+            name.setText(accountModel.getName());
+            account.setText(acct);
+            password.setText(passwd);
+            addtional.setText(addt);
+            type = accountModel.getType();
+            category = accountModel.getCategory();
+            Category categoryModel = CategoryHelper.getInstance(null).getCategoryById(category);
+            spinnerCategory.setSelection(((CategorySpinnerAdapter) spinnerCategory.getAdapter())
+                    .getPosition(categoryModel));
+            AcctType typeModel = TypeHelper.getInstance(null).getTypeById(type);
+            spinnerType.setSelection(((TypeSpinnerAdapter) spinnerType.getAdapter())
+                    .getPosition(typeModel));
+            website.setText(accountModel.getWebsite());
+            icon = ResUtil.getInstance(null).getBmpUri(categoryModel.getIcon());
+
+
+        }
+
         Picasso.with(this).load(icon)
                 .fit()
                 .config(Bitmap.Config.RGB_565)

@@ -70,6 +70,10 @@ public class Category {
     }
 
     // KEEP METHODS - put your custom methods here
+    @Override
+    public boolean equals(Object another) {
+        return ((Category) another).getId() == this.id;
+    }
     // KEEP METHODS END
 
 }

@@ -24,8 +24,6 @@ import sun.bob.leela.R;
 import sun.bob.leela.db.AccountHelper;
 import sun.bob.leela.db.Category;
 import sun.bob.leela.db.CategoryHelper;
-import sun.bob.leela.runnable.QuickPassRunnable;
-import sun.bob.leela.services.IMEService;
 import sun.bob.leela.ui.fragments.AcctListFragment;
 import sun.bob.leela.utils.AppConstants;
 import sun.bob.leela.utils.ResUtil;
@@ -80,6 +78,7 @@ public class MainActivity extends AppCompatActivity
                     @Override
                     public void onAnimationEnd() {
                         Intent intent = new Intent(MainActivity.this, AddAccountActivity.class);
+                        intent.putExtra("showMode", AddAccountActivity.AddAccountShowMode.ShowModeAdd);
                         startActivity(intent);
                         overridePendingTransition(0, 0);
 //                        reveal.setVisibility(View.INVISIBLE);
