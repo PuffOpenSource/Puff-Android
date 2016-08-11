@@ -234,6 +234,9 @@ public class AddAccountActivity extends AppCompatActivity {
                 account.setIcon(StringUtil.isNullOrEmpty(iconPath) ?
                         ((AcctType) spinnerType.getSelectedItem()).getIcon() :
                         iconPath);
+                if (showMode == AddAccountShowMode.ShowModeEdit) {
+                    account.setId(acctId);
+                }
                 AccountHelper.getInstance(AddAccountActivity.this).saveAccount(account);
                 finish();
             }
@@ -294,6 +297,9 @@ public class AddAccountActivity extends AppCompatActivity {
             case AppConstants.REQUEST_CODE_ADD_CATE:
                 break;
             case AppConstants.REQUEST_CODE_GEN_PWD:
+                if (resultCode != RESULT_OK) {
+                    return;
+                }
                 String result = data.getStringExtra("password");
                 if (!StringUtil.isNullOrEmpty(result))
                     this.password.setText(result);

@@ -141,6 +141,11 @@ public class PasswordGenActivity extends IntroActivity implements SlideListener 
         }
     }
 
+    @Override
+    public void onBackPressed() {
+        setResult(RESULT_CANCELED);
+        finish();
+    }
 
     private void wireRefs() {
 
