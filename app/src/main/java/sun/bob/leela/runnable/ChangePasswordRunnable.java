@@ -36,28 +36,33 @@ public class ChangePasswordRunnable implements Runnable {
     }
     @Override
     public void run() {
+        CryptoEvent result = null;
         new PBKDFRunnable(newPassword.toString()).run();
-        for (Account account : accounts) {
-            if (account.getType() == AppConstants.TYPE_QUICK || account.getType() == AppConstants.TYPE_MASTER)
-                continue;
-            try {
-                String acct = new String(decrypt(Base64.decode(account.getAccount(), Base64.DEFAULT)));//.replace(account.getAccount_salt(), "");
-                String passwd = new String(decrypt(Base64.decode(account.getHash(), Base64.DEFAULT)));//.replace(account.getSalt(), "");
-                String addt = new String(decrypt(Base64.decode(account.getAdditional(), Base64.DEFAULT)));//.replace(account.getAdditional_salt(), "");
+        try {
+            for (Account account : accounts) {
+                if (account.getType() == AppConstants.TYPE_QUICK || account.getType() == AppConstants.TYPE_MASTER)
+                    continue;
 
-                Log.e("Change password", acct);
-                Log.e("Change password", passwd);
-                Log.e("Change password", addt);
+                    String acct = new String(decrypt(Base64.decode(account.getAccount(), Base64.DEFAULT)));//.replace(account.getAccount_salt(), "");
+                    String passwd = new String(decrypt(Base64.decode(account.getHash(), Base64.DEFAULT)));//.replace(account.getSalt(), "");
+                    String addt = new String(decrypt(Base64.decode(account.getAdditional(), Base64.DEFAULT)));//.replace(account.getAdditional_salt(), "");
 
-                account.setAccount(Base64.encodeToString(encrypt(acct), Base64.DEFAULT));
-                account.setHash(Base64.encodeToString(encrypt(passwd), Base64.DEFAULT));
-                account.setAdditional(Base64.encodeToString(encrypt(addt), Base64.DEFAULT));
+                    Log.e("Change password", acct);
+                    Log.e("Change password", passwd);
+                    Log.e("Change password", addt);
 
-                AccountHelper.getInstance(null).saveAccount(account);
-            } catch (Exception e) {
-                e.printStackTrace();
+                    account.setAccount(Base64.encodeToString(encrypt(acct), Base64.DEFAULT));
+                    account.setHash(Base64.encodeToString(encrypt(passwd), Base64.DEFAULT));
+                    account.setAdditional(Base64.encodeToString(encrypt(addt), Base64.DEFAULT));
+
+                    AccountHelper.getInstance(null).saveAccount(account);
             }
-
+            result = new CryptoEvent("", AppConstants.TYPE_MASTER_CHANGE, "master");
+        } catch (Exception e) {
+            e.printStackTrace();
+            result = new CryptoEvent("", AppConstants.TYPE_SHTHPPN, "master");
+        } finally {
+            EventBus.getDefault().post(result);
         }
 
     }

@@ -2,6 +2,7 @@ package sun.bob.leela.ui.activities;
 
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.os.Bundle;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AlertDialog;
@@ -19,10 +20,14 @@ import com.kenumir.materialsettings.storage.StorageInterface;
 
 import de.greenrobot.event.EventBus;
 import sun.bob.leela.adapters.SettingsSpinnerAdapter;
+import sun.bob.leela.db.Account;
+import sun.bob.leela.db.AccountHelper;
+import sun.bob.leela.events.CryptoEvent;
 import sun.bob.leela.events.DBExportEvent;
 import sun.bob.leela.runnable.ChangePasswordRunnable;
 import sun.bob.leela.runnable.DBExportRunnable;
 import sun.bob.leela.ui.views.SelectorItem;
+import sun.bob.leela.utils.AppConstants;
 import sun.bob.leela.utils.CryptoUtil;
 import sun.bob.leela.utils.ResUtil;
 import sun.bob.leela.utils.UserDefault;
@@ -36,6 +41,7 @@ public class SettingsActivity extends MaterialSettings {
     private TextItem quickSwitcher;
     private SelectorItem selectorItem;
     private AppCompatDialog dialog;
+    private boolean didClickedChangeMaster;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -70,10 +76,12 @@ public class SettingsActivity extends MaterialSettings {
         });
         addItem(quickSwitcher);
 
+        didClickedChangeMaster = false;
         addItem(new TextItem(this, "change_password").setTitle("Change Master Password").setOnclick(new TextItem.OnClickListener() {
             @Override
             public void onClick(TextItem textItem) {
-                new Thread(new ChangePasswordRunnable(SettingsActivity.this, "123456", "1234567")).run();
+                didClickedChangeMaster = true;
+                startActivity(new Intent(SettingsActivity.this, AuthorizeActivity.class));
             }
         }));
 
@@ -154,7 +162,19 @@ public class SettingsActivity extends MaterialSettings {
 
 
     public void onEventMainThread(Object event) {
-        if (!(event instanceof DBExportEvent)) {
+//        if (!(event instanceof DBExportEvent)) {
+//            return;
+//        }
+        if (event instanceof CryptoEvent && didClickedChangeMaster) {
+            didClickedChangeMaster = false;
+            if (((CryptoEvent) event).getType() == AppConstants.TYPE_MASTERPWD) {
+                Intent intent = new Intent(SettingsActivity.this, SetMasterPasswordActivity.class);
+                intent.putExtra("showMode", SetMasterPasswordActivity.ShowMode.ShowModeChange);
+                intent.putExtra("oldPassword", ((CryptoEvent) event).getResult());
+                UserDefault.getInstance(null).clearQuickPassword();
+                AccountHelper.getInstance(null).clearQuickAccount();
+                startActivity(intent);
+            }
             return;
         }
         dialog.dismiss();

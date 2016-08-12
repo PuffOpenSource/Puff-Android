@@ -104,6 +104,13 @@ public class AccountHelper {
         return result.size() == 0 ? null : (Account) result.get(0);
     }
 
+    public void clearQuickAccount() {
+        accountDao.queryBuilder()
+                .where(AccountDao.Properties.Type.eq(AppConstants.TYPE_QUICK))
+                .buildDelete()
+                .executeDeleteWithoutDetachingEntities();
+    }
+
     public ArrayList<Account> getAccountsByCategory(Long category) {
         return (ArrayList) accountDao.queryBuilder()
                 .where(AccountDao.Properties.Category.eq(category),

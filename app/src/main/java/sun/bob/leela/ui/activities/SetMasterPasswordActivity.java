@@ -23,6 +23,7 @@ import sun.bob.leela.R;
 import sun.bob.leela.db.Account;
 import sun.bob.leela.db.AccountHelper;
 import sun.bob.leela.events.CryptoEvent;
+import sun.bob.leela.runnable.ChangePasswordRunnable;
 import sun.bob.leela.runnable.CryptoRunnable;
 import sun.bob.leela.runnable.PBKDFRunnable;
 import sun.bob.leela.utils.AppConstants;
@@ -30,12 +31,19 @@ import sun.bob.leela.utils.CryptoUtil;
 
 public class SetMasterPasswordActivity extends AppCompatActivity {
 
+    public enum ShowMode {
+        ShowModeAdd,
+        ShowModeChange,
+    }
+
     private AppCompatEditText passwd, confirm;
     private AppCompatImageView confirmImgView;
 //    private AnimateCheckBox checkBox;
 //    private AppCompatTextView checkBoxHint;
     private TextView helpText;
     private final String uuid = UUID.randomUUID().toString();
+    private ShowMode showMode;
+    private String oldPassword;
 
     private static final int REQ_CODE_AUTH_MASTER   = 0x7001;
 
@@ -50,10 +58,16 @@ public class SetMasterPasswordActivity extends AppCompatActivity {
         initReference();
         initListener();
 
-        if (AccountHelper.getInstance(this).hasMasterPassword()) {
-            Intent intent = new Intent(this, AuthorizeActivity.class);
-            this.startActivityForResult(intent, REQ_CODE_AUTH_MASTER);
+        showMode = (ShowMode) getIntent().getSerializableExtra("showMode");
+
+        if (showMode == ShowMode.ShowModeChange) {
+            oldPassword = getIntent().getStringExtra("oldPassword");
         }
+
+//        if (AccountHelper.getInstance(this).hasMasterPassword()) {
+//            Intent intent = new Intent(this, AuthorizeActivity.class);
+//            this.startActivityForResult(intent, REQ_CODE_AUTH_MASTER);
+//        }
 
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
@@ -63,7 +77,12 @@ public class SetMasterPasswordActivity extends AppCompatActivity {
                     return;
                 }
 //                new Thread(new CryptoRunnable(uuid, passwd.getText().toString(), AppConstants.TYPE_ENCRYPT, "master")).start();
-                new Thread(new PBKDFRunnable(passwd.getText().toString())).start();
+                if (showMode == ShowMode.ShowModeAdd){
+                    new Thread(new PBKDFRunnable(passwd.getText().toString())).start();
+                } else {
+                    new Thread(new ChangePasswordRunnable(SetMasterPasswordActivity.this, oldPassword, passwd.getText().toString())).run();
+                }
+
             }
         });
     }
@@ -91,11 +110,17 @@ public class SetMasterPasswordActivity extends AppCompatActivity {
 
     @Override
     public void onBackPressed() {
-
+        if (showMode == ShowMode.ShowModeChange) {
+            finish();
+        }
     }
 
     public void onEventMainThread(CryptoEvent event) {
         if (!event.getField().equalsIgnoreCase("master")) {
+            return;
+        }
+        if (showMode == ShowMode.ShowModeChange && event.getType() == AppConstants.TYPE_MASTER_CHANGE) {
+            finish();
             return;
         }
         if (event.getType() == AppConstants.TYPE_ENCRYPT) {
