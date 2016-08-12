@@ -20,6 +20,7 @@ import com.kenumir.materialsettings.storage.StorageInterface;
 import de.greenrobot.event.EventBus;
 import sun.bob.leela.adapters.SettingsSpinnerAdapter;
 import sun.bob.leela.events.DBExportEvent;
+import sun.bob.leela.runnable.ChangePasswordRunnable;
 import sun.bob.leela.runnable.DBExportRunnable;
 import sun.bob.leela.ui.views.SelectorItem;
 import sun.bob.leela.utils.CryptoUtil;
@@ -68,6 +69,13 @@ public class SettingsActivity extends MaterialSettings {
             }
         });
         addItem(quickSwitcher);
+
+        addItem(new TextItem(this, "change_password").setTitle("Change Master Password").setOnclick(new TextItem.OnClickListener() {
+            @Override
+            public void onClick(TextItem textItem) {
+                new Thread(new ChangePasswordRunnable(SettingsActivity.this, "123456", "1234567")).run();
+            }
+        }));
 
         addItem(new HeaderItem(this).setTitle("Database"));
         addItem(new TextItem(this, "database").setTitle("Export Database.")
