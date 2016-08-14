@@ -4,6 +4,10 @@
     android:layout_height="match_parent"
     android:padding="16dp"
     android:gravity="center">
+    <ImageView
+        android:layout_width="80dp"
+        android:layout_height="80dp"
+        android:src="@drawable/ic_check_mark"/>
     <android.support.v7.widget.AppCompatTextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

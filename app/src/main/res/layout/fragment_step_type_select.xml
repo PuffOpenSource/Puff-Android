@@ -10,6 +10,10 @@
     android:animateLayoutChanges="true"
     android:padding="16dp"
     >
+    <android.support.v7.widget.AppCompatImageView
+        android:layout_width="80dp"
+        android:layout_height="80dp"
+        android:src="@drawable/ic_gen_category"/>
     <LinearLayout
         android:orientation="vertical"
         android:layout_width="match_parent"
