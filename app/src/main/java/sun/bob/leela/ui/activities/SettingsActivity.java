@@ -4,6 +4,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.os.Bundle;
+import android.provider.Settings;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatDialog;
@@ -82,6 +83,15 @@ public class SettingsActivity extends MaterialSettings {
             public void onClick(TextItem textItem) {
                 didClickedChangeMaster = true;
                 startActivity(new Intent(SettingsActivity.this, AuthorizeActivity.class));
+            }
+        }));
+
+        addItem(new HeaderItem(this).setTitle("Puff Secure Keyboard"));
+        addItem(new TextItem(this, "ime").setTitle("Enable Puff Secure Keyboard"). setOnclick(new TextItem.OnClickListener() {
+            @Override
+            public void onClick(TextItem textItem) {
+                startActivity(new Intent(Settings.ACTION_INPUT_METHOD_SETTINGS));
+                Toast.makeText(SettingsActivity.this, "Please enabel Puff IME.", Toast.LENGTH_LONG).show();
             }
         }));
 

@@ -47,10 +47,6 @@ public class ChangePasswordRunnable implements Runnable {
                     String passwd = new String(decrypt(Base64.decode(account.getHash(), Base64.DEFAULT)));//.replace(account.getSalt(), "");
                     String addt = new String(decrypt(Base64.decode(account.getAdditional(), Base64.DEFAULT)));//.replace(account.getAdditional_salt(), "");
 
-                    Log.e("Change password", acct);
-                    Log.e("Change password", passwd);
-                    Log.e("Change password", addt);
-
                     account.setAccount(Base64.encodeToString(encrypt(acct), Base64.DEFAULT));
                     account.setHash(Base64.encodeToString(encrypt(passwd), Base64.DEFAULT));
                     account.setAdditional(Base64.encodeToString(encrypt(addt), Base64.DEFAULT));

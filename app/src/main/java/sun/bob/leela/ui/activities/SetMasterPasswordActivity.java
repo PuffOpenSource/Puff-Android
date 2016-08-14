@@ -1,10 +1,12 @@
 package sun.bob.leela.ui.activities;
 
+import android.app.Dialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.app.AppCompatDialog;
 import android.support.v7.widget.AppCompatEditText;
 import android.support.v7.widget.AppCompatImageView;
 import android.support.v7.widget.AppCompatTextView;
@@ -28,6 +30,7 @@ import sun.bob.leela.runnable.CryptoRunnable;
 import sun.bob.leela.runnable.PBKDFRunnable;
 import sun.bob.leela.utils.AppConstants;
 import sun.bob.leela.utils.CryptoUtil;
+import sun.bob.leela.utils.ResUtil;
 
 public class SetMasterPasswordActivity extends AppCompatActivity {
 
@@ -44,6 +47,7 @@ public class SetMasterPasswordActivity extends AppCompatActivity {
     private final String uuid = UUID.randomUUID().toString();
     private ShowMode showMode;
     private String oldPassword;
+    private AppCompatDialog dialog;
 
     private static final int REQ_CODE_AUTH_MASTER   = 0x7001;
 
@@ -80,6 +84,7 @@ public class SetMasterPasswordActivity extends AppCompatActivity {
                 if (showMode == ShowMode.ShowModeAdd){
                     new Thread(new PBKDFRunnable(passwd.getText().toString())).start();
                 } else {
+                    dialog = ResUtil.getInstance(null).showProgressbar(SetMasterPasswordActivity.this);
                     new Thread(new ChangePasswordRunnable(SetMasterPasswordActivity.this, oldPassword, passwd.getText().toString())).run();
                 }
 
@@ -120,6 +125,7 @@ public class SetMasterPasswordActivity extends AppCompatActivity {
             return;
         }
         if (showMode == ShowMode.ShowModeChange && event.getType() == AppConstants.TYPE_MASTER_CHANGE) {
+            dialog.dismiss();
             finish();
             return;
         }
