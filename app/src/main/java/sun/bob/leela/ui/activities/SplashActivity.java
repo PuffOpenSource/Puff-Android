@@ -21,14 +21,10 @@ public class SplashActivity extends AppCompatActivity {
         UserDefault userDefault = UserDefault.getInstance(this);
         newInstall = userDefault.getBoolean("newInstall");
         noMainPassword = userDefault.getBoolean("noMainPassword");
-        // TODO: 16/3/19 Remove below debug code
-        newInstall = false;
-        noMainPassword = false;
 
         if (newInstall) {
-
-        } else if (noMainPassword) {
-
+            startActivity(new Intent(this, PuffIntroActivity.class));
+            userDefault.save("newInstall", false);
         } else {
             setContentView(R.layout.activity_splash);
             Handler handler = new Handler();

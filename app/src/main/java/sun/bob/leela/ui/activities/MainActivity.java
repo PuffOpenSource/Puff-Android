@@ -45,6 +45,10 @@ public class MainActivity extends AppCompatActivity
     private Toolbar toolbar;
     private HashMap<Long, AcctListFragment> fragments;
     private SubMenu categoriesMenu;
+    private MenuItem lastChecked;
+    private NavigationView navigationView;
+    private ImageView headerImageView;
+    private TextView headerTextView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -109,9 +113,11 @@ public class MainActivity extends AppCompatActivity
         drawer.addDrawerListener(toggle);
         toggle.syncState();
 
-        NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
+        navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
         navigationView.setItemIconTintList(null);
+        headerImageView = (ImageView) navigationView.getHeaderView(0).findViewById(R.id.header_image_view);
+        headerTextView = (TextView) navigationView.getHeaderView(0).findViewById(R.id.header_category);
 
         categoriesMenu = navigationView.getMenu().addSubMenu("Categories");
 
@@ -198,12 +204,18 @@ public class MainActivity extends AppCompatActivity
         loadAccountByCategory(category);
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
-        Picasso.with(this).load(ResUtil.getInstance(null).getBmpUri(category.getIcon()))
-                .config(Bitmap.Config.RGB_565)
-                .fit()
-                .into((ImageView) findViewById(R.id.header_image_view));
-        ((TextView) findViewById(R.id.header_category)).setText(category.getName());
+        if (headerImageView != null)
+            Picasso.with(this).load(ResUtil.getInstance(null).getBmpUri(category.getIcon()))
+                    .config(Bitmap.Config.RGB_565)
+                    .fit()
+                    .into(headerImageView);
+        if (headerTextView != null)
+            headerTextView.setText(category.getName());
         drawer.closeDrawer(GravityCompat.START);
+        if (lastChecked != null)
+            lastChecked.setChecked(false);
+        item.setChecked(true);
+        lastChecked = item;
         return true;
     }
 

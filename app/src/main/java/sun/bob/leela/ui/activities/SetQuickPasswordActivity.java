@@ -15,8 +15,6 @@ import android.view.ViewTreeObserver;
 import com.eftimoff.patternview.PatternView;
 
 import de.greenrobot.event.EventBus;
-import jp.wasabeef.blurry.Blurry;
-import jp.wasabeef.blurry.internal.Blur;
 import sun.bob.leela.R;
 import sun.bob.leela.db.Account;
 import sun.bob.leela.db.AccountHelper;

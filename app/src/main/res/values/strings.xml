@@ -42,4 +42,7 @@
     <string name="section_format">Hello World from section: %1$d</string>
     <string name="title_activity_set_quick_password">SetQuickPasswordActivity</string>
     <string name="title_activity_about">AboutActivity</string>
+    <string name="title_intro_one">All your credentials in one safe place.</string>
+    <string name="title_intro_two"><![CDATA[Quick & Safe Access]]></string>
+    <string name="title_intro_three"><![CDATA[Open source & free forever]]></string>
 </resources>

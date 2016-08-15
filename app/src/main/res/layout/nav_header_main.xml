@@ -25,7 +25,6 @@
         android:layout_height="100dp"
         android:id="@+id/header_category"
         android:paddingTop="@dimen/nav_header_vertical_spacing"
-        android:layout_marginLeft="16dp"
         android:layout_gravity="bottom"
         android:gravity="bottom|left"
         android:textColor="#FFF"

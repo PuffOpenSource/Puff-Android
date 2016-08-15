@@ -21,6 +21,7 @@ import sun.bob.leela.ui.fragments.SecureStepIntro;
 import sun.bob.leela.ui.fragments.SecureStepTypeSelect;
 import sun.bob.leela.utils.AppConstants;
 import sun.bob.leela.utils.PasswordGenerator;
+import sun.bob.leela.utils.ResUtil;
 import sun.bob.leela.utils.StringUtil;
 
 public class PasswordGenActivity extends IntroActivity implements SlideListener {
@@ -106,6 +107,7 @@ public class PasswordGenActivity extends IntroActivity implements SlideListener 
 
     @Override
     public void willLeaveSlide(int position) {
+        ResUtil.hideSoftKeyboard(getCurrentFocus());
         switch (position) {
             case 0:
                 length = ((SecureStepIntro) getSlide(0).getFragment()).getLength();

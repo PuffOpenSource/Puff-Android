@@ -70,7 +70,9 @@
             android:name=".ui.activities.PasswordGenActivity"
             android:theme="@style/AppTheme.NoActionBar"
             android:windowSoftInputMode="stateHidden|adjustPan" />
-
+        <activity android:name=".ui.activities.PuffIntroActivity"
+            android:theme="@style/AppTheme.NoActionBar"
+            />
         <service
             android:name=".services.NotificationService"
             android:exported="false" />
