@@ -1,7 +1,6 @@
 package sun.bob.leela.services;
 
 import android.content.Intent;
-import android.graphics.Color;
 import android.inputmethodservice.InputMethodService;
 import android.inputmethodservice.Keyboard;
 import android.inputmethodservice.KeyboardView;
@@ -19,7 +18,7 @@ import sun.bob.leela.ui.views.PuffKeyboardView;
 public class IMEService extends InputMethodService implements KeyboardView.OnKeyboardActionListener{
 
     private PuffKeyboardView kv;
-    private PuffKeyboard normalKeyboard, symbolKeyboard, symsftKeyboard, currentKeyboard;
+    private PuffKeyboard normalKeyboard, symbolKeyboard, symsftKeyboard, currentKeyboard, shiftKeyboard;
 
     private String account, password, additional;
 
@@ -43,6 +42,7 @@ public class IMEService extends InputMethodService implements KeyboardView.OnKey
     @Override
     public void onInitializeInterface() {
         normalKeyboard = new PuffKeyboard(this, R.xml.keyboard_layout_qwerty);
+        shiftKeyboard = new PuffKeyboard(this, R.xml.keyboard_layout_qwerty_shift);
         symbolKeyboard = new PuffKeyboard(this, R.xml.keyboard_layout_symbol);
         symsftKeyboard = new PuffKeyboard(this, R.xml.keyboard_layout_symsft);
         currentKeyboard = normalKeyboard;
@@ -111,11 +111,17 @@ public class IMEService extends InputMethodService implements KeyboardView.OnKey
                 kv.setKeyboard(currentKeyboard);
                 break;
             case Keyboard.KEYCODE_SHIFT:
-                if (kv.getKeyboard() == normalKeyboard) {
-                    caps = !caps;
-                    normalKeyboard.setShifted(caps);
-                    kv.invalidateAllKeys();
+//                if (kv.getKeyboard() == normalKeyboard) {
+//                    caps = !caps;
+//                    normalKeyboard.setShifted(caps);
+//                    kv.invalidateAllKeys();
+//                }
+                if(currentKeyboard == shiftKeyboard) {
+                    currentKeyboard = normalKeyboard;
+                } else {
+                    currentKeyboard = shiftKeyboard;
                 }
+                kv.setKeyboard(currentKeyboard);
                 break;
             case Keyboard.KEYCODE_ALT:
                 if (kv.getKeyboard() == symbolKeyboard) {
