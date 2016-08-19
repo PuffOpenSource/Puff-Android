@@ -9,6 +9,7 @@ import android.view.KeyEvent;
 import android.view.View;
 import android.view.inputmethod.EditorInfo;
 import android.view.inputmethod.InputConnection;
+import android.widget.Toast;
 
 import sun.bob.leela.R;
 import sun.bob.leela.ui.activities.DialogAcctList;
@@ -81,7 +82,7 @@ public class IMEService extends InputMethodService implements KeyboardView.OnKey
         switch(primaryCode){
             case -10 :
                 Intent intent = new Intent(this, DialogAcctList.class);
-                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_EXCLUDE_FROM_RECENTS | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_EXCLUDE_FROM_RECENTS);
                 startActivity(intent);
                 break;
             case -11 :
@@ -103,10 +104,10 @@ public class IMEService extends InputMethodService implements KeyboardView.OnKey
                 ic.deleteSurroundingText(1, 0);
                 break;
             case Keyboard.KEYCODE_MODE_CHANGE:
-                if(kv.getKeyboard() == normalKeyboard) {
-                    currentKeyboard = symbolKeyboard;
-                } else {
+                if(kv.getKeyboard() == symbolKeyboard || kv.getKeyboard() == symsftKeyboard) {
                     currentKeyboard = normalKeyboard;
+                } else {
+                    currentKeyboard = symbolKeyboard;
                 }
                 kv.setKeyboard(currentKeyboard);
                 break;
@@ -131,6 +132,9 @@ public class IMEService extends InputMethodService implements KeyboardView.OnKey
                 }
                 kv.setKeyboard(currentKeyboard);
                 break;
+            case -886 :
+                Toast.makeText(IMEService.this, "close", Toast.LENGTH_SHORT).show();
+                break ;
             default:
                 char code = (char)primaryCode;
                 if (caps) {
@@ -165,4 +169,5 @@ public class IMEService extends InputMethodService implements KeyboardView.OnKey
     public void swipeUp() {
 
     }
+
 }

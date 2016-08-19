@@ -20,9 +20,6 @@ import sun.bob.leela.utils.ResUtil;
  */
 public class PuffKeyboardView extends KeyboardView {
 
-    // TODO 根据屏幕的宽度，来动态设置这个边距
-    private final int secondLineMarginLeft = 50;
-
     public enum KeyBoardType {
         Paste,
         QWERTY
@@ -56,6 +53,7 @@ public class PuffKeyboardView extends KeyboardView {
         smallTextPaint.setColor(Color.rgb(42, 55, 62));
 
         keyPaint = new Paint();
+        keyPaint.setColor(Color.WHITE);
         keyDrawable = context.getResources().getDrawable(R.drawable.key_rect);
         backgroundDrawable = context.getResources().getDrawable(R.drawable.backgroun_ime);
     }
@@ -66,10 +64,8 @@ public class PuffKeyboardView extends KeyboardView {
         backgroundDrawable.draw(canvas);
         List<Keyboard.Key> keys = getKeyboard().getKeys();
         for (Keyboard.Key key : keys) {
-            Rect bounds = new Rect(key.x, key.y + 20, key.x + key.width-30, key.y + key.height - 30);
-            if (key.codes[0] > 1000) {
-                canvas.drawText(key.label.toString(), key.x + (key.width / 2) + secondLineMarginLeft, key.y + (key.height / 2) + normalSize / 2, keyTextPaint);
-            } else if (key.codes[0] > -10) {
+            Rect bounds = new Rect(key.x, key.y + 20, key.x + key.width - 30, key.y + key.height - 30);
+            if (key.codes[0] > -10) {
 //                Drawable d = getContext().getResources().getDrawable(R.drawable.key_rect);
 //                d.setBounds(bounds);
 //                if (key.codes[0] != 10)
