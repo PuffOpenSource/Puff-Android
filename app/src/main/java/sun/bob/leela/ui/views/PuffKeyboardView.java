@@ -1,8 +1,6 @@
 package sun.bob.leela.ui.views;
 
 import android.content.Context;
-import android.content.res.Resources;
-import android.content.res.XmlResourceParser;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
@@ -10,10 +8,7 @@ import android.graphics.Rect;
 import android.graphics.drawable.Drawable;
 import android.inputmethodservice.Keyboard;
 import android.inputmethodservice.KeyboardView;
-import android.support.v7.widget.RecyclerView;
 import android.util.AttributeSet;
-import android.util.Log;
-import android.view.View;
 
 import java.util.List;
 
@@ -58,6 +53,7 @@ public class PuffKeyboardView extends KeyboardView {
         smallTextPaint.setColor(Color.rgb(42, 55, 62));
 
         keyPaint = new Paint();
+        keyPaint.setColor(Color.WHITE);
         keyDrawable = context.getResources().getDrawable(R.drawable.key_rect);
         backgroundDrawable = context.getResources().getDrawable(R.drawable.backgroun_ime);
     }
@@ -67,9 +63,9 @@ public class PuffKeyboardView extends KeyboardView {
 //        super.onDraw(canvas);
         backgroundDrawable.draw(canvas);
         List<Keyboard.Key> keys = getKeyboard().getKeys();
-        for(Keyboard.Key key: keys) {
-            Rect bounds = new Rect(key.x, key.y + 4, key.x + key.width, key.y + key.height - 2);
-            if(key.codes[0] > -10) {
+        for (Keyboard.Key key : keys) {
+            Rect bounds = new Rect(key.x, key.y + 20, key.x + key.width - 30, key.y + key.height - 30);
+            if (key.codes[0] > -10) {
 //                Drawable d = getContext().getResources().getDrawable(R.drawable.key_rect);
 //                d.setBounds(bounds);
 //                if (key.codes[0] != 10)
