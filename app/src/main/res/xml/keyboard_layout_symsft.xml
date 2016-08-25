@@ -5,11 +5,6 @@
     android:keyHeight="48dp" >
 
     <Row android:rowEdgeFlags="top">
-        <Key android:codes="886" android:keyIcon="@drawable/sym_keyboard_close"
-            android:keyWidth="10%p" android:keyEdgeFlags="right" android:horizontalGap="90%p"/>
-    </Row>
-
-    <Row android:rowEdgeFlags="top">
         <Key android:keyLabel="~" android:keyEdgeFlags="left"/>
         <Key android:keyLabel="`"/>
         <Key android:keyLabel="|"/>
