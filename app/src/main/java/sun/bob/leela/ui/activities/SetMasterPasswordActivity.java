@@ -77,7 +77,9 @@ public class SetMasterPasswordActivity extends AppCompatActivity {
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if (!validatePassword()){
+                String err = validatePassword();
+                if (err != null){
+                    helpText.setText(err);
                     return;
                 }
 //                new Thread(new CryptoRunnable(uuid, passwd.getText().toString(), AppConstants.TYPE_ENCRYPT, "master")).start();
@@ -92,13 +94,16 @@ public class SetMasterPasswordActivity extends AppCompatActivity {
         });
     }
 
-    private boolean validatePassword(){
+    private String validatePassword(){
         // TODO: 16/4/5 Security validation.
         if (!passwd.getText().toString().equalsIgnoreCase(confirm.getText().toString())) {
-            return false;
+            return "Password don't match!";
+        }
+        if (passwd.getText().length() < 6) {
+             return "Password is too Short!";
         }
 
-        return true;
+        return null;
     }
 
     @Override

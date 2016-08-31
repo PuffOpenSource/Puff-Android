@@ -127,6 +127,12 @@ public class DetailActivity extends AppCompatActivity {
             intent.putExtra("showMode", AddAccountActivity.AddAccountShowMode.ShowModeEdit);
             intent.putStringArrayListExtra("credentials", getIntent().getStringArrayListExtra("credentials"));
             startActivity(intent);
+            return true;
+        }
+        if (menuItem.getItemId() == R.id.action_delete) {
+            AccountHelper.getInstance(null).deleteAccount(account);
+            finish();
+            return true;
         }
         return super.onOptionsItemSelected(menuItem);
     }

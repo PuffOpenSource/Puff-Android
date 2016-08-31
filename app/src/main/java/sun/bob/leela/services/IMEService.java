@@ -82,7 +82,7 @@ public class IMEService extends InputMethodService implements KeyboardView.OnKey
         switch(primaryCode){
             case -10 :
                 Intent intent = new Intent(this, DialogAcctList.class);
-                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_EXCLUDE_FROM_RECENTS);
+                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_EXCLUDE_FROM_RECENTS | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                 startActivity(intent);
                 break;
             case -11 :

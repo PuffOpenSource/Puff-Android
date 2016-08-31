@@ -5,10 +5,15 @@
     android:keyHeight="48dp">
 
     <Row>
-        <Key android:codes="-10" android:keyLabel="Account List"
-            android:keyEdgeFlags="left" android:keyWidth="25%p" />
-        <Key android:codes="886" android:keyIcon="@drawable/sym_keyboard_close"
-            android:keyWidth="10%p" android:keyEdgeFlags="right" android:horizontalGap="65%p"/>
+        <Key android:codes="-10" android:keyIcon="@drawable/ic_puff"
+            android:keyEdgeFlags="left"
+            android:horizontalGap="7.5%p" />
+        <Key android:codes="-11" android:keyIcon="@drawable/key_account"
+            android:horizontalGap="7.5%p"/>
+        <Key android:codes="-12" android:keyIcon="@drawable/key_password"
+            android:horizontalGap="7.5%p"/>
+        <Key android:codes="-13" android:keyIcon="@drawable/key_additional"
+            android:horizontalGap="7.5%p"/>
     </Row>
 
     <Row>
