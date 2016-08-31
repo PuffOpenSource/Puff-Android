@@ -35,7 +35,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="20dp"
                     android:textSize="10dp"
-                    android:text="Type &amp; Category:"/>
+                    android:text="@string/type_and_category"/>
                 <android.support.v7.widget.AppCompatSpinner
                     android:id="@+id/spinner_type"
                     android:layout_width="match_parent"
@@ -72,7 +72,7 @@
                     android:minHeight="60dp"
                     android:layout_marginTop="6dp"
                     android:layout_marginBottom="6dp"
-                    android:hint="Account">
+                    android:hint="@string/account">
                     <android.support.v7.widget.AppCompatEditText
                         android:id="@+id/account"
                         android:layout_width="match_parent"
@@ -86,7 +86,7 @@
                     android:minHeight="60dp"
                     android:layout_marginTop="6dp"
                     android:layout_marginBottom="6dp"
-                    android:hint="Password">
+                    android:hint="@string/password">
                     <android.support.v7.widget.AppCompatEditText
                         android:id="@+id/password"
                         android:layout_width="match_parent"
@@ -97,7 +97,7 @@
                 <android.support.v7.widget.AppCompatButton
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="Generate Secure Password"
+                    android:text="@string/generate_secure_password"
                     android:id="@+id/generate_button"/>
 
                 <android.support.design.widget.TextInputLayout
@@ -106,7 +106,7 @@
                     android:minHeight="60dp"
                     android:layout_marginTop="6dp"
                     android:layout_marginBottom="6dp"
-                    android:hint="Additional Code (Optional)">
+                    android:hint="@string/additional_code_quote_optional">
                     <android.support.v7.widget.AppCompatEditText
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
@@ -121,7 +121,7 @@
                     android:minHeight="60dp"
                     android:layout_marginTop="6dp"
                     android:layout_marginBottom="6dp"
-                    android:hint="Website link (Optional)">
+                    android:hint="@string/website_link_quote_optional">
                     <android.support.v7.widget.AppCompatEditText
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
@@ -148,7 +148,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="30dp"
                     android:gravity="left|center_vertical"
-                    android:text="Icon"/>
+                    android:text="@string/icon"/>
                 <android.support.v7.widget.AppCompatImageView
                     android:layout_marginTop="10dp"
                     android:layout_width="130dp"

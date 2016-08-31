@@ -23,7 +23,7 @@ public class DialogAcctList extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_dialog_acct_list);
         initUI();
-        setTitle("Choose Category & Account");
+        setTitle(R.string.choose_category_and_account);
         EventBus.getDefault().register(this);
         adapter = new SimpleListAdapter();
         adapter.loadCategory();

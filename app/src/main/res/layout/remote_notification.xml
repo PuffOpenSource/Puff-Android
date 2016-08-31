@@ -32,26 +32,26 @@
             android:layout_weight="1.0"
             android:id="@+id/account"
             android:background="@null"
-            android:text="Account"/>
+            android:text="@string/account"/>
         <Button
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1.0"
-            android:text="Password"
+            android:text="@string/password"
             android:background="@null"
             android:id="@id/password"/>
         <Button
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1.0"
-            android:text="Additional"
+            android:text="@string/additional"
             android:background="@null"
             android:id="@+id/additional"/>
         <Button
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1.0"
-            android:text="Clear"
+            android:text="@string/clear"
             android:background="@null"
             android:id="@+id/clear"/>
     </LinearLayout>

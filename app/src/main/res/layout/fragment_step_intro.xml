@@ -17,7 +17,7 @@
         android:layout_height="wrap_content"
         android:textColor="#FFF"
         android:textSize="20dp"
-        android:text="This utility will generate a secure password for you. Enter password length and click next button."/>
+        android:text="@string/step_intro_hint"/>
 
     <android.support.v7.widget.AppCompatEditText
         android:layout_width="100dp"

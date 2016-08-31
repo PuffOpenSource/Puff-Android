@@ -49,7 +49,7 @@
                 android:textSize="20dp"
                 android:textColor="#FFF"
                 android:gravity="center_vertical"
-                android:hint="Title" />
+                android:hint="@string/title" />
         </android.support.design.widget.CollapsingToolbarLayout>
     </android.support.design.widget.AppBarLayout>
 

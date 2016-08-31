@@ -84,7 +84,7 @@ public class AddAccountActivity extends AppCompatActivity {
                 Intent pickIntent = new Intent(Intent.ACTION_PICK, android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
                 pickIntent.setType("image/*");
 
-                Intent chooserIntent = Intent.createChooser(getIntent, "Select Image");
+                Intent chooserIntent = Intent.createChooser(getIntent, getResources().getString(R.string.select_image));
                 chooserIntent.putExtra(Intent.EXTRA_INITIAL_INTENTS, new Intent[]{pickIntent});
 
                 startActivityForResult(chooserIntent, AppConstants.REQUEST_CODE_IMAGE);
@@ -101,7 +101,7 @@ public class AddAccountActivity extends AppCompatActivity {
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         spinnerType = (AppCompatSpinner) findViewById(R.id.spinner_type);
-        spinnerType.setPrompt("Type");
+        spinnerType.setPrompt(getResources().getString(R.string.type));
         spinnerType.setAdapter(new TypeSpinnerAdapter(this, android.R.layout.simple_dropdown_item_1line));
         type = ((AcctType) spinnerType.getAdapter().getItem(0)).getId();
         spinnerType.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
@@ -246,7 +246,7 @@ public class AddAccountActivity extends AppCompatActivity {
     private String validateFields() {
         String ret = null;
         if (StringUtil.isNullOrEmpty(password.getText().toString()))
-            ret = "Password is empty!";
+            ret = getResources().getString(R.string.password_is_empty);
         return ret;
     }
 

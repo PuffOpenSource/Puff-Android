@@ -23,23 +23,23 @@
             android:layout_height="wrap_content"
             android:textSize="20dp"
             android:textColor="#FFF"
-            android:text="Which kind of password do you need?"/>
+            android:text="@string/which_kind_of_password_qm"/>
         <android.support.v7.widget.AppCompatCheckBox
             android:layout_width="match_parent"
             android:layout_height="40dp"
             android:id="@+id/checkbox_numbers"
-            android:text="Numbers Only"/>
+            android:text="@string/numbers_only"/>
         <android.support.v7.widget.AppCompatCheckBox
             android:layout_width="match_parent"
             android:layout_height="40dp"
             android:id="@+id/checkbox_secure"
-            android:text="Secure Password"/>
+            android:text="@string/secure_password"/>
 
         <android.support.v7.widget.AppCompatCheckBox
             android:layout_width="match_parent"
             android:layout_height="40dp"
             android:id="@+id/checkbox_easy"
-            android:text="Secure and Easy to Remember"/>
+            android:text="@string/secure_and_easy"/>
     </LinearLayout>
 
     <ScrollView
@@ -57,35 +57,35 @@
                 android:layout_height="wrap_content"
                 android:textSize="20dp"
                 android:textColor="#FFF"
-                android:text="Tell me your favorite words, I'll generate a secure password from them"/>
+                android:text="@string/tell_me_your_fav_words"/>
             <android.support.v7.widget.AppCompatEditText
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:minHeight="60dp"
                 android:id="@+id/word_one"
                 android:textColor="#fff"
-                android:hint="Word One"/>
+                android:hint="@string/word_one"/>
             <android.support.v7.widget.AppCompatEditText
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:minHeight="60dp"
                 android:id="@+id/word_two"
                 android:textColor="#fff"
-                android:hint="Word Two"/>
+                android:hint="@string/word_two"/>
             <android.support.v7.widget.AppCompatEditText
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:minHeight="60dp"
                 android:textColor="#fff"
                 android:id="@+id/word_three"
-                android:hint="Word Three"/>
+                android:hint="@string/word_three"/>
             <android.support.v7.widget.AppCompatEditText
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:minHeight="60dp"
                 android:textColor="#fff"
                 android:id="@+id/word_four"
-                android:hint="Word Four"/>
+                android:hint="@string/word_four"/>
         </LinearLayout>
     </ScrollView>
 

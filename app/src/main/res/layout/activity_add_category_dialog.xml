@@ -18,7 +18,7 @@
             android:id="@+id/id_name"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:hint="Name"/>
+            android:hint="@string/name"/>
     </android.support.design.widget.TextInputLayout>
 
     <android.support.v7.widget.AppCompatImageView
@@ -40,13 +40,13 @@
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1.0"
-            android:text="Okay"/>
+            android:text="@string/okay"/>
 
         <android.support.v7.widget.AppCompatButton
             android:id="@+id/button_cancel"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1.0"
-            android:text="Cancel"/>
+            android:text="@string/cancel"/>
     </LinearLayout>
 </LinearLayout>

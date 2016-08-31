@@ -20,6 +20,7 @@ import com.kenumir.materialsettings.items.TextItem;
 import com.kenumir.materialsettings.storage.StorageInterface;
 
 import de.greenrobot.event.EventBus;
+import sun.bob.leela.R;
 import sun.bob.leela.adapters.SettingsSpinnerAdapter;
 import sun.bob.leela.db.Account;
 import sun.bob.leela.db.AccountHelper;
@@ -48,26 +49,26 @@ public class SettingsActivity extends MaterialSettings {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        getSupportActionBar().setTitle("Settings");
+        getSupportActionBar().setTitle(R.string.settings);
 
         EventBus.getDefault().register(this);
 
-        addItem(new HeaderItem(this).setTitle("Security"));
-        addItem(new CheckboxItem(this, "launch_pass").setTitle("Need password when launch").setOnCheckedChangeListener(new CheckboxItem.OnCheckedChangeListener() {
+        addItem(new HeaderItem(this).setTitle(getString(R.string.security)));
+        addItem(new CheckboxItem(this, "launch_pass").setTitle(getString(R.string.need_password_when_launch)).setOnCheckedChangeListener(new CheckboxItem.OnCheckedChangeListener() {
             @Override
             public void onCheckedChange(CheckboxItem cbi, boolean isChecked) {
 
             }
         }));
 
-        String title = UserDefault.getInstance(null).hasQuickPassword() ? "Disable Gesture Lock" : "Enable Gesture Lock";
+        String title = UserDefault.getInstance(null).hasQuickPassword() ? getString(R.string.disable_gesture_lock) : getString(R.string.enable_gesture_lock);
 
         quickSwitcher = new TextItem(this, "quick_pass").setTitle(title).setOnclick(new TextItem.OnClickListener() {
             @Override
             public void onClick(TextItem textItem) {
                 if (UserDefault.getInstance(null).hasQuickPassword()) {
                     UserDefault.getInstance(null).clearQuickPassword();
-                    quickSwitcher.updateTitle("Enable Gesture Lock");
+                    quickSwitcher.updateTitle(getString(R.string.enable_gesture_lock));
                 } else {
                     Intent intent = new Intent(SettingsActivity.this, SetQuickPasswordActivity.class);
                     intent.putExtra("type", SetQuickPasswordActivity.ShowTypeSet);
@@ -78,7 +79,7 @@ public class SettingsActivity extends MaterialSettings {
         addItem(quickSwitcher);
 
         didClickedChangeMaster = false;
-        addItem(new TextItem(this, "change_password").setTitle("Change Master Password").setOnclick(new TextItem.OnClickListener() {
+        addItem(new TextItem(this, "change_password").setTitle(getString(R.string.change_master_password)).setOnclick(new TextItem.OnClickListener() {
             @Override
             public void onClick(TextItem textItem) {
                 didClickedChangeMaster = true;
@@ -86,26 +87,26 @@ public class SettingsActivity extends MaterialSettings {
             }
         }));
 
-        addItem(new HeaderItem(this).setTitle("Puff Secure Keyboard"));
-        addItem(new TextItem(this, "ime").setTitle("Enable Puff Secure Keyboard"). setOnclick(new TextItem.OnClickListener() {
+        addItem(new HeaderItem(this).setTitle(getString(R.string.puff_secure_keyboard)));
+        addItem(new TextItem(this, "ime").setTitle(getString(R.string.enable_puff_secure_keyboard)). setOnclick(new TextItem.OnClickListener() {
             @Override
             public void onClick(TextItem textItem) {
                 startActivity(new Intent(Settings.ACTION_INPUT_METHOD_SETTINGS));
-                Toast.makeText(SettingsActivity.this, "Please enabel Puff IME.", Toast.LENGTH_LONG).show();
+                Toast.makeText(SettingsActivity.this, getString(R.string.please_enable_puf_ime), Toast.LENGTH_LONG).show();
             }
         }));
 
-        addItem(new HeaderItem(this).setTitle("Database"));
-        addItem(new TextItem(this, "database").setTitle("Export Database.")
-                .setSubtitle("Database file can be used in other platforms")
+        addItem(new HeaderItem(this).setTitle(getString(R.string.database)));
+        addItem(new TextItem(this, "database").setTitle(getString(R.string.export_database))
+                .setSubtitle(getString(R.string.database_file_can_be_used))
                 .setOnclick(new TextItem.OnClickListener() {
             @Override
             public void onClick(TextItem textItem) {
 
-                new AlertDialog.Builder(SettingsActivity.this).setTitle("Export Database")
-                        .setMessage("Do you want to export database to external storage? ")
+                new AlertDialog.Builder(SettingsActivity.this).setTitle(getString(R.string.export_database))
+                        .setMessage(R.string.confrim_export_database)
                         .setCancelable(false)
-                        .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                        .setPositiveButton(R.string.yes, new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface d, int which) {
                                 d.dismiss();
@@ -114,7 +115,7 @@ public class SettingsActivity extends MaterialSettings {
                                 new Thread(runnable).run();
                             }
                         })
-                        .setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+                        .setNegativeButton(R.string.cancel, new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialog, int which) {
                                 dialog.dismiss();
@@ -124,8 +125,8 @@ public class SettingsActivity extends MaterialSettings {
             }
         }));
 
-        addItem(new HeaderItem(this).setTitle("About"));
-        addItem(new TextItem(this, "about").setTitle("About Puff").setOnclick(new TextItem.OnClickListener() {
+        addItem(new HeaderItem(this).setTitle(getString(R.string.about)));
+        addItem(new TextItem(this, "about").setTitle(getResources().getString(R.string.about_puff_title)).setOnclick(new TextItem.OnClickListener() {
             @Override
             public void onClick(TextItem textItem) {
                 startActivity(new Intent(SettingsActivity.this, AboutActivity.class));
@@ -161,7 +162,9 @@ public class SettingsActivity extends MaterialSettings {
     @Override
     public void onResume() {
         super.onResume();
-        quickSwitcher.updateTitle(UserDefault.getInstance(null).hasQuickPassword() ? "Disable Gesture Lock" : "Enable Gesture Lock");
+        quickSwitcher.updateTitle(UserDefault.getInstance(null).hasQuickPassword()
+                ? getString(R.string.disable_gesture_lock)
+                : getString(R.string.enable_gesture_lock));
     }
 
     @Override
@@ -190,8 +193,11 @@ public class SettingsActivity extends MaterialSettings {
         dialog.dismiss();
         DBExportEvent dbExportEvent = (DBExportEvent) event;
         if (dbExportEvent.success) {
-            new AlertDialog.Builder(this).setTitle("Success!").setMessage("Database exported to " + dbExportEvent.filePath)
-                    .setPositiveButton("OK", new DialogInterface.OnClickListener() {
+            new AlertDialog.Builder(this)
+                    .setTitle(R.string.success_em)
+                    .setMessage(getString(R.string.database_exported_to)
+                                    + dbExportEvent.filePath)
+                    .setPositiveButton(R.string.ok, new DialogInterface.OnClickListener() {
                         @Override
                         public void onClick(DialogInterface dialog, int which) {
                             dialog.dismiss();
@@ -199,8 +205,9 @@ public class SettingsActivity extends MaterialSettings {
                     })
                     .show();
         } else {
-            new AlertDialog.Builder(this).setTitle("Failed!").setMessage("Please try again.")
-                    .setPositiveButton("OK", new DialogInterface.OnClickListener() {
+            new AlertDialog.Builder(this).setTitle(R.string.failed_em)
+                    .setMessage(R.string.please_try_again)
+                    .setPositiveButton(R.string.ok, new DialogInterface.OnClickListener() {
                         @Override
                         public void onClick(DialogInterface dialog, int which) {
                             dialog.dismiss();

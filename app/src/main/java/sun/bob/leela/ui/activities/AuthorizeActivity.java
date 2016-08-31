@@ -152,11 +152,11 @@ public class AuthorizeActivity extends AppCompatActivity {
             finish();
         }
         if (event.getType() == AppConstants.TYPE_MASTER_NO) {
-            mPasswordView.setError("Master Password Invalid");
+            mPasswordView.setError(getResources().getString(R.string.master_password_invalid));
             dialog.dismiss();
         }
         if (event.getType() == AppConstants.TYPE_SHTHPPN) {
-            mPasswordView.setError("Master Password Invalid");
+            mPasswordView.setError(getResources().getString(R.string.master_password_invalid));
             dialog.dismiss();
         }
 

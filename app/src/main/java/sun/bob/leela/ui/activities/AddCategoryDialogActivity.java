@@ -74,15 +74,15 @@ public class AddCategoryDialogActivity extends AppCompatActivity {
             public void onClick(View v) {
                 new android.support.v7.app.AlertDialog.Builder(AddCategoryDialogActivity.this)
                         .setCancelable(false)
-                        .setTitle("Cancel?")
-                        .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                        .setTitle(R.string.cancel_qm)
+                        .setPositiveButton(R.string.yes, new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialog, int which) {
                                 dialog.dismiss();
                                 finish();
                             }
                         })
-                        .setNegativeButton("No", new DialogInterface.OnClickListener() {
+                        .setNegativeButton(R.string.no, new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialog, int which) {
                                 dialog.dismiss();

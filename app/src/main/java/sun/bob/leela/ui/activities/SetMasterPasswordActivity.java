@@ -97,10 +97,10 @@ public class SetMasterPasswordActivity extends AppCompatActivity {
     private String validatePassword(){
         // TODO: 16/4/5 Security validation.
         if (!passwd.getText().toString().equalsIgnoreCase(confirm.getText().toString())) {
-            return "Password don't match!";
+            return getString(R.string.password_dont_match_em);
         }
         if (passwd.getText().length() < 6) {
-             return "Password is too Short!";
+             return getString(R.string.password_is_too_short_em);
         }
 
         return null;
@@ -195,7 +195,7 @@ public class SetMasterPasswordActivity extends AppCompatActivity {
             @Override
             public void onFocusChange(View v, boolean hasFocus) {
                 if (hasFocus) {
-                    helpText.setText("Enter Master Password");
+                    helpText.setText(R.string.enter_main_password);
                 }
             }
         });
@@ -224,7 +224,7 @@ public class SetMasterPasswordActivity extends AppCompatActivity {
             @Override
             public void onFocusChange(View v, boolean hasFocus) {
                 if (hasFocus) {
-                    helpText.setText("Confirm Master Password");
+                    helpText.setText(R.string.confirm_main_password);
                 }
             }
         });

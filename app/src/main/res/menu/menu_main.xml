@@ -4,7 +4,7 @@
     <item
         android:id="@+id/action_generator"
         android:orderInCategory="100"
-        android:title="Password Generator"
+        android:title="@string/password_generator"
         app:showAsAction="never" />
     <item
         android:id="@+id/action_settings"

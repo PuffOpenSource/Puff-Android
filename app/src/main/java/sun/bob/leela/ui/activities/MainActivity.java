@@ -119,7 +119,7 @@ public class MainActivity extends AppCompatActivity
         headerImageView = (ImageView) navigationView.getHeaderView(0).findViewById(R.id.header_image_view);
         headerTextView = (TextView) navigationView.getHeaderView(0).findViewById(R.id.header_category);
 
-        categoriesMenu = navigationView.getMenu().addSubMenu("Categories");
+        categoriesMenu = navigationView.getMenu().addSubMenu(R.string.categories);
 
         loadCategoriesInNavigation();
 

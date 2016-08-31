@@ -22,7 +22,7 @@
             android:layout_width="match_parent"
             android:layout_height="20dp"
             android:textColor="#0097A7"
-            android:text="Account:"/>
+            android:text="@string/account"/>
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -46,7 +46,7 @@
                 android:layout_marginLeft="16dp"
                 android:gravity="center_vertical"
                 android:textSize="20dp"
-                android:text="Account."
+                android:text="@string/account"
                 />
         </LinearLayout>
 
@@ -55,7 +55,7 @@
             android:layout_width="match_parent"
             android:layout_height="20dp"
             android:textColor="#0097A7"
-            android:text="Password:"/>
+            android:text="@string/password"/>
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -76,7 +76,7 @@
                 android:layout_marginTop="6dp"
                 android:layout_marginBottom="6dp"
                 android:layout_marginLeft="16dp"
-                android:text="Password"
+                android:text="@string/password"
                 android:gravity="center_vertical"
                 android:textSize="20dp"/>
         </LinearLayout>
@@ -85,7 +85,7 @@
             android:layout_width="match_parent"
             android:layout_height="20dp"
             android:textColor="#0097A7"
-            android:text="Additional Code"/>
+            android:text="@string/additional_code"/>
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -106,7 +106,7 @@
                 android:layout_marginBottom="6dp"
                 android:layout_marginLeft="16dp"
                 android:id="@+id/additional"
-                android:text="Additional Code"
+                android:text="@string/additional_code"
                 android:gravity="center_vertical"
                 android:textSize="20dp"/>
         </LinearLayout>
@@ -123,7 +123,7 @@
             android:layout_marginTop="16dp"
             android:textColor="#0097A7"
             android:id="@+id/website_title"
-            android:text="Web Site link"/>
+            android:text="@string/website_link"/>
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -153,7 +153,7 @@
             android:layout_height="wrap_content"
             android:minHeight="20dp"
             android:textColor="#0097A7"
-            android:text="Last Accessed"/>
+            android:text="@string/last_accessed"/>
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
