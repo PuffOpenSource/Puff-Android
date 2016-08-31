@@ -129,7 +129,8 @@ public class CryptoUtil {
 
         } else {
             Intent intent = new Intent(this.context, AuthorizeActivity.class);
-            this.context.startActivity(intent);
+            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_EXCLUDE_FROM_RECENTS);
+            this.context.getApplicationContext().startActivity(intent);
         }
     }
 
