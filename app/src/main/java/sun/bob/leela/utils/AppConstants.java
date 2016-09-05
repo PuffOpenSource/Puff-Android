@@ -45,6 +45,7 @@ public class AppConstants {
     public static final int REQUEST_CODE_IMAGE     = 0x6003;
     public static final int REQUEST_CODE_CROP      = 0x6004;
     public static final int REQUEST_CODE_GEN_PWD   = 0x6005;
+    public static final int REQUEST_CODE_EDIT      = 0x6006;
 
     public static final String SERVICE_CMD_START = "start";
     public static final String SERVICE_CMD_PASTE_ACCT = "paste_acct";

@@ -217,6 +217,11 @@ public class AddAccountActivity extends AppCompatActivity {
         } else {
             disPlayName = StringUtil.getMaskedPhoneNumber(account.getText().toString());
         }
+
+        final String accountStr, passwordStr, additionalStr;
+        accountStr = account.getText().toString();
+        passwordStr = password.getText().toString();
+        additionalStr = addtional.getText().toString();
         new CryptoUtil(AddAccountActivity.this, new CryptoUtil.OnEncryptedListener() {
             @Override
             public void onEncrypted(String acctHash, String passwdHash, String addtHash, String acctSalt, String passwdSalt, String addtSalt) {
@@ -240,6 +245,13 @@ public class AddAccountActivity extends AppCompatActivity {
                     account.setId(acctId);
                 }
                 AccountHelper.getInstance(AddAccountActivity.this).saveAccount(account);
+                Intent data = new Intent();
+                ArrayList credentials = new ArrayList();
+                credentials.add(accountStr);
+                credentials.add(passwordStr);
+                credentials.add(additionalStr);
+                data.putStringArrayListExtra("credentials",credentials);
+                setResult(RESULT_OK, data);
                 finish();
             }
         }).runEncrypt(account.getText().toString(), password.getText().toString(), addtional.getText().toString());

@@ -22,6 +22,7 @@ import de.greenrobot.event.EventBus;
 import sun.bob.leela.R;
 import sun.bob.leela.db.Account;
 import sun.bob.leela.db.AccountHelper;
+import sun.bob.leela.utils.AppConstants;
 import sun.bob.leela.utils.ResUtil;
 import sun.bob.leela.utils.StringUtil;
 
@@ -35,6 +36,8 @@ public class DetailActivity extends AppCompatActivity {
     private AppCompatImageView image;
     private LinearLayout webSiteContainer;
 
+    private ArrayList<String> credentials;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -43,6 +46,8 @@ public class DetailActivity extends AppCompatActivity {
         toolbar.setTitle("");
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
+        credentials = getIntent().getStringArrayListExtra("credentials");
 
         wireUpViews();
     }
@@ -54,11 +59,9 @@ public class DetailActivity extends AppCompatActivity {
         Long id = getIntent().getLongExtra("account", -1);
         account = AccountHelper.getInstance(this).getAccount(id);
 
-        ArrayList<String> list = getIntent().getStringArrayListExtra("credentials");
-
-        acct = list.get(0);
-        passwd = list.get(1);
-        addt = list.get(2);
+        acct = credentials.get(0);
+        passwd = credentials.get(1);
+        addt = credentials.get(2);
 
         tvTitle.setText(account.getName());
         tvAccount.setText(acct);
@@ -110,6 +113,16 @@ public class DetailActivity extends AppCompatActivity {
             }
         });
     }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if (requestCode == AppConstants.REQUEST_CODE_EDIT && resultCode == RESULT_OK) {
+            credentials = data.getStringArrayListExtra("credentials");
+            return;
+        }
+        super.onActivityResult(requestCode, resultCode, data);
+    }
+
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.menu_detail, menu);
@@ -126,7 +139,7 @@ public class DetailActivity extends AppCompatActivity {
             intent.putExtra("acctId", account.getId());
             intent.putExtra("showMode", AddAccountActivity.AddAccountShowMode.ShowModeEdit);
             intent.putStringArrayListExtra("credentials", getIntent().getStringArrayListExtra("credentials"));
-            startActivity(intent);
+            startActivityForResult(intent, AppConstants.REQUEST_CODE_EDIT);
             return true;
         }
         if (menuItem.getItemId() == R.id.action_delete) {
