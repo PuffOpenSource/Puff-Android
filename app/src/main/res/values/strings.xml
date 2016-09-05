@@ -114,4 +114,5 @@
     <string name="edit">Edit</string>
     <string name="delete">Delete</string>
     <string name="password_generator">Password Generator</string>
+    <string name="warning_master_password">Choose your master password wisely. \nOnce you forget it, there is no way to recover your data.</string>
 </resources>
