@@ -96,6 +96,7 @@ public class PasswordGenActivity extends IntroActivity implements SlideListener 
         });
 
 
+        setCanSwipe(false);
 
         setSlideListener(this);
 

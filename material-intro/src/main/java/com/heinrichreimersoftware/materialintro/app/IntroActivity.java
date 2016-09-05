@@ -62,6 +62,7 @@ public class IntroActivity extends AppCompatActivity {
     private boolean allowFinish = true;
     private int position = 0;
     private float positionOffset = 0;
+    private boolean canSwipe = true;
 
     private Runnable runWhenFinish;
 
@@ -690,7 +691,17 @@ public class IntroActivity extends AppCompatActivity {
         navigationBlockedListeners.clear();
     }
 
+    public IntroActivity setCanSwipe(boolean canSwipe) {
+        this.canSwipe = canSwipe;
+        return this;
+    }
+
     public void lockSwipeIfNeeded() {
+        if (!this.canSwipe) {
+            pager.setSwipeLeftEnabled(false);
+            pager.setSwipeRightEnabled(false);
+            return;
+        }
         if (position < getCount()) {
             pager.setSwipeLeftEnabled(canGoForward(position, false));
             pager.setSwipeRightEnabled(canGoBackward(position, false));

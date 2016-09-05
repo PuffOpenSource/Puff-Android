@@ -18,6 +18,7 @@
         <activity
             android:name=".ui.activities.SplashActivity"
             android:label="Puff"
+            android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -29,16 +30,19 @@
             android:name=".ui.activities.MainActivity"
             android:hardwareAccelerated="true"
             android:label="Puff"
+            android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".ui.activities.DetailActivity"
             android:label="@null"
+            android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".ui.activities.AddAccountActivity"
             android:label="@string/title_activity_add_account"
             android:parentActivityName=".ui.activities.MainActivity"
             android:theme="@style/AppTheme.NoActionBar"
+            android:screenOrientation="portrait"
             android:windowSoftInputMode="stateHidden|adjustPan">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
@@ -48,31 +52,38 @@
             android:name=".ui.activities.AddTypeDialogActivity"
             android:label="Add New Account Type"
             android:theme="@style/AppCompatAlertDialogStyle"
+            android:screenOrientation="portrait"
             android:windowSoftInputMode="stateHidden|adjustPan" />
         <activity
             android:name=".ui.activities.AddCategoryDialogActivity"
             android:label="Add New Category"
             android:theme="@style/AppCompatAlertDialogStyle"
+            android:screenOrientation="portrait"
             android:windowSoftInputMode="stateHidden|adjustPan" />
         <activity
             android:name=".ui.activities.ImageCropActivity"
+            android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".ui.activities.AuthorizeActivity"
             android:label="@string/title_activity_authorize"
             android:theme="@style/AppCompatAlertDialogStyle"
+            android:screenOrientation="portrait"
             android:windowSoftInputMode="stateHidden|adjustPan" />
         <activity
             android:name=".ui.activities.SetMasterPasswordActivity"
             android:label="@null"
             android:theme="@style/AppTheme.NoActionBar"
+            android:screenOrientation="portrait"
             android:windowSoftInputMode="stateHidden|adjustPan" />
         <activity
             android:name=".ui.activities.PasswordGenActivity"
             android:theme="@style/AppTheme.NoActionBar"
+            android:screenOrientation="portrait"
             android:windowSoftInputMode="stateHidden|adjustPan" />
         <activity android:name=".ui.activities.PuffIntroActivity"
             android:theme="@style/AppTheme.NoActionBar"
+            android:screenOrientation="portrait"
             />
         <service
             android:name=".services.NotificationService"
@@ -95,20 +106,25 @@
         <activity
             android:name=".ui.activities.DialogAcctList"
             android:label="@null"
+            android:screenOrientation="portrait"
             android:theme="@style/AppCompatAlertDialogStyle" />
         <activity
             android:name=".ui.activities.SetQuickPasswordActivity"
             android:label="@string/title_activity_set_quick_password"
+            android:screenOrientation="portrait"
             android:theme="@style/AppTheme.GestureLock" />
         <activity
             android:name=".ui.activities.SettingsActivity"
             android:parentActivityName=".ui.activities.MainActivity"
+            android:screenOrientation="portrait"
             android:theme="@style/MaterialSettings">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="sun.bob.leela.ui.activities.MainActivity" />
         </activity>
-        <activity android:name=".ui.activities.AboutActivity"></activity>
+        <activity android:name=".ui.activities.AboutActivity"
+            android:screenOrientation="portrait"
+            ></activity>
     </application>
 
 </manifest>
