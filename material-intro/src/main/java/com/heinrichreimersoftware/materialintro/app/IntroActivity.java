@@ -487,7 +487,8 @@ public class IntroActivity extends AppCompatActivity {
 
         if (offset <= 0) {
             buttonNext.setImageResource(R.drawable.ic_next);
-            buttonNext.getDrawable().setAlpha(0xFF);
+            buttonNext.getBackground().setAlpha(50);
+//            buttonNext.getDrawable().setAlpha(0xFF);
         } else {
 //            buttonNext.setImageResource(R.drawable.ic_next_finish);
             buttonNext.setImageResource(offset > 0 ? R.drawable.ic_finish : R.drawable.ic_next);
