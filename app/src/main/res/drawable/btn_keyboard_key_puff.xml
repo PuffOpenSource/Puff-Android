@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<selector xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item android:state_pressed="true">
+        <layer-list>
+            <item android:drawable="@drawable/keyboard_color_bg" />
+            <item android:bottom="0dp" android:drawable="@drawable/ic_puff" android:left="4dp" android:right="4dp" android:top="4dp" />
+        </layer-list>
+    </item>
+    <item>
+        <layer-list>
+            <!--用下面这个背景，把系统的背景覆盖掉-->
+            <item android:drawable="@drawable/keyboard_color_bg" />
+            <item android:bottom="0dp" android:drawable="@drawable/ic_puff" android:left="4dp" android:right="4dp" android:top="4dp" />
+        </layer-list>
+    </item>
+
+</selector>

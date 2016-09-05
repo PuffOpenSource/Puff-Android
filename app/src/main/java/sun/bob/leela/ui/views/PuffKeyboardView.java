@@ -20,10 +20,17 @@ import sun.bob.leela.utils.ResUtil;
  */
 public class PuffKeyboardView extends KeyboardView {
 
-    public enum KeyBoardType {
-        Paste,
-        QWERTY
-    }
+    public static final int TYPE_ABC = 0;
+    public static final int TYPE_ABC_SHIFT = 1;
+    public static final int TYPE_SYMBOL = 2;
+    public static final int TYPE_SYMBOL_MORE = 3;
+    public static final int KEYCODE_EDIT = -10;
+    private int currentType = TYPE_ABC;
+
+    private final int VERTICAL_PADDING = 20;
+    private final int HORIZONTAL_PADDING = 30;
+    private final int VERTICAL_PADDING_SPACE = 40;
+    private final int HORIZONTAL_PADDING_SPACE = 100;
 
     private Paint linePaint, keyTextPaint, smallTextPaint, keyPaint;
     int normalSize, smallSize;
@@ -45,7 +52,6 @@ public class PuffKeyboardView extends KeyboardView {
 //        keyTextPaint.setShadowLayer(5, 0, 0, Color.BLACK);
         keyTextPaint.setFakeBoldText(true);
 
-
         smallTextPaint = new Paint();
         smallTextPaint.setTextAlign(Paint.Align.CENTER);
         smallSize = ResUtil.getInstance(getContext()).pointToDp(12);
@@ -53,37 +59,80 @@ public class PuffKeyboardView extends KeyboardView {
         smallTextPaint.setColor(Color.rgb(42, 55, 62));
 
         keyPaint = new Paint();
-        keyPaint.setColor(Color.WHITE);
+        keyPaint.setColor(Color.LTGRAY);
         keyDrawable = context.getResources().getDrawable(R.drawable.key_rect);
         backgroundDrawable = context.getResources().getDrawable(R.drawable.backgroun_ime);
+
     }
 
+    // TODO 这里进行整理
     @Override
     public void onDraw(Canvas canvas) {
-//        super.onDraw(canvas);
-        backgroundDrawable.draw(canvas);
+
+        super.onDraw(canvas);
+
         List<Keyboard.Key> keys = getKeyboard().getKeys();
         for (Keyboard.Key key : keys) {
-            Rect bounds = new Rect(key.x, key.y + 20, key.x + key.width - 30, key.y + key.height - 30);
-            if (key.codes[0] > -10) {
-//                Drawable d = getContext().getResources().getDrawable(R.drawable.key_rect);
-//                d.setBounds(bounds);
-//                if (key.codes[0] != 10)
-//                    d.draw(canvas);
-                if (key.label != null) {
-                    canvas.drawText(key.label.toString(), key.x + (key.width / 2), key.y + (key.height / 2) + normalSize / 2, keyTextPaint);
-                } else {
-                    key.icon.setBounds(bounds);
-                    key.icon.draw(canvas);
-                }
-            } else {
-                if (key.label != null) {
-                    canvas.drawText(key.label.toString(), key.x + (key.width / 2), key.y + (key.height / 2) + smallSize / 2, smallTextPaint);
-                } else {
-                    key.icon.setBounds(bounds);
-                    key.icon.draw(canvas);
-                }
+            switch (currentType) {
+                case TYPE_ABC:
+                    drawABC(key, canvas);
+                    break;
+                case TYPE_ABC_SHIFT:
+
+                    break;
+                case TYPE_SYMBOL:
+
+                    break;
+                case TYPE_SYMBOL_MORE:
+
+                    break;
+                default:
+
+                    break;
             }
         }
+    }
+
+    private void drawABC(Keyboard.Key key, Canvas canvas) {
+        if (key.codes[0] == -1) {
+            drawKeyBackground(R.drawable.sym_keyboard_not_shift, canvas, key, getNormalPadding());
+        } else if (key.codes[0] == -5) {
+            drawKeyBackground(R.drawable.sym_keyboard_delete, canvas, key, getNormalPadding());
+        } else if (key.codes[0] == 32) {
+            drawKeyBackground(R.drawable.btn_keyboard_key_space, canvas, key, getNullPadding());
+        } else if (key.codes[0] == 10) {
+            drawKeyBackground(R.drawable.sym_keyboard_return2, canvas, key, getNormalPadding());
+        }
+        if (key.codes[0] == -10) {
+            drawKeyBackground(R.drawable.btn_keyboard_key_puff, canvas, key, getNullPadding());
+        } else if (key.codes[0] == -11) {
+            drawKeyBackground(R.drawable.btn_keyboard_key_puff, canvas, key, getNullPadding());
+        } else if (key.codes[0] == -12) {
+            drawKeyBackground(R.drawable.btn_keyboard_key_puff, canvas, key, getNullPadding());
+        } else if (key.codes[0] == -13) {
+            drawKeyBackground(R.drawable.btn_keyboard_key_puff, canvas, key, getNullPadding());
+        }
+    }
+
+
+    private Rect getNormalPadding() {
+        return new Rect(HORIZONTAL_PADDING, VERTICAL_PADDING, -HORIZONTAL_PADDING, -VERTICAL_PADDING);
+    }
+
+    private Rect getNullPadding() {
+        return new Rect(0, 0, 0, 0);
+    }
+
+    private void drawKeyBackground(int drawableId, Canvas canvas, Keyboard.Key key, Rect padBounds) {
+        Drawable npd = getContext().getResources().getDrawable(drawableId);
+        int[] drawableState = key.getCurrentDrawableState();
+        if (key.codes[0] != 0) {
+            npd.setState(drawableState);
+        }
+        npd.setBounds(key.x + padBounds.left,
+                key.y + padBounds.top,
+                key.x + key.width + padBounds.right,
+                key.y + key.height + padBounds.bottom);
+        npd.draw(canvas);
     }
 }
