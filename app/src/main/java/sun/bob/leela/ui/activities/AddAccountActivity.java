@@ -113,9 +113,11 @@ public class AddAccountActivity extends AppCompatActivity {
                 AcctType type = (AcctType) (parent.getAdapter()).getItem(position);
                 AddAccountActivity.this.type = type.getId();
                 CategoryHelper helper = CategoryHelper.getInstance(null);
-                int catePos = helper.getAllCategory().indexOf(helper.getCategoryById(type.getCategory()));
-                AddAccountActivity.this.spinnerCategory.setSelection(catePos);
-                AddAccountActivity.this.category = type.getCategory();
+                if (showMode == AddAccountShowMode.ShowModeAdd) {
+                    int catePos = helper.getAllCategory().indexOf(helper.getCategoryById(type.getCategory()));
+                    AddAccountActivity.this.spinnerCategory.setSelection(catePos);
+                    AddAccountActivity.this.category = type.getCategory();
+                }
             }
 
             @Override
