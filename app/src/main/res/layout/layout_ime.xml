@@ -11,5 +11,6 @@
     android:keyTextColor="@android:color/black"
     android:keyTextSize="20dp"
     android:shadowRadius="@null"
+    android:verticalCorrection="0dp"
     android:labelTextSize="15dp"
     android:paddingBottom="6dp" />
