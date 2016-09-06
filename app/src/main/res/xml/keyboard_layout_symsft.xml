@@ -8,8 +8,27 @@
     <Row>
         <Key
             android:codes="-10"
-            android:horizontalGap="100%p"/>
+            android:keyWidth="12%p"
+            android:horizontalGap="7.5%p"
+            android:keyEdgeFlags="left" />
+        <Key
+            android:codes="-11"
+            android:keyWidth="12%p"
+            android:horizontalGap="7.5%p" />
+        <Key
+            android:codes="-12"
+            android:keyWidth="12%p"
+            android:horizontalGap="7.5%p" />
+        <Key
+            android:codes="-13"
+            android:keyWidth="12%p"
+            android:horizontalGap="7.5%p" />
+        <Key
+            android:codes="-911"
+            android:keyWidth="0.0001%p"
+            android:horizontalGap="29.4449%p" />
     </Row>
+
 
     <Row android:rowEdgeFlags="top">
         <Key
