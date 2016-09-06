@@ -15,7 +15,7 @@
     <string name="categories">分类</string>
     <string name="category_colon">分类：</string>
     <string name="change_master_password">更改主密码</string>
-    <string name="choose_category_and_account">选择分类和账户</string>
+    <string name="choose_category_and_account">选择账户</string>
     <string name="clear">清除</string>
     <string name="click_add_button_to_add_an_account">点击添加按钮来新增一个账号</string>
     <string name="click_button_to_add_account">点击添加按钮来新增一个账号</string>

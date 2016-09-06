@@ -47,7 +47,7 @@
     <string name="yes">Yes</string>
     <string name="no">No</string>
     <string name="master_password_invalid">Master Password Invalid</string>
-    <string name="choose_category_and_account"><![CDATA[Choose Category & Account]]></string>
+    <string name="choose_category_and_account"><![CDATA[Choose Account]]></string>
     <string name="categories">Categories</string>
     <string name="password_dont_match_em">Password don\'t match !</string>
     <string name="password_is_too_short_em">Password is too Short !</string>
