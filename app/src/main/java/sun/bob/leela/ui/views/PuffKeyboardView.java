@@ -70,37 +70,40 @@ public class PuffKeyboardView extends KeyboardView {
      * @param canvas
      */
     private void drawSpecialKey(Keyboard.Key key, Canvas canvas) {
+        int drawableId = 0;
         switch (key.codes[0]) {
             case -1:
                 if (currentType == TYPE_ABC)  // 大小写的图标不同
-                    drawKeyBackground(R.drawable.btn_keyboard_key_shift, canvas, key);
+                    drawableId = R.drawable.btn_keyboard_key_shift;
                 else
-                    drawKeyBackground(R.drawable.btn_keyboard_key_shifted, canvas, key);
+                    drawableId = R.drawable.btn_keyboard_key_shifted;
                 break;
             case 32:
-                drawKeyBackground(R.drawable.btn_keyboard_key_space, canvas, key);
+                drawableId = R.drawable.btn_keyboard_key_space;
                 break;
             case 10:
-                drawKeyBackground(R.drawable.btn_keyboard_key_return, canvas, key);
+                drawableId = R.drawable.btn_keyboard_key_return;
                 break;
             case -5:
-                drawKeyBackground(R.drawable.btn_keyboard_key_delete, canvas, key);
+                drawableId = R.drawable.btn_keyboard_key_delete;
                 break;
             case -10:
-                drawKeyBackground(R.drawable.btn_keyboard_key_puff, canvas, key);
+                drawableId = R.drawable.btn_keyboard_key_puff;
                 break;
             case -11:
-                drawKeyBackground(R.drawable.btn_keyboard_key_puff, canvas, key);
+                drawableId = R.drawable.btn_keyboard_key_account;
                 break;
             case -12:
-                drawKeyBackground(R.drawable.btn_keyboard_key_puff, canvas, key);
+                drawableId = R.drawable.btn_keyboard_key_password;
                 break;
             case -13:
-                drawKeyBackground(R.drawable.btn_keyboard_key_puff, canvas, key);
+                drawableId = R.drawable.btn_keyboard_key_additional;
                 break;
             default:
                 break;
         }
+        if (drawableId != 0)
+            drawKeyBackground(drawableId, canvas, key);
     }
 
     /**
