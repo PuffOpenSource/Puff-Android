@@ -5,14 +5,11 @@ import android.inputmethodservice.InputMethodService;
 import android.inputmethodservice.Keyboard;
 import android.inputmethodservice.KeyboardView;
 import android.os.IBinder;
-import android.os.ResultReceiver;
 import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.inputmethod.EditorInfo;
-import android.view.inputmethod.InputBinding;
 import android.view.inputmethod.InputConnection;
-import android.view.inputmethod.InputMethodSubtype;
 import android.widget.Toast;
 
 import sun.bob.leela.R;
@@ -111,7 +108,7 @@ public class IMEService extends InputMethodService implements KeyboardView.OnKey
     public void onKey(int primaryCode, int[] keyCodes) {
         InputConnection ic = getCurrentInputConnection();
         switch(primaryCode){
-            case -10 :
+            case PuffKeyboardView.KEYCODE_EDIT :
                 Intent intent = new Intent(this, DialogAcctList.class);
                 intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_EXCLUDE_FROM_RECENTS | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                 getApplicationContext().startActivity(intent);

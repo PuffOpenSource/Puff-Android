@@ -1,12 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
-<sun.bob.leela.ui.views.PuffKeyboardView
-    android:layout_marginTop="2dp"
+<sun.bob.leela.ui.views.PuffKeyboardView xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/keyboard"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:paddingBottom="3dp"
     android:layout_alignParentBottom="true"
-    android:keyBackground="@drawable/key_rect"
-    android:background="#FFE7EBEE"
+    android:layout_marginTop="2dp"
+    android:background="#d8dbdf"
+    android:keyBackground="@drawable/btn_keyboard_abc_key"
     android:keyPreviewLayout="@null"
-    xmlns:android="http://schemas.android.com/apk/res/android" />
+    android:keyTextColor="@android:color/black"
+    android:keyTextSize="20dp"
+    android:labelTextSize="15dp"
+    android:paddingBottom="3dp" />

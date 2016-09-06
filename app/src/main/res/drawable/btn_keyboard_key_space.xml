@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<selector xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item android:state_pressed="true">
+        <layer-list>
+            <item android:drawable="@mipmap/keyboard_abc_space_press" />
+            <item android:bottom="10dp" android:drawable="@drawable/space" android:left="42dp" android:right="42dp" android:top="16dp" />
+        </layer-list>
+    </item>
+    <item>
+        <layer-list>
+            <item android:drawable="@mipmap/keyboard_abc_space_nom" />
+            <item android:bottom="10dp" android:drawable="@drawable/space" android:left="42dp" android:right="42dp" android:top="16dp" />
+        </layer-list>
+    </item>
+
+</selector>
