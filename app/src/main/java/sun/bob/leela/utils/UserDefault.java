@@ -135,6 +135,7 @@ public class UserDefault extends StorageInterface {
 
     public static final String kSettingsHasQuickPassword    = "kSettingsHasQuickPassword";
     public static final String kSettingsQuickPassByte       = "kSettingsQuickPassByte";
+    public static final String kNeedPasswordWhenLaunch      = "kNeedPasswordWhenLaunch";
     public static final long v3x3                           = 0x1033;
     public static final long v4x4                           = 0x1044;
 }
