@@ -115,7 +115,12 @@ public class PuffKeyboardView extends KeyboardView {
      * @param key
      */
     private void drawKeyBackground(int drawableId, Canvas canvas, Keyboard.Key key) {
-        Drawable npd = getContext().getResources().getDrawable(drawableId);
+        Drawable npd = null;
+        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.LOLLIPOP) {
+            npd = getContext().getDrawable(drawableId);
+        } else {
+            npd = getContext().getResources().getDrawable(drawableId);
+        }
         int[] drawableState = key.getCurrentDrawableState();
         if (key.codes[0] != 0) {
             npd.setState(drawableState);
