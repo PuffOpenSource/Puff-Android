@@ -2,5 +2,5 @@
     <dimen name="keyboard_key_space_top">12dp</dimen>
     <dimen name="keyboard_key_space_left">42dp</dimen>
     <dimen name="keyboard_key_top">8dp</dimen>
-    <dimen name="keyboard_key_left">16dp</dimen>
+    <dimen name="keyboard_key_left">12dp</dimen>
 </resources>
