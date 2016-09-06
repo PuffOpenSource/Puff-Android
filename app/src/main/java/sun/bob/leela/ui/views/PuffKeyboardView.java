@@ -106,11 +106,11 @@ public class PuffKeyboardView extends KeyboardView {
         if (key.codes[0] == -10) {
             drawKeyBackground(R.drawable.btn_keyboard_key_puff, canvas, key, getNullPadding());
         } else if (key.codes[0] == -11) {
-            drawKeyBackground(R.drawable.btn_keyboard_key_puff, canvas, key, getNullPadding());
+            drawKeyBackground(R.drawable.btn_keyboard_key_account, canvas, key, getNullPadding());
         } else if (key.codes[0] == -12) {
-            drawKeyBackground(R.drawable.btn_keyboard_key_puff, canvas, key, getNullPadding());
+            drawKeyBackground(R.drawable.btn_keyboard_key_password, canvas, key, getNullPadding());
         } else if (key.codes[0] == -13) {
-            drawKeyBackground(R.drawable.btn_keyboard_key_puff, canvas, key, getNullPadding());
+            drawKeyBackground(R.drawable.btn_keyboard_key_additional, canvas, key, getNullPadding());
         }
     }
 
