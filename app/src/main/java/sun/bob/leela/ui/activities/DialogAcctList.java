@@ -4,6 +4,8 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.DisplayMetrics;
+import android.view.Display;
 import android.view.Window;
 import android.view.WindowManager;
 
@@ -39,8 +41,13 @@ public class DialogAcctList extends AppCompatActivity {
     }
 
     private void initUI(){
-        getWindow().setLayout(ResUtil.getInstance(getApplicationContext()).pointToDp(400),
-                ResUtil.getInstance(getApplicationContext()).pointToDp(600));
+        DisplayMetrics metrics = new DisplayMetrics();
+        getWindowManager().getDefaultDisplay().getMetrics(metrics);
+        int width = metrics.widthPixels / 10 * 9;
+        int height = metrics.heightPixels / 3 * 2;
+
+        getWindow().setLayout(width,
+                height);
         getWindow().setType(WindowManager.LayoutParams.TYPE_SYSTEM_ALERT);
     }
 
