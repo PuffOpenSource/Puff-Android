@@ -5,7 +5,7 @@
     android:keyWidth="8.5%p"
     android:verticalGap="1.55%p">
 
-    <Row>
+    <Row android:rowEdgeFlags="top">
         <Key
             android:codes="-10"
             android:keyWidth="12%p"
@@ -30,7 +30,7 @@
     </Row>
 
 
-    <Row android:rowEdgeFlags="top">
+    <Row>
         <Key
             android:horizontalGap="2.1%p"
             android:keyEdgeFlags="left"
@@ -72,7 +72,7 @@
             android:horizontalGap="2.1%p"
             android:isModifier="true"
             android:keyEdgeFlags="left"
-            android:keyLabel="alt"
+            android:keyLabel="ALT"
             android:keyWidth="13.4364%p" />
         <Key android:keyLabel="™" />
         <Key android:keyLabel="®" />
