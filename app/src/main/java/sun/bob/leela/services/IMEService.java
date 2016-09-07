@@ -16,6 +16,7 @@ import sun.bob.leela.R;
 import sun.bob.leela.ui.activities.DialogAcctList;
 import sun.bob.leela.ui.views.PuffKeyboard;
 import sun.bob.leela.ui.views.PuffKeyboardView;
+import sun.bob.leela.utils.VibrateUtil;
 
 public class IMEService extends InputMethodService implements KeyboardView.OnKeyboardActionListener{
 
@@ -172,6 +173,8 @@ public class IMEService extends InputMethodService implements KeyboardView.OnKey
                 ic.commitText(String.valueOf(code),1);
                 break;
         }
+
+        VibrateUtil.getStaticInstance(this).tick();
     }
 
     @Override
