@@ -9,7 +9,7 @@
     <string name="about_puff">
         "Puff is an open-source offline password manager. \n"
         "Puff will never upload your account information to internet.\"
-        "Puff uses Bcrypt (Blowfish encrypt) to encrypt your account information. \n"
+        "Puff uses Blowfish algorithm to encrypt your account information. \n"
 
     </string>
 
