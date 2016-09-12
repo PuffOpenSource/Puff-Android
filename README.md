@@ -6,7 +6,7 @@ Password Utility Free Forever
 
 * Open Source
 * Blowfish Algorithm
-* Totally Offline - we don't event require an internet access permission
+* Totally Offline - we don't even require an internet access permission
 * Quick access your credentials
 
 ## Screenshots
