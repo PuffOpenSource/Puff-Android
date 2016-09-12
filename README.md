@@ -4,9 +4,9 @@ Password Utility Free Forever
 
 ## Features
 
-* OpenSource
+* Open Source
 * Blowfish Algorithm
-* Offline database
+* Totally Offline - we don't event require an internet access permission
 * Quick access your credentials
 
 ## Screenshots
@@ -34,4 +34,3 @@ Password Utility Free Forever
 ## Credits
 
 Icons in this app are brought you by [Icons8.com](https://icons8.com)
-
