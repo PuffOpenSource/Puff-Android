@@ -4,12 +4,12 @@ Password Utility Free Forever
 
 # Features
 
-##How does it work ?
+## How does it work ?
 
-##Manual
+## Manual
 
-##Roadmap
+## Roadmap
 
 
 
-##Credits
+## Credits

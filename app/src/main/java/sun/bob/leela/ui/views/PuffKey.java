@@ -2,6 +2,8 @@ package sun.bob.leela.ui.views;
 
 import android.content.res.Resources;
 import android.content.res.XmlResourceParser;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.inputmethodservice.Keyboard;
 
 /**
@@ -11,6 +13,10 @@ class PuffKey extends Keyboard.Key {
 
     public PuffKey(Resources res, Keyboard.Row parent, int x, int y, XmlResourceParser parser) {
         super(res, parent, x, y, parser);
+        if(this.label == null && this.icon == null) {
+            this.icon = new ColorDrawable(Color.argb(0xff, 0, 0, 0));
+            this.iconPreview = this.icon;
+        }
     }
 
     private final static int[] KEY_STATE_NORMAL_ON = {
