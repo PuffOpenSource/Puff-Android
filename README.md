@@ -32,3 +32,6 @@ Password Utility Free Forever
 ## Roadmap
 
 ## Credits
+
+Icons in this app are brought you by [Icons8.com](https://icons8.com)
+
