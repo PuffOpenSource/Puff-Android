@@ -54,10 +54,10 @@ public class SettingsActivity extends MaterialSettings {
         EventBus.getDefault().register(this);
 
         addItem(new HeaderItem(this).setTitle(getString(R.string.security)));
-        addItem(new CheckboxItem(this, "launch_pass").setTitle(getString(R.string.need_password_when_launch)).setOnCheckedChangeListener(new CheckboxItem.OnCheckedChangeListener() {
+        addItem(new CheckboxItem(this, UserDefault.kNeedPasswordWhenLaunch).setTitle(getString(R.string.need_password_when_launch)).setOnCheckedChangeListener(new CheckboxItem.OnCheckedChangeListener() {
             @Override
             public void onCheckedChange(CheckboxItem cbi, boolean isChecked) {
-
+                UserDefault.getInstance(null).setNeedPasswordWhenLaunch(isChecked);
             }
         }));
 
