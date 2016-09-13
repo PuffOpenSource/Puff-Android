@@ -56,7 +56,7 @@ public class AddAccountActivity extends AppCompatActivity {
     private Long category;
     private EditText name, account, password, addtional, website;
     private AppCompatImageView imageView;
-    private AppCompatButton generateButton;
+    private AppCompatButton generateButton, saveButton;
     private String iconPath;
     private AddAccountShowMode showMode;
 
@@ -99,6 +99,14 @@ public class AddAccountActivity extends AppCompatActivity {
             }
         });
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
+        saveButton = (AppCompatButton) findViewById(R.id.save_button);
+        saveButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                doCreateAccount(v);
+            }
+        });
 
         spinnerType = (AppCompatSpinner) findViewById(R.id.spinner_type);
         spinnerType.setPrompt(getResources().getString(R.string.type));
