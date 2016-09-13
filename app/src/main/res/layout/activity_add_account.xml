@@ -37,7 +37,6 @@
                 android:layout_height="60dp"
                 android:id="@+id/toolbar_text_input"
                 android:layout_marginTop="60dp"
-                android:paddingTop="16dp"
                 android:paddingLeft="@dimen/activity_horizontal_margin"
                 android:paddingRight="@dimen/activity_horizontal_margin"
                 app:layout_collapseMode="parallax"

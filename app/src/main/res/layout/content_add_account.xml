@@ -126,8 +126,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:minHeight="60dp"
-                        android:id="@+id/website"
-                        android:inputType="textPassword" />
+                        android:id="@+id/website" />
                 </android.support.design.widget.TextInputLayout>
 
             </LinearLayout>
@@ -165,7 +164,7 @@
                     android:layout_height="wrap_content"
                     android:paddingTop="2dp"
                     android:paddingBottom="2dp"
-                    android:text="Save"
+                    android:text="@string/save"
                     android:id="@+id/save_button"
                     android:layout_marginBottom="20dp"/>
 

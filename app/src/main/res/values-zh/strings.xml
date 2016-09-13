@@ -95,4 +95,5 @@
     <string name="subtype_en_US">Puff安全键盘</string>
     <string name="title_activity_set_quick_password">SetQuickPasswordActivity</string>
     <string name="warning_master_password">谨慎选择你的主密码。\n主密码丢失后是不可能恢复数据的。</string>
+    <string name="save">保存</string>
 </resources>
