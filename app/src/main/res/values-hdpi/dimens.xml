@@ -1,8 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<resources>
-    <dimen name="keyboard_key_space_top">16dp</dimen>
-    <dimen name="keyboard_key_space_left">48dp</dimen>
-
-    <dimen name="keyboard_key_top">8dp</dimen>
-    <dimen name="keyboard_key_left">16dp</dimen>
-</resources>
