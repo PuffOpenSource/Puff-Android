@@ -197,7 +197,6 @@ public class CryptoUtil {
                         return;
                 }
                 if (this.accountHash != null && this.passwdHash != null && this.addtHash != null) {
-                    Log.e("LEELA", "Encryped Callback");
                     dialog.dismiss();
                     this.onEncryptedListener.onEncrypted(accountHash, passwdHash, addtHash,
                             salts[0], salts[1], salts[2]);
@@ -209,7 +208,6 @@ public class CryptoUtil {
                 break;
             case AppConstants.TYPE_SHTHPPN:
                 dialog.dismiss();
-                Log.e("LEELA", "Something went wrong");
                 break;
             default:
                 if (dialog != null) {

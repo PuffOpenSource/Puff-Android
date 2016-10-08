@@ -84,7 +84,6 @@ public class AcctListViewHolder extends RecyclerView.ViewHolder{
                 new CryptoUtil(itemView.getContext(), new CryptoUtil.OnDecryptedListener() {
                     @Override
                     public void onDecrypted(String account, String passwd, String addt) {
-                        Log.e("LEELA", account + "|" + passwd + "|" + addt);
                         Intent intent = new Intent(itemView.getContext(), DetailActivity.class);
                         ArrayList<String> list = new ArrayList();
                         list.add(account);

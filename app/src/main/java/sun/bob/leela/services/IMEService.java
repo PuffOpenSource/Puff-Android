@@ -54,7 +54,6 @@ public class IMEService extends InputMethodService implements KeyboardView.OnKey
     }
     @Override
     public View onCreateInputView() {
-        Log.e("Leela IME", "onCreateInputView");
         kv = (PuffKeyboardView) View.inflate(this, R.layout.layout_ime, null);
 //        kv = (PuffKeyboardView)getLayoutInflater().inflate(R.layout.layout_ime, null);
         kv.setKeyboard(currentKeyboard);

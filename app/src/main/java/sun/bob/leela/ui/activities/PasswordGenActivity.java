@@ -83,7 +83,6 @@ public class PasswordGenActivity extends IntroActivity implements SlideListener 
             @Override
             public void onPageSelected(int position) {
                 if (position == 2) {
-//                    Log.e("Leela", password);
                     ((SecureStepDone) getSlide(position).getFragment()).setPassword(password);
                     ((SecureStepDone) getSlide(position).getFragment()).setWordsAndType(words, type);
                 }
