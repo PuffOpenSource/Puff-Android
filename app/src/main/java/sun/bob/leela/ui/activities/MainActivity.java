@@ -135,6 +135,7 @@ public class MainActivity extends AppCompatActivity
 
         if (!AccountHelper.getInstance(this).hasMasterPassword()) {
             Intent intent = new Intent(this, SetMasterPasswordActivity.class);
+            intent.putExtra("showMode", SetMasterPasswordActivity.ShowMode.ShowModeAdd);
             startActivity(intent);
         }
     }

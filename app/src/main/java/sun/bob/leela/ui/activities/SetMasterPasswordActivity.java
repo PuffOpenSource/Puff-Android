@@ -119,6 +119,12 @@ public class SetMasterPasswordActivity extends AppCompatActivity {
     }
 
     @Override
+    public void finish(){
+        EventBus.getDefault().unregister(this);
+        super.finish();
+    }
+
+    @Override
     public void onBackPressed() {
         if (showMode == ShowMode.ShowModeChange) {
             finish();

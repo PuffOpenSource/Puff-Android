@@ -51,6 +51,12 @@ public class SplashActivity extends AppCompatActivity {
     }
 
     @Override
+    public void finish() {
+        EventBus.getDefault().unregister(this);
+        super.finish();
+    }
+
+    @Override
     protected void onStop() {
         super.onStop();
         EventBus.getDefault().unregister(this);
