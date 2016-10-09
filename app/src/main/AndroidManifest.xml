@@ -33,7 +33,6 @@
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".ui.activities.DetailActivity"
-            android:label="@null"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
@@ -71,7 +70,6 @@
             android:windowSoftInputMode="stateHidden|adjustPan" />
         <activity
             android:name=".ui.activities.SetMasterPasswordActivity"
-            android:label="@null"
             android:theme="@style/AppTheme.NoActionBar"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="stateHidden|adjustPan" />
@@ -104,7 +102,6 @@
 
         <activity
             android:name=".ui.activities.DialogAcctList"
-            android:label="@null"
             android:screenOrientation="portrait"
             android:theme="@style/AppCompatAlertDialogStyle" />
         <activity
