@@ -207,7 +207,9 @@ public class CryptoUtil {
                 EventBus.getDefault().unregister(this);
                 break;
             case AppConstants.TYPE_SHTHPPN:
-                dialog.dismiss();
+                if (dialog != null) {
+                    dialog.dismiss();
+                }
                 break;
             default:
                 if (dialog != null) {

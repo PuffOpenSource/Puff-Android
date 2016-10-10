@@ -44,7 +44,7 @@ public class QuickPassRunnable implements Runnable {
 
     private void getPasswordHash() {
         Account account = AccountHelper.getInstance(null).getQuickAccount();
-        if (this.passwordHash == null) {
+        if (account == null) {
             UserDefault.getInstance(null).clearQuickPassword();
             AccountHelper.getInstance(null).clearQuickAccount();
             return;

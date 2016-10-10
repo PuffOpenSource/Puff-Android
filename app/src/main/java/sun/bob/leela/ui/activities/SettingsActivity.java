@@ -133,29 +133,6 @@ public class SettingsActivity extends MaterialSettings {
             }
         }));
 
-//        if (UserDefault.getInstance(null).hasQuickPassword()) {
-//            selectorItem = new SelectorItem(this, UserDefault.kSettingsQuickPassByte).setAdapter(new SettingsSpinnerAdapter()).setOnItemClickListener(new AdapterView.OnItemSelectedListener() {
-//                @Override
-//                public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-//                    getStorageInterface().save(UserDefault.kSettingsQuickPassByte, id);
-//                }
-//
-//                @Override
-//                public void onNothingSelected(AdapterView<?> parent) {
-//
-//                }
-//            });
-//
-//            if (UserDefault.getInstance(null).getQuickPassByte() == UserDefault.v4x4) {
-//                selectorItem.setSelectedPos(1);
-//            } else {
-//                selectorItem.setSelectedPos(0);
-//            }
-//
-//            addItem(selectorItem);
-//        } else {
-//
-//        }
 
     }
 
@@ -190,7 +167,12 @@ public class SettingsActivity extends MaterialSettings {
             }
             return;
         }
-        dialog.dismiss();
+        if (dialog != null) {
+            dialog.dismiss();
+        }
+        if (!(event instanceof DBExportEvent)) {
+            return;
+        }
         DBExportEvent dbExportEvent = (DBExportEvent) event;
         if (dbExportEvent.success) {
             new AlertDialog.Builder(this)
