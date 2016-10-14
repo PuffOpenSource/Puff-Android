@@ -129,7 +129,8 @@ public class CryptoUtil {
 
         } else {
             Intent intent = new Intent(this.context, AuthorizeActivity.class);
-            this.context.startActivity(intent);
+            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_EXCLUDE_FROM_RECENTS);
+            this.context.getApplicationContext().startActivity(intent);
         }
     }
 
@@ -196,7 +197,6 @@ public class CryptoUtil {
                         return;
                 }
                 if (this.accountHash != null && this.passwdHash != null && this.addtHash != null) {
-                    Log.e("LEELA", "Encryped Callback");
                     dialog.dismiss();
                     this.onEncryptedListener.onEncrypted(accountHash, passwdHash, addtHash,
                             salts[0], salts[1], salts[2]);
@@ -207,8 +207,9 @@ public class CryptoUtil {
                 EventBus.getDefault().unregister(this);
                 break;
             case AppConstants.TYPE_SHTHPPN:
-                dialog.dismiss();
-                Log.e("LEELA", "Something went wrong");
+                if (dialog != null) {
+                    dialog.dismiss();
+                }
                 break;
             default:
                 if (dialog != null) {

@@ -6,7 +6,9 @@ import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
+import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.AppCompatButton;
 import android.support.v7.widget.AppCompatImageView;
 import android.support.v7.widget.AppCompatSpinner;
 import android.support.v7.widget.Toolbar;
@@ -21,6 +23,7 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.UUID;
 
 import de.greenrobot.event.EventBus;
@@ -32,6 +35,7 @@ import sun.bob.leela.db.AccountHelper;
 import sun.bob.leela.db.AcctType;
 import sun.bob.leela.db.Category;
 import sun.bob.leela.db.CategoryHelper;
+import sun.bob.leela.db.TypeHelper;
 import sun.bob.leela.events.CryptoEvent;
 import sun.bob.leela.utils.AppConstants;
 import sun.bob.leela.utils.CryptoUtil;
@@ -42,12 +46,22 @@ import sun.bob.leela.utils.StringUtil;
 
 public class AddAccountActivity extends AppCompatActivity {
 
+    public enum AddAccountShowMode {
+        ShowModeAdd,
+        ShowModeEdit,
+    }
+
     private AppCompatSpinner spinnerCategory, spinnerType;
     private Long type;
     private Long category;
     private EditText name, account, password, addtional, website;
     private AppCompatImageView imageView;
+    private AppCompatButton generateButton, saveButton;
     private String iconPath;
+    private AddAccountShowMode showMode;
+
+    private Long acctId;
+    private Account accountModel;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -56,6 +70,8 @@ public class AddAccountActivity extends AppCompatActivity {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 //        EventBus.getDefault().register(this);
+
+        showMode = (AddAccountShowMode) getIntent().getSerializableExtra("showMode");
 
         wireViews();
 
@@ -68,7 +84,7 @@ public class AddAccountActivity extends AppCompatActivity {
                 Intent pickIntent = new Intent(Intent.ACTION_PICK, android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
                 pickIntent.setType("image/*");
 
-                Intent chooserIntent = Intent.createChooser(getIntent, "Select Image");
+                Intent chooserIntent = Intent.createChooser(getIntent, getResources().getString(R.string.select_image));
                 chooserIntent.putExtra(Intent.EXTRA_INITIAL_INTENTS, new Intent[]{pickIntent});
 
                 startActivityForResult(chooserIntent, AppConstants.REQUEST_CODE_IMAGE);
@@ -79,42 +95,21 @@ public class AddAccountActivity extends AppCompatActivity {
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                final String disPlayName;
-                if (RegExUtil.isEmail(account.getText().toString())) {
-                    disPlayName = StringUtil.getMaskedEmail(account.getText().toString());
-                } else {
-                    disPlayName = StringUtil.getMaskedPhoneNumber(account.getText().toString());
-                }
-                new CryptoUtil(AddAccountActivity.this, new CryptoUtil.OnEncryptedListener() {
-                    @Override
-                    public void onEncrypted(String acctHash, String passwdHash, String addtHash, String acctSalt, String passwdSalt, String addtSalt) {
-                        Account account = new Account();
-                        account.setName(name.getText().toString());
-                        account.setAccount(acctHash);
-                        account.setAccount_salt(acctSalt);
-                        account.setHash(passwdHash);
-                        account.setSalt(passwdSalt);
-                        account.setAdditional(addtHash);
-                        account.setAdditional_salt(addtSalt);
-                        account.setMasked_account(disPlayName);
-                        account.setType(type);
-                        account.setCategory(category);
-                        account.setWebsite(website.getText().toString());
-                        account.setTag("");
-                        account.setIcon(StringUtil.isNullOrEmpty(iconPath) ?
-                                ((AcctType) spinnerType.getSelectedItem()).getIcon() :
-                                iconPath);
-                        AccountHelper.getInstance(AddAccountActivity.this).saveAccount(account);
-                        finish();
-                    }
-                }).runEncrypt(account.getText().toString(), password.getText().toString(), addtional.getText().toString());
-
+                doCreateAccount(view);
             }
         });
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
+        saveButton = (AppCompatButton) findViewById(R.id.save_button);
+        saveButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                doCreateAccount(v);
+            }
+        });
+
         spinnerType = (AppCompatSpinner) findViewById(R.id.spinner_type);
-        spinnerType.setPrompt("Type");
+        spinnerType.setPrompt(getResources().getString(R.string.type));
         spinnerType.setAdapter(new TypeSpinnerAdapter(this, android.R.layout.simple_dropdown_item_1line));
         type = ((AcctType) spinnerType.getAdapter().getItem(0)).getId();
         spinnerType.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
@@ -126,9 +121,11 @@ public class AddAccountActivity extends AppCompatActivity {
                 AcctType type = (AcctType) (parent.getAdapter()).getItem(position);
                 AddAccountActivity.this.type = type.getId();
                 CategoryHelper helper = CategoryHelper.getInstance(null);
-                int catePos = helper.getAllCategory().indexOf(helper.getCategoryById(type.getCategory()));
-                AddAccountActivity.this.spinnerCategory.setSelection(catePos);
-                AddAccountActivity.this.category = type.getCategory();
+                if (showMode == AddAccountShowMode.ShowModeAdd) {
+                    int catePos = helper.getAllCategory().indexOf(helper.getCategoryById(type.getCategory()));
+                    AddAccountActivity.this.spinnerCategory.setSelection(catePos);
+                    AddAccountActivity.this.category = type.getCategory();
+                }
             }
 
             @Override
@@ -160,8 +157,46 @@ public class AddAccountActivity extends AppCompatActivity {
             }
         });
 
-        Uri icon = ResUtil.getInstance(null)
-                .getBmpUri( ((Category) ((CategorySpinnerAdapter)spinnerCategory.getAdapter()).getItem(0)).getIcon());
+        generateButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivityForResult(new Intent(AddAccountActivity.this, PasswordGenActivity.class), AppConstants.REQUEST_CODE_GEN_PWD);
+            }
+        });
+
+        Uri icon;
+
+        if (showMode == AddAccountShowMode.ShowModeAdd) {
+            icon = ResUtil.getInstance(null)
+                    .getBmpUri( ((Category) ((CategorySpinnerAdapter)spinnerCategory.getAdapter()).getItem(0)).getIcon());
+        } else {
+            acctId = getIntent().getLongExtra("acctId", -1);
+            accountModel = AccountHelper.getInstance(null).getAccount(acctId);
+
+            ArrayList<String> list = getIntent().getStringArrayListExtra("credentials");
+
+            String acct = list.get(0);
+            String passwd = list.get(1);
+            String addt = list.get(2);
+
+            name.setText(accountModel.getName());
+            account.setText(acct);
+            password.setText(passwd);
+            addtional.setText(addt);
+            type = accountModel.getType();
+            category = accountModel.getCategory();
+            Category categoryModel = CategoryHelper.getInstance(null).getCategoryById(category);
+            spinnerCategory.setSelection(((CategorySpinnerAdapter) spinnerCategory.getAdapter())
+                    .getPosition(categoryModel));
+            AcctType typeModel = TypeHelper.getInstance(null).getTypeById(type);
+            spinnerType.setSelection(((TypeSpinnerAdapter) spinnerType.getAdapter())
+                    .getPosition(typeModel));
+            website.setText(accountModel.getWebsite());
+            icon = ResUtil.getInstance(null).getBmpUri(categoryModel.getIcon());
+
+
+        }
+
         Picasso.with(this).load(icon)
                 .fit()
                 .config(Bitmap.Config.RGB_565)
@@ -178,13 +213,63 @@ public class AddAccountActivity extends AppCompatActivity {
 //        }
 //    }
 
-    private void wireViews() {
-        name = (EditText) findViewById(R.id.id_name);
-        account = (EditText) findViewById(R.id.account);
-        password = (EditText) findViewById(R.id.password);
-        addtional = (EditText) findViewById(R.id.additional);
-        imageView = (AppCompatImageView) findViewById(R.id.account_image);
-        website = (EditText) findViewById(R.id.website);
+    private void doCreateAccount(View sender) {
+        String err = validateFields();
+        if (err != null) {
+            Snackbar.make(sender, err, Snackbar.LENGTH_SHORT).show();
+            return;
+        }
+        final String disPlayName;
+        if (RegExUtil.isEmail(account.getText().toString())) {
+            disPlayName = StringUtil.getMaskedEmail(account.getText().toString());
+        } else {
+            disPlayName = StringUtil.getMaskedPhoneNumber(account.getText().toString());
+        }
+
+        final String accountStr, passwordStr, additionalStr;
+        accountStr = account.getText().toString();
+        passwordStr = password.getText().toString();
+        additionalStr = addtional.getText().toString();
+        new CryptoUtil(AddAccountActivity.this, new CryptoUtil.OnEncryptedListener() {
+            @Override
+            public void onEncrypted(String acctHash, String passwdHash, String addtHash, String acctSalt, String passwdSalt, String addtSalt) {
+                Account account = new Account();
+                account.setName(name.getText().toString());
+                account.setAccount(acctHash);
+                account.setAccount_salt(acctSalt);
+                account.setHash(passwdHash);
+                account.setSalt(passwdSalt);
+                account.setAdditional(addtHash);
+                account.setAdditional_salt(addtSalt);
+                account.setMasked_account(disPlayName);
+                account.setType(type);
+                account.setCategory(category);
+                account.setWebsite(website.getText().toString());
+                account.setTag("");
+                account.setIcon(StringUtil.isNullOrEmpty(iconPath) ?
+                        ((AcctType) spinnerType.getSelectedItem()).getIcon() :
+                        iconPath);
+                if (showMode == AddAccountShowMode.ShowModeEdit) {
+                    account.setId(acctId);
+                }
+                AccountHelper.getInstance(AddAccountActivity.this).saveAccount(account);
+                Intent data = new Intent();
+                ArrayList credentials = new ArrayList();
+                credentials.add(accountStr);
+                credentials.add(passwordStr);
+                credentials.add(additionalStr);
+                data.putStringArrayListExtra("credentials",credentials);
+                setResult(RESULT_OK, data);
+                finish();
+            }
+        }).runEncrypt(account.getText().toString(), password.getText().toString(), addtional.getText().toString());
+    }
+
+    private String validateFields() {
+        String ret = null;
+        if (StringUtil.isNullOrEmpty(password.getText().toString()))
+            ret = getResources().getString(R.string.password_is_empty);
+        return ret;
     }
 
     @Override
@@ -233,8 +318,26 @@ public class AddAccountActivity extends AppCompatActivity {
                 break;
             case AppConstants.REQUEST_CODE_ADD_CATE:
                 break;
+            case AppConstants.REQUEST_CODE_GEN_PWD:
+                if (resultCode != RESULT_OK) {
+                    return;
+                }
+                String result = data.getStringExtra("password");
+                if (!StringUtil.isNullOrEmpty(result))
+                    this.password.setText(result);
+                break;
             default:
                 break;
         }
+    }
+
+    private void wireViews() {
+        name = (EditText) findViewById(R.id.id_name);
+        account = (EditText) findViewById(R.id.account);
+        password = (EditText) findViewById(R.id.password);
+        addtional = (EditText) findViewById(R.id.additional);
+        imageView = (AppCompatImageView) findViewById(R.id.account_image);
+        website = (EditText) findViewById(R.id.website);
+        generateButton = (AppCompatButton) findViewById(R.id.generate_button);
     }
 }

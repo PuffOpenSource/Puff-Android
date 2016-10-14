@@ -1,12 +1,14 @@
 package sun.bob.leela.ui.activities;
 
 import android.content.Intent;
+import android.graphics.Bitmap;
 import android.graphics.drawable.BitmapDrawable;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
+import android.support.v4.widget.TextViewCompat;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
@@ -14,6 +16,10 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.SubMenu;
 import android.view.View;
+import android.widget.ImageView;
+import android.widget.TextView;
+
+import com.squareup.picasso.Picasso;
 
 import java.io.IOException;
 import java.util.HashMap;
@@ -24,8 +30,6 @@ import sun.bob.leela.R;
 import sun.bob.leela.db.AccountHelper;
 import sun.bob.leela.db.Category;
 import sun.bob.leela.db.CategoryHelper;
-import sun.bob.leela.runnable.QuickPassRunnable;
-import sun.bob.leela.services.IMEService;
 import sun.bob.leela.ui.fragments.AcctListFragment;
 import sun.bob.leela.utils.AppConstants;
 import sun.bob.leela.utils.ResUtil;
@@ -41,6 +45,10 @@ public class MainActivity extends AppCompatActivity
     private Toolbar toolbar;
     private HashMap<Long, AcctListFragment> fragments;
     private SubMenu categoriesMenu;
+    private MenuItem lastChecked;
+    private NavigationView navigationView;
+    private ImageView headerImageView;
+    private TextView headerTextView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -80,6 +88,7 @@ public class MainActivity extends AppCompatActivity
                     @Override
                     public void onAnimationEnd() {
                         Intent intent = new Intent(MainActivity.this, AddAccountActivity.class);
+                        intent.putExtra("showMode", AddAccountActivity.AddAccountShowMode.ShowModeAdd);
                         startActivity(intent);
                         overridePendingTransition(0, 0);
 //                        reveal.setVisibility(View.INVISIBLE);
@@ -104,11 +113,13 @@ public class MainActivity extends AppCompatActivity
         drawer.addDrawerListener(toggle);
         toggle.syncState();
 
-        NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
+        navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
         navigationView.setItemIconTintList(null);
+        headerImageView = (ImageView) navigationView.getHeaderView(0).findViewById(R.id.header_image_view);
+        headerTextView = (TextView) navigationView.getHeaderView(0).findViewById(R.id.header_category);
 
-        categoriesMenu = navigationView.getMenu().addSubMenu("Categories");
+        categoriesMenu = navigationView.getMenu().addSubMenu(R.string.categories);
 
         loadCategoriesInNavigation();
 
@@ -124,6 +135,7 @@ public class MainActivity extends AppCompatActivity
 
         if (!AccountHelper.getInstance(this).hasMasterPassword()) {
             Intent intent = new Intent(this, SetMasterPasswordActivity.class);
+            intent.putExtra("showMode", SetMasterPasswordActivity.ShowMode.ShowModeAdd);
             startActivity(intent);
         }
     }
@@ -172,49 +184,12 @@ public class MainActivity extends AppCompatActivity
 
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_settings) {
-//            ResUtil.getInstance(getApplicationContext()).showProgressbar(this, 1000, true);
-
-//            new CryptoUtil(this, new CryptoUtil.OnEncryptedListener() {
-//                @Override
-//                public void onEncrypted(String acctHash, String passwdHash, String addtHash,
-//                                        String acctSalt, String passwdSalt, String addtSalt) {
-//                    Log.e("Leela", acctHash + "|" + passwdHash + "|" + addtHash);
-//                }
-//            }).runEncrypt("123", "456", "789");
-
-//            Intent intent = new Intent(this, SetMasterPasswordActivity.class);
-//            startActivity(intent);
-
-//            Intent intent = new Intent(this, AuthorizeActivity.class);
-//            startActivity(intent);
-
-//            boolean is = RegExUtil.isEmail("bob.sun@glowing.com");
-//            Log.e("LEELA", String.valueOf(is));
-
-//            Intent intent = new Intent(this, DetailActivity.class);
-//            startActivity(intent);
-
-//            Intent intent = new Intent(this, PasswordGenActivity.class);
-//            startActivity(intent);
-//            Intent intent = new Intent(this, SetQuickPasswordActivity.class);
-//            startActivity(intent);
-
-//            new QuickPassRunnable("12345eqrwrefdsafcDASFSASA", "fdasfsafasfewrqwrqgftsvfcsdsadssaddfds").run();
-//            new QuickPassRunnable("12345eqrwrefdsafcDASFSASA").run();
-//            new QuickPassRunnable("jdaisojd").run();
-
             startActivity(new Intent(MainActivity.this, SettingsActivity.class));
+            return true;
+        }
 
-//            Intent intent = new Intent(this, NotificationService.class);
-//            intent.setAction("start");
-//            startService(intent);
-
-//            Intent intent = new Intent(this, IMEService.class);
-//            intent.setAction("INIT");
-//            intent.putExtra("account", "widekuan@gmail.com");
-//            intent.putExtra("password", "123456");
-//            intent.putExtra("additional", "blah");
-//            startService(intent);
+        if (id == R.id.action_generator) {
+            startActivity(new Intent(MainActivity.this, PasswordGenActivity.class));
             return true;
         }
 
@@ -229,24 +204,19 @@ public class MainActivity extends AppCompatActivity
                 .getCategoryByName(String.valueOf(item.getTitle()));
         loadAccountByCategory(category);
 
-//        // Handle navigation view item clicks here.
-//        int id = item.getItemId();
-//        if (id == R.id.nav_camera) {
-//            // Handle the camera action
-//        } else if (id == R.id.nav_gallery) {
-//
-//        } else if (id == R.id.nav_slideshow) {
-//
-//        } else if (id == R.id.nav_manage) {
-//
-//        } else if (id == R.id.nav_share) {
-//
-//        } else if (id == R.id.nav_send) {
-//
-//        }
-
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+        if (headerImageView != null)
+            Picasso.with(this).load(ResUtil.getInstance(null).getBmpUri(category.getIcon()))
+                    .config(Bitmap.Config.RGB_565)
+                    .fit()
+                    .into(headerImageView);
+        if (headerTextView != null)
+            headerTextView.setText(category.getName());
         drawer.closeDrawer(GravityCompat.START);
+        if (lastChecked != null)
+            lastChecked.setChecked(false);
+        item.setChecked(true);
+        lastChecked = item;
         return true;
     }
 

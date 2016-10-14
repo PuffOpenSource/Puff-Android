@@ -122,6 +122,16 @@ public class CategoryUtil {
                 }
             }
 
+            for (String file : context.getAssets().list("cat_mail")) {
+                if (file.endsWith(".png")) {
+                    toAdd = new AcctType();
+                    toAdd.setName(file.replace(".png", ""));
+                    toAdd.setCategory(AppConstants.CAT_ID_MAIL);
+                    toAdd.setIcon("cat_mail/" + file);
+                    helper.save(toAdd);
+                }
+            }
+
             for (String file : context.getAssets().list("cat_cards")) {
                 if (file.endsWith(".png")) {
                     toAdd = new AcctType();

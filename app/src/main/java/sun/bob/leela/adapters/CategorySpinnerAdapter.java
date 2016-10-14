@@ -98,6 +98,10 @@ public class CategorySpinnerAdapter extends ArrayAdapter {
         }
         return categories.get(position);
     }
+
+    public int getPosition(Category item) {
+        return categories.indexOf(item);
+    }
     class CategoryViewHolder {
         public TextView textView;
         public ImageView imageView;

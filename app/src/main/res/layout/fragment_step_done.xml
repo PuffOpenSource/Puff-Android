@@ -4,12 +4,16 @@
     android:layout_height="match_parent"
     android:padding="16dp"
     android:gravity="center">
+    <ImageView
+        android:layout_width="80dp"
+        android:layout_height="80dp"
+        android:src="@drawable/ic_check_mark"/>
     <android.support.v7.widget.AppCompatTextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:textSize="20dp"
         android:textColor="#FFF"
-        android:text="Your secure password is:"/>
+        android:text="@string/your_secure_password_is_comma"/>
     <android.support.v7.widget.AppCompatTextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -20,10 +24,10 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/button_reload"
-        android:text="Generate Again!"/>
+        android:text="@string/generate_again_em"/>
     <android.support.v7.widget.AppCompatButton
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/button_copy"
-        android:text="Copy and Close"/>
+        android:text="@string/copy_and_close"/>
 </LinearLayout>

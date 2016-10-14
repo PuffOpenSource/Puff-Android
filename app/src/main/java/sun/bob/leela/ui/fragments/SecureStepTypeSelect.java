@@ -16,6 +16,7 @@ import android.view.animation.Animation;
 import android.view.animation.LayoutAnimationController;
 import android.widget.CompoundButton;
 import android.widget.LinearLayout;
+import android.widget.ScrollView;
 
 import com.heinrichreimersoftware.materialintro.slide.FragmentSlide;
 
@@ -36,14 +37,15 @@ public class SecureStepTypeSelect extends FragmentSlide.FragmentSlideFragment {
     private SlideListener slideListener;
     private AppCompatCheckBox easy, numbers, secure;
     private AppCompatEditText word1, word2, word3, word4;
-    private LinearLayout checkboxes, words;
+    private LinearLayout checkboxes;
+    private ScrollView words;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View ret = super.onCreateView(inflater, container, savedInstanceState);
 
         checkboxes = (LinearLayout) ret.findViewById(R.id.checkboxes);
-        words = (LinearLayout) ret.findViewById(R.id.words);
+        words = (ScrollView) ret.findViewById(R.id.words);
         words.setVisibility(View.GONE);
 
         word1 = (AppCompatEditText) ret.findViewById(R.id.word_one);

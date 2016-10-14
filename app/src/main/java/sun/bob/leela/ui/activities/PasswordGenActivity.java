@@ -1,5 +1,6 @@
 package sun.bob.leela.ui.activities;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.view.ViewPager;
 import android.util.Log;
@@ -18,7 +19,9 @@ import sun.bob.leela.ui.fragments.SecureSlide;
 import sun.bob.leela.ui.fragments.SecureStepDone;
 import sun.bob.leela.ui.fragments.SecureStepIntro;
 import sun.bob.leela.ui.fragments.SecureStepTypeSelect;
+import sun.bob.leela.utils.AppConstants;
 import sun.bob.leela.utils.PasswordGenerator;
+import sun.bob.leela.utils.ResUtil;
 import sun.bob.leela.utils.StringUtil;
 
 public class PasswordGenActivity extends IntroActivity implements SlideListener {
@@ -49,6 +52,9 @@ public class PasswordGenActivity extends IntroActivity implements SlideListener 
             @Override
             public void run() {
 //                words = wordsSlideFragment.getWords();
+                Intent result = new Intent();
+                result.putExtra("password", password);
+                setResult(RESULT_OK, result);
                 finish();
             }
         });
@@ -77,7 +83,6 @@ public class PasswordGenActivity extends IntroActivity implements SlideListener 
             @Override
             public void onPageSelected(int position) {
                 if (position == 2) {
-//                    Log.e("Leela", password);
                     ((SecureStepDone) getSlide(position).getFragment()).setPassword(password);
                     ((SecureStepDone) getSlide(position).getFragment()).setWordsAndType(words, type);
                 }
@@ -90,6 +95,7 @@ public class PasswordGenActivity extends IntroActivity implements SlideListener 
         });
 
 
+        setCanSwipe(false);
 
         setSlideListener(this);
 
@@ -101,6 +107,7 @@ public class PasswordGenActivity extends IntroActivity implements SlideListener 
 
     @Override
     public void willLeaveSlide(int position) {
+        ResUtil.hideSoftKeyboard(getCurrentFocus());
         switch (position) {
             case 0:
                 length = ((SecureStepIntro) getSlide(0).getFragment()).getLength();
@@ -136,6 +143,11 @@ public class PasswordGenActivity extends IntroActivity implements SlideListener 
         }
     }
 
+    @Override
+    public void onBackPressed() {
+        setResult(RESULT_CANCELED);
+        finish();
+    }
 
     private void wireRefs() {
 

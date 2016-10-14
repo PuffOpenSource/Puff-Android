@@ -44,6 +44,11 @@ public class QuickPassRunnable implements Runnable {
 
     private void getPasswordHash() {
         Account account = AccountHelper.getInstance(null).getQuickAccount();
+        if (account == null) {
+            UserDefault.getInstance(null).clearQuickPassword();
+            AccountHelper.getInstance(null).clearQuickAccount();
+            return;
+        }
         this.passwordHash = account.getHash();
     }
 
@@ -99,7 +104,6 @@ public class QuickPassRunnable implements Runnable {
                 + Base64.encodeToString(output, Base64.DEFAULT) + ":"
                 + Base64.encodeToString(salt, Base64.DEFAULT) + ":"
                 + Base64.encodeToString(iv, Base64.DEFAULT);
-        Log.e("Encrypted Data ", ret);
         return ret;
 
     }
@@ -126,8 +130,6 @@ public class QuickPassRunnable implements Runnable {
         byte[] output = cipher.doFinal(hash);
 
         String ret = new String(output);
-
-        Log.e("Decrypted: ", ret);
 
         return ret;
     }

@@ -132,9 +132,17 @@ public class UserDefault extends StorageInterface {
         sharedPreferences.edit().putLong(kSettingsQuickPassByte, b).commit();
     }
 
+    public void setNeedPasswordWhenLaunch(boolean need) {
+        sharedPreferences.edit().putBoolean(kNeedPasswordWhenLaunch, need).commit();
+    }
+
+    public boolean needPasswordWhenLaunch() {
+        return sharedPreferences.getBoolean(kNeedPasswordWhenLaunch, false);
+    }
 
     public static final String kSettingsHasQuickPassword    = "kSettingsHasQuickPassword";
     public static final String kSettingsQuickPassByte       = "kSettingsQuickPassByte";
+    public static final String kNeedPasswordWhenLaunch      = "kNeedPasswordWhenLaunch";
     public static final long v3x3                           = 0x1033;
     public static final long v4x4                           = 0x1044;
 }

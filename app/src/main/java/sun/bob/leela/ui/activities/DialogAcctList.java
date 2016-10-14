@@ -4,7 +4,10 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.DisplayMetrics;
+import android.view.Display;
 import android.view.Window;
+import android.view.WindowManager;
 
 import de.greenrobot.event.EventBus;
 import sun.bob.leela.R;
@@ -22,7 +25,7 @@ public class DialogAcctList extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_dialog_acct_list);
         initUI();
-        setTitle("Choose Category & Account");
+        setTitle(R.string.choose_category_and_account);
         EventBus.getDefault().register(this);
         adapter = new SimpleListAdapter();
         adapter.loadCategory();
@@ -38,8 +41,14 @@ public class DialogAcctList extends AppCompatActivity {
     }
 
     private void initUI(){
-        getWindow().setLayout(ResUtil.getInstance(getApplicationContext()).pointToDp(400),
-                ResUtil.getInstance(getApplicationContext()).pointToDp(600));
+        DisplayMetrics metrics = new DisplayMetrics();
+        getWindowManager().getDefaultDisplay().getMetrics(metrics);
+        int width = metrics.widthPixels / 10 * 9;
+        int height = metrics.heightPixels / 3 * 2;
+
+        getWindow().setLayout(width,
+                height);
+        getWindow().setType(WindowManager.LayoutParams.TYPE_SYSTEM_ALERT);
     }
 
     @Override

@@ -15,8 +15,6 @@ import android.view.ViewTreeObserver;
 import com.eftimoff.patternview.PatternView;
 
 import de.greenrobot.event.EventBus;
-import jp.wasabeef.blurry.Blurry;
-import jp.wasabeef.blurry.internal.Blur;
 import sun.bob.leela.R;
 import sun.bob.leela.db.Account;
 import sun.bob.leela.db.AccountHelper;
@@ -31,8 +29,8 @@ public class SetQuickPasswordActivity extends AppCompatActivity {
     public static final long ShowTypeSet         = 0x6001;
     public static final long ShowTypeVerify      = 0x6002;
 
-    public static final String hintStrSet        = "Set Gesture Password";
-    public static final String hintStrVerify     = "Verify Gesture Password";
+    public static String hintStrSet;
+    public static String hintStrVerify;
 
     private PatternView patternView;
     private AppCompatTextView hintTextView;
@@ -45,6 +43,9 @@ public class SetQuickPasswordActivity extends AppCompatActivity {
         setContentView(R.layout.activity_set_quick_password);
         EventBus.getDefault().register(this);
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
+
+        hintStrSet = getString(R.string.set_gesture_password);
+        hintStrVerify = getString(R.string.verify_gesture_password);
 
         patternView = (PatternView) findViewById(R.id.lock_view);
         hintTextView = (AppCompatTextView) findViewById(R.id.hint_view);
@@ -65,7 +66,6 @@ public class SetQuickPasswordActivity extends AppCompatActivity {
         patternView.setOnPatternDetectedListener(new PatternView.OnPatternDetectedListener() {
             @Override
             public void onPatternDetected() {
-                Log.e("Pattern", patternView.getPatternString());
                 quickCode = patternView.getPatternString();
                 if (type == ShowTypeVerify) {
                     checkQuickPass();

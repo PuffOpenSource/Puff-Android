@@ -1,10 +1,12 @@
 package sun.bob.leela.ui.activities;
 
+import android.app.Dialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.app.AppCompatDialog;
 import android.support.v7.widget.AppCompatEditText;
 import android.support.v7.widget.AppCompatImageView;
 import android.support.v7.widget.AppCompatTextView;
@@ -23,19 +25,29 @@ import sun.bob.leela.R;
 import sun.bob.leela.db.Account;
 import sun.bob.leela.db.AccountHelper;
 import sun.bob.leela.events.CryptoEvent;
+import sun.bob.leela.runnable.ChangePasswordRunnable;
 import sun.bob.leela.runnable.CryptoRunnable;
 import sun.bob.leela.runnable.PBKDFRunnable;
 import sun.bob.leela.utils.AppConstants;
 import sun.bob.leela.utils.CryptoUtil;
+import sun.bob.leela.utils.ResUtil;
 
 public class SetMasterPasswordActivity extends AppCompatActivity {
 
+    public enum ShowMode {
+        ShowModeAdd,
+        ShowModeChange,
+    }
+
     private AppCompatEditText passwd, confirm;
     private AppCompatImageView confirmImgView;
-    private AnimateCheckBox checkBox;
-    private AppCompatTextView checkBoxHint;
+//    private AnimateCheckBox checkBox;
+//    private AppCompatTextView checkBoxHint;
     private TextView helpText;
     private final String uuid = UUID.randomUUID().toString();
+    private ShowMode showMode;
+    private String oldPassword;
+    private AppCompatDialog dialog;
 
     private static final int REQ_CODE_AUTH_MASTER   = 0x7001;
 
@@ -43,38 +55,55 @@ public class SetMasterPasswordActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_set_master_password);
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        toolbar.setTitle("");
-        setSupportActionBar(toolbar);
+//        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+//        toolbar.setTitle("");
+//        setSupportActionBar(toolbar);
 
         initReference();
         initListener();
 
-        if (AccountHelper.getInstance(this).hasMasterPassword()) {
-            Intent intent = new Intent(this, AuthorizeActivity.class);
-            this.startActivityForResult(intent, REQ_CODE_AUTH_MASTER);
+        showMode = (ShowMode) getIntent().getSerializableExtra("showMode");
+
+        if (showMode == ShowMode.ShowModeChange) {
+            oldPassword = getIntent().getStringExtra("oldPassword");
         }
+
+//        if (AccountHelper.getInstance(this).hasMasterPassword()) {
+//            Intent intent = new Intent(this, AuthorizeActivity.class);
+//            this.startActivityForResult(intent, REQ_CODE_AUTH_MASTER);
+//        }
 
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if (!validatePassword()){
+                String err = validatePassword();
+                if (err != null){
+                    helpText.setText(err);
                     return;
                 }
 //                new Thread(new CryptoRunnable(uuid, passwd.getText().toString(), AppConstants.TYPE_ENCRYPT, "master")).start();
-                new Thread(new PBKDFRunnable(passwd.getText().toString())).start();
+                if (showMode == ShowMode.ShowModeAdd){
+                    new Thread(new PBKDFRunnable(passwd.getText().toString())).start();
+                } else {
+                    dialog = ResUtil.getInstance(null).showProgressbar(SetMasterPasswordActivity.this);
+                    new Thread(new ChangePasswordRunnable(SetMasterPasswordActivity.this, oldPassword, passwd.getText().toString())).run();
+                }
+
             }
         });
     }
 
-    private boolean validatePassword(){
+    private String validatePassword(){
         // TODO: 16/4/5 Security validation.
         if (!passwd.getText().toString().equalsIgnoreCase(confirm.getText().toString())) {
-            return false;
+            return getString(R.string.password_dont_match_em);
+        }
+        if (passwd.getText().length() < 6) {
+             return getString(R.string.password_is_too_short_em);
         }
 
-        return true;
+        return null;
     }
 
     @Override
@@ -90,12 +119,25 @@ public class SetMasterPasswordActivity extends AppCompatActivity {
     }
 
     @Override
-    public void onBackPressed() {
+    public void finish(){
+        EventBus.getDefault().unregister(this);
+        super.finish();
+    }
 
+    @Override
+    public void onBackPressed() {
+        if (showMode == ShowMode.ShowModeChange) {
+            finish();
+        }
     }
 
     public void onEventMainThread(CryptoEvent event) {
         if (!event.getField().equalsIgnoreCase("master")) {
+            return;
+        }
+        if (showMode == ShowMode.ShowModeChange && event.getType() == AppConstants.TYPE_MASTER_CHANGE) {
+            dialog.dismiss();
+            finish();
             return;
         }
         if (event.getType() == AppConstants.TYPE_ENCRYPT) {
@@ -128,8 +170,8 @@ public class SetMasterPasswordActivity extends AppCompatActivity {
         passwd = (AppCompatEditText) findViewById(R.id.password);
         confirm = (AppCompatEditText) findViewById(R.id.confirm);
         confirmImgView = (AppCompatImageView) findViewById(R.id.confirm_img);
-        checkBox = (AnimateCheckBox) findViewById(R.id.quick_checkbox);
-        checkBoxHint = (AppCompatTextView) findViewById(R.id.checkbox_hint);
+//        checkBox = (AnimateCheckBox) findViewById(R.id.quick_checkbox);
+//        checkBoxHint = (AppCompatTextView) findViewById(R.id.checkbox_hint);
         helpText = (TextView) findViewById(R.id.help_text);
     }
 
@@ -159,7 +201,7 @@ public class SetMasterPasswordActivity extends AppCompatActivity {
             @Override
             public void onFocusChange(View v, boolean hasFocus) {
                 if (hasFocus) {
-                    helpText.setText("Enter Master Password");
+                    helpText.setText(R.string.enter_main_password);
                 }
             }
         });
@@ -188,17 +230,17 @@ public class SetMasterPasswordActivity extends AppCompatActivity {
             @Override
             public void onFocusChange(View v, boolean hasFocus) {
                 if (hasFocus) {
-                    helpText.setText("Confirm Master Password");
+                    helpText.setText(R.string.confirm_main_password);
                 }
             }
         });
 
-        checkBoxHint.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                checkBox.setChecked(!checkBox.isChecked());
-                helpText.setText("Quick Access will enable gesture lock. <b>But it will make the password database easier to be hack.</b>");
-            }
-        });
+//        checkBoxHint.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                checkBox.setChecked(!checkBox.isChecked());
+//                helpText.setText("Quick Access will enable gesture lock. <b>But it will make the password database easier to be hack.</b>");
+//            }
+//        });
     }
 }

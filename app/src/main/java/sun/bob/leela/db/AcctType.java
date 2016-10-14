@@ -87,6 +87,10 @@ public class AcctType {
     }
 
     // KEEP METHODS - put your custom methods here
+    @Override
+    public boolean equals(Object another) {
+        return ((AcctType) another).getId() == this.id;
+    }
     // KEEP METHODS END
 
 }

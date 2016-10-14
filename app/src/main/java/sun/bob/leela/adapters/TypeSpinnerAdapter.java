@@ -106,6 +106,10 @@ public class TypeSpinnerAdapter extends ArrayAdapter implements View.OnClickList
         return types.get(position);
     }
 
+    public int getPosition(AcctType item) {
+        return types.indexOf(item);
+    }
+
     @Override
     public void onClick(View v) {
         Intent intent = new Intent(getContext(), AddTypeDialogActivity.class);

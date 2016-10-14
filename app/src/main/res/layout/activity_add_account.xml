@@ -40,7 +40,7 @@
                 android:paddingLeft="@dimen/activity_horizontal_margin"
                 android:paddingRight="@dimen/activity_horizontal_margin"
                 app:layout_collapseMode="parallax"
-                android:hint="Title">
+                android:hint="@string/title">
                 <android.support.v7.widget.AppCompatEditText
                     android:id="@+id/id_name"
                     android:layout_width="match_parent"

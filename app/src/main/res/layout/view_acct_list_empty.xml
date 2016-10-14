@@ -6,7 +6,7 @@
     <android.support.v7.widget.AppCompatTextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Click add button to add a new account"
+        android:text="@string/click_button_to_add_account"
         android:gravity="center"
         android:textSize="40sp"/>
 

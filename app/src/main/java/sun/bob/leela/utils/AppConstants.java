@@ -19,6 +19,8 @@ public class AppConstants {
     public static final int TYPE_MASTER_OK = 0x259;  //Master passwd is correct
     public static final int TYPE_MASTER_NO = 0x260;  //Master passwd is wrong
 
+    public static final int TYPE_MASTER_CHANGE = 0x261; //Change master password
+
     //Category Type
     //Only custom type category can be deleted.
     public static final int CAT_TYPE_BUILTIN = 0x100;
@@ -42,6 +44,8 @@ public class AppConstants {
     public static final int REQUEST_CODE_ADD_CATE = 0x6002;
     public static final int REQUEST_CODE_IMAGE     = 0x6003;
     public static final int REQUEST_CODE_CROP      = 0x6004;
+    public static final int REQUEST_CODE_GEN_PWD   = 0x6005;
+    public static final int REQUEST_CODE_EDIT      = 0x6006;
 
     public static final String SERVICE_CMD_START = "start";
     public static final String SERVICE_CMD_PASTE_ACCT = "paste_acct";

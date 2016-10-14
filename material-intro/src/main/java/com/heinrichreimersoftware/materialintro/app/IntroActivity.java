@@ -62,6 +62,7 @@ public class IntroActivity extends AppCompatActivity {
     private boolean allowFinish = true;
     private int position = 0;
     private float positionOffset = 0;
+    private boolean canSwipe = true;
 
     private Runnable runWhenFinish;
 
@@ -486,16 +487,11 @@ public class IntroActivity extends AppCompatActivity {
 
         if (offset <= 0) {
             buttonNext.setImageResource(R.drawable.ic_next);
-            buttonNext.getDrawable().setAlpha(0xFF);
+            buttonNext.getBackground().setAlpha(50);
         } else {
-            buttonNext.setImageResource(R.drawable.ic_next_finish);
-            if (buttonNext.getDrawable() != null && buttonNext.getDrawable() instanceof LayerDrawable) {
-                LayerDrawable drawable = (LayerDrawable) buttonNext.getDrawable();
-                drawable.getDrawable(0).setAlpha((int) (0xFF * (1 - offset)));
-                drawable.getDrawable(1).setAlpha((int) (0xFF * offset));
-            } else {
-                buttonNext.setImageResource(offset > 0 ? R.drawable.ic_finish : R.drawable.ic_next);
-            }
+            buttonNext.setImageResource(offset > 0 ? R.drawable.ic_finish : R.drawable.ic_next);
+            buttonNext.getBackground().mutate().setAlpha(50);
+
         }
     }
 
@@ -504,6 +500,7 @@ public class IntroActivity extends AppCompatActivity {
             buttonSkip.setImageResource(R.drawable.ic_skip);
         } else {
             buttonSkip.setImageResource(R.drawable.ic_previous);
+            buttonSkip.getBackground().setAlpha(50);
         }
     }
 
@@ -690,7 +687,17 @@ public class IntroActivity extends AppCompatActivity {
         navigationBlockedListeners.clear();
     }
 
+    public IntroActivity setCanSwipe(boolean canSwipe) {
+        this.canSwipe = canSwipe;
+        return this;
+    }
+
     public void lockSwipeIfNeeded() {
+        if (!this.canSwipe) {
+            pager.setSwipeLeftEnabled(false);
+            pager.setSwipeRightEnabled(false);
+            return;
+        }
         if (position < getCount()) {
             pager.setSwipeLeftEnabled(canGoForward(position, false));
             pager.setSwipeRightEnabled(canGoBackward(position, false));

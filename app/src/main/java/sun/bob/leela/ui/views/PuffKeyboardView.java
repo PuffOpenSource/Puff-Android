@@ -1,93 +1,131 @@
 package sun.bob.leela.ui.views;
 
 import android.content.Context;
-import android.content.res.Resources;
-import android.content.res.XmlResourceParser;
 import android.graphics.Canvas;
-import android.graphics.Color;
-import android.graphics.Paint;
-import android.graphics.Rect;
 import android.graphics.drawable.Drawable;
 import android.inputmethodservice.Keyboard;
 import android.inputmethodservice.KeyboardView;
-import android.support.v7.widget.RecyclerView;
 import android.util.AttributeSet;
-import android.util.Log;
-import android.view.View;
 
 import java.util.List;
 
 import sun.bob.leela.R;
-import sun.bob.leela.utils.ResUtil;
 
 /**
  * Created by bob.sun on 16/4/26.
  */
 public class PuffKeyboardView extends KeyboardView {
 
-    public enum KeyBoardType {
-        Paste,
-        QWERTY
-    }
+    public static final int TYPE_ABC = 0;
+    public static final int TYPE_ABC_SHIFT = 1;
+    public static final int TYPE_SYMBOL = 2;
+    public static final int TYPE_SYMBOL_MORE = 3;
+    public static final int KEYCODE_EDIT = -10;
+    private int currentType = 911;
 
-    private Paint linePaint, keyTextPaint, smallTextPaint, keyPaint;
-    int normalSize, smallSize;
-    private Drawable keyDrawable, backgroundDrawable;
 
     public PuffKeyboardView(Context context, AttributeSet attrs) {
         super(context, attrs);
 
-        linePaint = new Paint();
-        linePaint.setColor(Color.DKGRAY);
-        linePaint.setStyle(Paint.Style.STROKE);
-        linePaint.setStrokeWidth(5);
-
-        keyTextPaint = new Paint();
-        keyTextPaint.setTextAlign(Paint.Align.CENTER);
-        normalSize = ResUtil.getInstance(getContext()).pointToDp(20);
-        keyTextPaint.setTextSize(normalSize);
-        keyTextPaint.setColor(Color.rgb(42, 55, 62));
-//        keyTextPaint.setShadowLayer(5, 0, 0, Color.BLACK);
-        keyTextPaint.setFakeBoldText(true);
-
-
-        smallTextPaint = new Paint();
-        smallTextPaint.setTextAlign(Paint.Align.CENTER);
-        smallSize = ResUtil.getInstance(getContext()).pointToDp(12);
-        smallTextPaint.setTextSize(smallSize);
-        smallTextPaint.setColor(Color.rgb(42, 55, 62));
-
-        keyPaint = new Paint();
-        keyDrawable = context.getResources().getDrawable(R.drawable.key_rect);
-        backgroundDrawable = context.getResources().getDrawable(R.drawable.backgroun_ime);
     }
 
     @Override
     public void onDraw(Canvas canvas) {
-//        super.onDraw(canvas);
-        backgroundDrawable.draw(canvas);
+        super.onDraw(canvas);
+
         List<Keyboard.Key> keys = getKeyboard().getKeys();
-        for(Keyboard.Key key: keys) {
-            Rect bounds = new Rect(key.x, key.y + 4, key.x + key.width, key.y + key.height - 2);
-            if(key.codes[0] > -10) {
-//                Drawable d = getContext().getResources().getDrawable(R.drawable.key_rect);
-//                d.setBounds(bounds);
-//                if (key.codes[0] != 10)
-//                    d.draw(canvas);
-                if (key.label != null) {
-                    canvas.drawText(key.label.toString(), key.x + (key.width / 2), key.y + (key.height / 2) + normalSize / 2, keyTextPaint);
-                } else {
-                    key.icon.setBounds(bounds);
-                    key.icon.draw(canvas);
-                }
-            } else {
-                if (key.label != null) {
-                    canvas.drawText(key.label.toString(), key.x + (key.width / 2), key.y + (key.height / 2) + smallSize / 2, smallTextPaint);
-                } else {
-                    key.icon.setBounds(bounds);
-                    key.icon.draw(canvas);
-                }
-            }
+        initType(keys);
+        for (Keyboard.Key key : keys) {
+            drawSpecialKey(key, canvas);
         }
+    }
+
+    /**
+     * 判断为何种键盘, 通过某一个按键的code值
+     * TODO 注意，这种方法有弊端：如果xml中的最上面一排的按键数目发生变化，这里应该改变
+     *
+     * @param keys
+     */
+    private void initType(List<Keyboard.Key> keys) {
+        switch (keys.get(5).codes[0]) {
+            case 113:
+                currentType = TYPE_ABC;
+                break;
+            case 81:
+                currentType = TYPE_ABC_SHIFT;
+                break;
+            case 49:
+                currentType = TYPE_SYMBOL;
+                break;
+            case 126:
+                currentType = TYPE_SYMBOL_MORE;
+                break;
+        }
+    }
+
+    /**
+     * 通过Key.code判断，应该画什么
+     *
+     * @param key
+     * @param canvas
+     */
+    private void drawSpecialKey(Keyboard.Key key, Canvas canvas) {
+        int drawableId = 0;
+        switch (key.codes[0]) {
+            case -1:
+                if (currentType == TYPE_ABC)  // 大小写的图标不同
+                    drawableId = R.drawable.btn_keyboard_key_shift;
+                else
+                    drawableId = R.drawable.btn_keyboard_key_shifted;
+                break;
+            case 32:
+                drawableId = R.drawable.btn_keyboard_key_space;
+                break;
+            case 10:
+                drawableId = R.drawable.btn_keyboard_key_return;
+                break;
+            case -5:
+                drawableId = R.drawable.btn_keyboard_key_delete;
+                break;
+            case -10:
+                drawableId = R.drawable.btn_keyboard_key_puff;
+                break;
+            case -11:
+                drawableId = R.drawable.btn_keyboard_key_account;
+                break;
+            case -12:
+                drawableId = R.drawable.btn_keyboard_key_password;
+                break;
+            case -13:
+                drawableId = R.drawable.btn_keyboard_key_additional;
+                break;
+            default:
+                break;
+        }
+        if (drawableId != 0)
+            drawKeyBackground(drawableId, canvas, key);
+    }
+
+    /**
+     * 画图
+     * 特殊的键盘按键，或其图片背景
+     *
+     * @param drawableId
+     * @param canvas
+     * @param key
+     */
+    private void drawKeyBackground(int drawableId, Canvas canvas, Keyboard.Key key) {
+        Drawable npd = null;
+        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.LOLLIPOP) {
+            npd = getContext().getDrawable(drawableId);
+        } else {
+            npd = getContext().getResources().getDrawable(drawableId);
+        }
+        int[] drawableState = key.getCurrentDrawableState();
+        if (key.codes[0] != 0) {
+            npd.setState(drawableState);
+        }
+        npd.setBounds(key.x, key.y, key.x + key.width, key.y + key.height);
+        npd.draw(canvas);
     }
 }

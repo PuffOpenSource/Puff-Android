@@ -10,6 +10,10 @@
     android:animateLayoutChanges="true"
     android:padding="16dp"
     >
+    <android.support.v7.widget.AppCompatImageView
+        android:layout_width="80dp"
+        android:layout_height="80dp"
+        android:src="@drawable/ic_gen_category"/>
     <LinearLayout
         android:orientation="vertical"
         android:layout_width="match_parent"
@@ -19,66 +23,71 @@
             android:layout_height="wrap_content"
             android:textSize="20dp"
             android:textColor="#FFF"
-            android:text="Which kind of password do you need?"/>
+            android:text="@string/which_kind_of_password_qm"/>
         <android.support.v7.widget.AppCompatCheckBox
             android:layout_width="match_parent"
             android:layout_height="40dp"
             android:id="@+id/checkbox_numbers"
-            android:text="Numbers Only"/>
+            android:text="@string/numbers_only"/>
         <android.support.v7.widget.AppCompatCheckBox
             android:layout_width="match_parent"
             android:layout_height="40dp"
             android:id="@+id/checkbox_secure"
-            android:text="Secure Password"/>
+            android:text="@string/secure_password"/>
 
         <android.support.v7.widget.AppCompatCheckBox
             android:layout_width="match_parent"
             android:layout_height="40dp"
             android:id="@+id/checkbox_easy"
-            android:text="Secure and Easy to Remember"/>
+            android:text="@string/secure_and_easy"/>
     </LinearLayout>
 
-    <LinearLayout
+    <ScrollView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical"
         android:id="@+id/words"
-        android:visibility="gone"
-        >
-        <android.support.v7.widget.AppCompatTextView
+        android:visibility="gone">
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:textSize="20dp"
-            android:textColor="#FFF"
-            android:text="Tell me your favorite words, I'll generate a secure password from them"/>
-        <android.support.v7.widget.AppCompatEditText
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:minHeight="60dp"
-            android:id="@+id/word_one"
-            android:textColor="#fff"
-            android:hint="Word One"/>
-        <android.support.v7.widget.AppCompatEditText
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:minHeight="60dp"
-            android:id="@+id/word_two"
-            android:textColor="#fff"
-            android:hint="Word Two"/>
-        <android.support.v7.widget.AppCompatEditText
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:minHeight="60dp"
-            android:textColor="#fff"
-            android:id="@+id/word_three"
-            android:hint="Word Three"/>
-        <android.support.v7.widget.AppCompatEditText
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:minHeight="60dp"
-            android:textColor="#fff"
-            android:id="@+id/word_four"
-            android:hint="Word Four"/>
-    </LinearLayout>
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            >
+            <android.support.v7.widget.AppCompatTextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textSize="20dp"
+                android:textColor="#FFF"
+                android:text="@string/tell_me_your_fav_words"/>
+            <android.support.v7.widget.AppCompatEditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:minHeight="60dp"
+                android:id="@+id/word_one"
+                android:textColor="#fff"
+                android:hint="@string/word_one"/>
+            <android.support.v7.widget.AppCompatEditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:minHeight="60dp"
+                android:id="@+id/word_two"
+                android:textColor="#fff"
+                android:hint="@string/word_two"/>
+            <android.support.v7.widget.AppCompatEditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:minHeight="60dp"
+                android:textColor="#fff"
+                android:id="@+id/word_three"
+                android:hint="@string/word_three"/>
+            <android.support.v7.widget.AppCompatEditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:minHeight="60dp"
+                android:textColor="#fff"
+                android:id="@+id/word_four"
+                android:hint="@string/word_four"/>
+        </LinearLayout>
+    </ScrollView>
+
 
 </LinearLayout>

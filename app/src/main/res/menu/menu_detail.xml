@@ -3,8 +3,14 @@
     xmlns:tools="http://schemas.android.com/tools"
     tools:context=".ui.activities.DetailActivity">
     <item
-        android:id="@+id/action_settings"
+        android:id="@+id/action_edit"
         android:orderInCategory="100"
-        android:title="Edit"
+        android:title="@string/edit"
         app:showAsAction="never" />
+    <item
+        android:id="@+id/action_delete"
+        android:orderInCategory="101"
+        android:title="@string/delete"
+        app:showAsAction="never"
+        />
 </menu>
