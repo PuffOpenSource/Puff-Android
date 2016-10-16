@@ -3,7 +3,7 @@
 Password Utility Free Forever
 
 [<img src="https://f-droid.org/badge/get-it-on.png" alt="Get it on F-Droid" height="60">](https://f-droid.org/app/sun.bob.leela)
-<a href="https://play.google.com/store/apps/details?id=sun.bob.leela"><img src="https://play.google.com/intl/en_us/badges/images/generic/en_badge_web_generic.png" height="60"></a>
+<a href="https://play.google.com/store/apps/details?id=sun.bob.leela"><img src="'img/google-play-badge.png'" height="60"></a>
 
 ## Features
 
