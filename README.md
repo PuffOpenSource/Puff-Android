@@ -2,11 +2,8 @@
 
 Password Utility Free Forever
 
-<a href='https://play.google.com/store/apps/details?id=sun.bob.leela&utm_source=global_co&utm_medium=prtnr&utm_content=Mar2515&utm_campaign=PartBadge&pcampaignid=MKT-Other-global-all-co-prtnr-py-PartBadge-Mar2515-1'><img alt='Get it on Google Play' src='img/google-play-badge.png' width='200'/></a>
-
-GooglePlay Link - 
-
-https://play.google.com/store/apps/details?id=sun.bob.leela&utm_source=global
+[<img src="https://f-droid.org/badge/get-it-on.png" alt="Get it on F-Droid" height="60">](https://f-droid.org/app/sun.bob.leela)
+<a href="https://play.google.com/store/apps/details?id=sun.bob.leela"><img src="https://play.google.com/intl/en_us/badges/images/generic/en_badge_web_generic.png" height="60"></a>
 
 ## Features
 
@@ -79,3 +76,7 @@ Icons in this app are brought you by [Icons8.com](https://icons8.com)
 [MaterialSettings](https://github.com/kenumir/MaterialSettings)
 
 [Android-About-Page](https://github.com/medyo/android-about-page)
+
+## License
+
+Puff is licensed under [MIT License](https://github.com/PuffOpenSource/Puff-Android/blob/master/LICENSE)
