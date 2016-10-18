@@ -77,6 +77,12 @@ Icons in this app are brought you by [Icons8.com](https://icons8.com)
 
 [Android-About-Page](https://github.com/medyo/android-about-page)
 
+# Developers
+
+[Bob Sun](https://github.com/SpongeBobSun)
+
+[bigflower](https://github.com/mBigFlower)
+
 ## License
 
 Puff is licensed under [MIT License](https://github.com/PuffOpenSource/Puff-Android/blob/master/LICENSE)
