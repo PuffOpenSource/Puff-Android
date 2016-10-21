@@ -1,22 +1,18 @@
 package sun.bob.leela.ui.activities;
 
-import android.app.Dialog;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.app.AppCompatDialog;
 import android.support.v7.widget.AppCompatEditText;
 import android.support.v7.widget.AppCompatImageView;
-import android.support.v7.widget.AppCompatTextView;
-import android.support.v7.widget.Toolbar;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.View;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.TextView;
-
-import com.hanks.library.AnimateCheckBox;
 
 import java.util.UUID;
 
@@ -26,10 +22,8 @@ import sun.bob.leela.db.Account;
 import sun.bob.leela.db.AccountHelper;
 import sun.bob.leela.events.CryptoEvent;
 import sun.bob.leela.runnable.ChangePasswordRunnable;
-import sun.bob.leela.runnable.CryptoRunnable;
 import sun.bob.leela.runnable.PBKDFRunnable;
 import sun.bob.leela.utils.AppConstants;
-import sun.bob.leela.utils.CryptoUtil;
 import sun.bob.leela.utils.ResUtil;
 
 public class SetMasterPasswordActivity extends AppCompatActivity {
@@ -79,6 +73,7 @@ public class SetMasterPasswordActivity extends AppCompatActivity {
             public void onClick(View view) {
                 String err = validatePassword();
                 if (err != null){
+                    closeSoftInput();
                     helpText.setText(err);
                     return;
                 }
@@ -242,5 +237,10 @@ public class SetMasterPasswordActivity extends AppCompatActivity {
 //                helpText.setText("Quick Access will enable gesture lock. <b>But it will make the password database easier to be hack.</b>");
 //            }
 //        });
+    }
+
+    private void closeSoftInput() {
+        InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+        imm.hideSoftInputFromWindow(passwd.getWindowToken(), InputMethodManager.RESULT_UNCHANGED_SHOWN);
     }
 }
