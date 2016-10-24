@@ -1,0 +1,119 @@
+<resources>
+    <string name="app_name">Puff</string>
+
+    <string name="navigation_drawer_open">ナビゲーションドロワーを開く</string>
+    <string name="navigation_drawer_close">ナビゲーションドロワーを閉じる</string>
+
+    <string name="action_settings">設定</string>
+    <string name="subtype_en_US">Puff IME</string>
+    <string name="about_puff">
+        "Puff は、オープンソースのパスワード管理です。 \n"
+        "Puff は、アカウント情報をインターネットにアップロードしません。\"
+        "Puff は、Blowfish アルゴリズムを使用して、アカウント情報を暗号化します。 \n"
+
+    </string>
+
+    <string name="about_bcrypt">
+        "Bcrypt は、産業レベルの暗号化アルゴリズムです。 \n"
+        "以下のリンクで bcrypt の詳細を読むことができます。"
+    </string>g
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="title_activity_add_account">アカウントを追加</string>
+    <string name="title_activity_authorize">マスターパスワードで認証</string>
+
+    <!-- Strings related to login -->
+    <string name="prompt_email">メールアドレス</string>
+    <string name="prompt_password">マスターパスワード</string>
+    <!--<string name="action_sign_in">サインインまたは登録</string>-->
+    <string name="action_sign_in_short">サインイン</string>
+    <string name="error_invalid_email">このメールアドレスは無効です</string>
+    <string name="error_invalid_password">このパスワードは短すぎます</string>
+    <string name="error_incorrect_password">このパスワードは正しくありません</string>
+    <!--<string name="error_field_required">この項目は必須です</string>-->
+    <!--<string name="permission_rationale">"メールを提供するために連絡先のアクセス許可が必要です-->
+        <!--completions."-->
+    <!--</string>-->
+    <string name="title_activity_set_master_password">マスターパスワードを設定</string>
+    <string name="title_activity_set_quick_password">SetQuickPasswordActivity</string>
+    <!--<string name="section_format">Hello World from section: %1$d</string>-->
+    <string name="title_intro_one">一ヶ所の安全な場所に、すべての資格情報を。</string>
+    <string name="title_intro_two"><![CDATA[クイック & 安全なアクセス]]></string>
+    <string name="title_intro_three"><![CDATA[オープンソース & 永久に無料]]></string>
+    <string name="select_image">画像を選択</string>
+    <string name="type">タイプ</string>
+    <string name="password_is_empty">パスワードが空です!</string>
+    <string name="cancel_qm">キャンセル ?</string>
+    <string name="yes">はい</string>
+    <string name="no">いいえ</string>
+    <string name="master_password_invalid">マスターパスワードが無効です</string>
+    <string name="choose_category_and_account"><![CDATA[アカウントを選択]]></string>
+    <string name="categories">カテゴリー</string>
+    <string name="password_dont_match_em">パスワードが一致しません !</string>
+    <string name="password_is_too_short_em">パスワードが短すぎます !</string>
+    <string name="enter_main_password">マスターパスワードを入力</string>
+    <string name="confirm_main_password">マスターパスワードの確認</string>
+    <string name="set_gesture_password">ジェスチャーパスワードの設定</string>
+    <string name="verify_gesture_password">ジェスチャーパスワードの検証</string>
+    <string name="settings">設定</string>
+    <string name="security">セキュリティ</string>
+    <string name="need_password_when_launch">起動時にパスワードが必要</string>
+    <string name="disable_gesture_lock">ジェスチャーロックを無効にする</string>
+    <string name="enable_gesture_lock">ジェスチャーロックを有効にする</string>
+    <string name="change_master_password">マスターパスワードを変更</string>
+    <string name="enable_puff_secure_keyboard">Puff セキュアキーボードを有効にする</string>
+    <string name="puff_secure_keyboard">Puff セキュアキーボード</string>
+    <string name="please_enable_puf_ime">Puff IME を有効にしてください。</string>
+    <string name="database">データベース</string>
+    <string name="export_database">データベースをエクスポート。</string>
+    <string name="database_file_can_be_used">データベースファイルは他のプラットフォームで使用することができます</string>
+    <string name="confrim_export_database">外部ストレージにデータベースをエクスポートしますか?</string>
+    <string name="about">アプリについて</string>
+    <string name="about_puff_title">Puff について</string>
+    <string name="success_em">成功しました!</string>
+    <string name="failed_em">失敗しました!</string>
+    <string name="database_exported_to">データベースをエクスポートしました</string>
+    <string name="ok">OK</string>
+    <string name="please_try_again">もう一度やり直してください。</string>
+    <string name="pin">Pin</string>
+    <string name="view">表示</string>
+    <string name="copy">コピー</string>
+    <string name="title">タイトル</string>
+    <string name="type_and_category"><![CDATA[タイプ & カテゴリー:]]></string>
+    <string name="account">アカウント</string>
+    <string name="password">パスワード</string>
+    <string name="generate_secure_password">安全なパスワードを生成</string>
+    <string name="additional_code_quote_optional">追加のコード (オプション)</string>
+    <string name="website_link_quote_optional">Web サイトのリンク (オプション)</string>
+    <string name="icon">アイコン</string>
+    <string name="name">名前</string>
+    <string name="okay">OK</string>
+    <string name="cancel">キャンセル</string>
+    <string name="category_colon">カテゴリー :</string>
+    <string name="authorize">認証</string>
+    <string name="additional_code">追加のコード</string>
+    <string name="website_link">Web サイトのリンク</string>
+    <string name="last_accessed">最終アクセス</string>
+    <string name="click_add_button_to_add_an_account">追加ボタンをクリックしてアカウントを追加します</string>
+    <string name="your_secure_password_is_comma">安全なパスワードは:</string>
+    <string name="generate_again_em">もう一度生成!</string>
+    <string name="copy_and_close">コピーして閉じる</string>
+    <string name="step_intro_hint">"このユーティリティは安全なパスワードを生成します。 パスワードの長さを入力して、次へボタンをおしてください。</string>
+    <string name="which_kind_of_password_qm">どの種類のパスワードが必要ですか?</string>
+    <string name="numbers_only">数字のみ</string>
+    <string name="secure_password">安全なパスワード</string>
+    <string name="secure_and_easy">安全で覚えやすい</string>
+    <string name="tell_me_your_fav_words">お気に入りの単語を教えてください。それから安全なパスワードを生成します。</string>
+    <string name="word_one">単語 1</string>
+    <string name="word_two">単語 2</string>
+    <string name="word_three">単語 3</string>
+    <string name="word_four">単語 4</string>
+    <string name="additional">追加</string>
+    <string name="clear">クリア</string>
+    <string name="click_button_to_add_account">追加ボタンをクリックして、新しいアカウント追加します</string>
+    <string name="edit">編集</string>
+    <string name="delete">削除</string>
+    <string name="password_generator">パスワードの生成</string>
+    <string name="warning_master_password">賢明なマスターパスワードを選択してください。 \n忘れてしまうと、データを回復する方法はありません。</string>
+    <string name="save">保存</string>
+</resources>
