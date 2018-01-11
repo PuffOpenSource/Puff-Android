@@ -92,7 +92,8 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:minHeight="60dp"
-                        android:inputType="textPassword" />
+                        android:inputType="textPassword"
+                        android:importantForAccessibility="no" />
                 </android.support.design.widget.TextInputLayout>
                 <android.support.v7.widget.AppCompatButton
                     android:layout_width="match_parent"
@@ -112,7 +113,8 @@
                         android:layout_height="wrap_content"
                         android:minHeight="60dp"
                         android:id="@+id/additional"
-                        android:inputType="textPassword" />
+                        android:inputType="textPassword"
+                        android:importantForAccessibility="no" />
                 </android.support.design.widget.TextInputLayout>
 
                 <android.support.design.widget.TextInputLayout
